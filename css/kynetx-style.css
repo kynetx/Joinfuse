@@ -20,15 +20,15 @@ color: #8a9299;
   color: #BBB;
 }
 
-.navbar-brand-Kynetx {
+.navbar-brand-fuse {
   float: left;
   padding: 15px 15px;
   font-size: 36px;
-  line-height: 20px;
+  line-height: 40px;
   color: #428bca;
 }
 
-.navbar-brand-Kynetx:hover,
+.navbar-brand-fuse:hover,
 .navbar-brand-Kynetx:focus {
   text-decoration: none;
 }

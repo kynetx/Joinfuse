@@ -1,0 +1,196 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+.flexible {
+     max-width: 100%;
+}
+
+.case {
+margin-top: 30px;
+padding: 30px;
+background-color: #000;
+color: #8a9299;
+}
+
+.case h1 {
+  line-height: 1;
+  color: #BBB;
+}
+
+.navbar-brand-Kynetx {
+  float: left;
+  padding: 15px 15px;
+  font-size: 36px;
+  line-height: 20px;
+  color: #428bca;
+}
+
+.navbar-brand-Kynetx:hover,
+.navbar-brand-Kynetx:focus {
+  text-decoration: none;
+}
+
+
+/* default hover */
+a.sb:hover:after,
+.sb a:hover:after {
+	background-image: none;
+}
+a.sb:hover,
+.sb a:hover,
+a.sb:hover:after,
+.sb a:hover:after {
+	background-color: #efefef;
+	border-color:#ccc;
+}
+
+.sidebar{
+    width: auto;
+    margin:0 30px 5px 0;
+    padding-left:30px;
+    box-shadow: -5px 0 3px -5px #ccc;
+    -moz-box-shadow: -5px 0 3px -5px #ccc;
+    -webkit-box-shadow: -5px 0 3px -5px #ccc;
+    -o-box-shadow: -5px 0 3px -5px #ccc;
+}
+
+.sidebar h2{
+    margin-bottom:10px;
+}
+
+.sidebar h3{
+    margin-bottom:10px;
+}
+
+.sidebar ul,ol{
+    list-style-type: none;
+    margin-left: 0;
+    margin-bottom:20px;
+}
+
+.sidebar .control-group{
+    margin-bottom:20px;
+}
+
+.sidebar ul li{
+    background: url(../img/nav-arrow-sidebar.png) no-repeat 0 6px;
+    padding: 0px 0 7px 15px;
+}
+
+.sidebar ul li a{
+    color: #08c;
+}
+
+.sidebar ul li a:hover{
+    color:#666;
+    text-decoration:none;
+}
+
+
+/* ICON */
+a.sb,
+.sb a {
+	width: 32px;
+	height: 32px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-indent: -900em;
+	color: #333;
+	text-decoration: none;
+	line-height: 100%;
+	white-space: nowrap;
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	margin: 0 2px 5px 0;
+	
+	/* default button color */
+	background-color: #fafafa;
+	border: solid 1px #b8b8b9;
+	
+	/* default box shadow */
+	-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.1);
+	-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.1);
+	box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.1);
+
+	/* default border radius */
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+    
+    transition: background-color .3s;
+    -webkit-transition: background-color .3s;
+	-o-transition: background-color .3s;
+    -moz-transition: background-color .3s;
+    
+}
+/* for IE */
+*:first-child+html a.sb,
+*:first-child+html .sb a {
+	text-indent: 0;
+	line-height: 0;
+	font-size: 0;
+	overflow: hidden;
+}
+
+/* default hover */
+a.sb:hover:after,
+.sb a:hover:after {
+	background-image: none;
+}
+a.sb:hover,
+.sb a:hover,
+a.sb:hover:after,
+.sb a:hover:after {
+	background-color: #efefef;
+	border-color:#ccc;
+}
+
+/* social icons */
+
+a.sb.twitter,
+.sb a.twitter {
+	background-image: url(/img/twitter_bird.png);
+}
+
+a.sb.facebook,
+.sb a.facebook {
+	background-image: url(/img/facebook.png);
+}
+
+a.sb.linkedin,
+.sb a.linkedin {
+	background-image: url(/img/linkedin.png);
+}
+
+a.sb.github,
+.sb a.github {
+	background-image: url(/img/github.png);
+}
+
+a.sb.youtube,
+.sb a.youtube {
+	background-image: url(/img/youtube.png);
+}
+
+
+
+a.sb.rss,
+.sb a.rss {
+	background-image: url(/img/rss.png);
+}
+
+/* circle style */
+a.sb.circle,
+.sb.circle a,
+a.sb.circle:before,
+.sb.circle a:before,
+a.sb.circle:after,
+.sb.circle a:after {
+	-webkit-border-radius: 10em;
+	-moz-border-radius: 10em;
+	border-radius: 10em;
+}

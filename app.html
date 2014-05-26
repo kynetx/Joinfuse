@@ -9,6 +9,9 @@ published: true
 
 <!-- Account stuff ===================================================================================== -->
 <div data-role="page" id="page-login">
+   <div data-role="header">
+     <div style="text-align:left;width:100%"><img class="fuse-logo" src="img/fuseicon_40.png" style="padding-top: 6px;"></div>
+   </div><!-- /header -->
 
    <div data-role="content" style="text-align:center;">
      <form id="formLogin" class="form-horizontal well cloudUI-form-login">
@@ -44,18 +47,15 @@ published: true
 </div><!-- /page -->
 
 <div data-role="page" id="page-signup">
-        <div data-role="header">
-            <div style="text-align:left;width:100%"><img class="fuse-logo" src="img/fuseicon_40.png" style="padding-top: 6px;"></div>
-            <a class="menu" href="#panel-manager-menu" data-theme="b" data-icon="bars" data-iconpos="notext" class="ui-btn-left">Menu</a>
-            <a href="#page-manager-users-add" data-theme="b" data-icon="plus" data-iconpos="notext" class="ui-btn-right">Add</a>
-
-        </div><!-- /header -->
+   <div data-role="header">
+     <div style="text-align:left;width:100%"><img class="fuse-logo" src="img/fuseicon_40.png" style="padding-top: 6px;"></div>
+   </div><!-- /header -->
 
    <div data-role="content" style="text-align:center;">
 <form id="formSignup" class="form-horizontal well cloudUI-form-login">
 <input type="hidden" class="authNextAction" name="authNextAction" value="">
 <fieldset>
-<legend>Signup for a Fuse account here</legend>
+<legend>Signup for a Fuse Account</legend>
 <div id="alertSignup" class="alert alert-info" style="margin-bottom:18px;display:none;">
 Code Monkey on Fired!
 </div>
@@ -90,11 +90,15 @@ Code Monkey on Fired!
 </div><!-- /page -->
 
 <div data-role="page" id="page-forgot">
+   <div data-role="header">
+     <div style="text-align:left;width:100%"><img class="fuse-logo" src="img/fuseicon_40.png" style="padding-top: 6px;"></div>
+   </div><!-- /header -->
+
 
    <div data-role="content" style="text-align:center;">
 <form id="formForgot" class="form-horizontal well cloudUI-form-login">
 <fieldset>
-<legend>Forgot Password</legend>
+<legend>Password Recovery</legend>
 <div id="alertForgot" class="alert alert-error" style="margin-bottom:18px;display:none;">
 Code Monkey on Fired!
 </div>

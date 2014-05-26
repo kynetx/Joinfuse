@@ -7,7 +7,7 @@ published: true
 ---
 
 
-<!-- Authorize===================================================================================== -->
+<!-- Account stuff ===================================================================================== -->
 <div data-role="page" id="page-login">
 
    <div data-role="content" style="text-align:center;">
@@ -33,8 +33,8 @@ published: true
  	 <div class="form-actions" style="background-color:inherit;border:none;margin:0;padding-top:0;padding-bottom:0;">
 
             <a id="login" href="#" class="ui-btn ui-corner-all ui-btn-b ui-shadow ui-btn-inline">Login</a>
-            <a id="create" href="#" class="ui-btn ui-corner-all ui-btn ui-shadow ui-btn-inline">Create Account</a>
-            <a id="forgot" href="#" class="ui-btn ui-corner-all ui-btn ui-shadow ui-btn-inline">Forgot Password</a>
+            <a id="create" href="#page-signup" class="ui-btn ui-corner-all ui-btn ui-shadow ui-btn-inline">Create Account</a>
+            <a id="forgot" href="#page-forgot" class="ui-btn ui-corner-all ui-btn ui-shadow ui-btn-inline">Forgot Password</a>
 
  	 </div>
         </fieldset>
@@ -43,17 +43,9 @@ published: true
 
 </div><!-- /page -->
 
+<div data-role="page" id="page-signup">
 
-<div class="container">
-
-
-
-
-<!-- View: Signup
-============================================ -->
-<section id="viewSignup" class="viewPanel" style="display: none;">
-
-<div class="cloudUI-center">
+   <div data-role="content" style="text-align:center;">
 <form id="formSignup" class="form-horizontal well cloudUI-form-login">
 <input type="hidden" class="authNextAction" name="authNextAction" value="">
 <fieldset>
@@ -86,13 +78,13 @@ Code Monkey on Fired!
 </fieldset>
 </form>
 
-</div>
-</section> <!-- #viewSignup -->
+   </div><!-- /content -->
 
-<!-- View: Forgot
-============================================ -->
-<section id="viewForgot" class="viewPanel" style="display: none;">
-<div class="cloudUI-center">
+</div><!-- /page -->
+
+<div data-role="page" id="page-forgot">
+
+   <div data-role="content" style="text-align:center;">
 <form id="formForgot" class="form-horizontal well cloudUI-form-login">
 <fieldset>
 <legend>Forgot Password</legend>
@@ -110,12 +102,17 @@ Code Monkey on Fired!
 </div>
 </fieldset>
 </form>
-</div>
-</section> <!-- #viewForgot -->
 
-<!-- View: ForgotSuccess
-============================================ -->
-<section id="viewForgotSuccess" class="viewPanel" style="display: none;">
+   </div><!-- /content -->
+
+</div><!-- /page -->
+
+
+
+<div data-role="page" id="page-forgot-success">
+
+   <div data-role="content" style="text-align:center;">
+
 <div class="row">
 <div class="span6 offset3">
 <div class="well" style="color:#333333;">
@@ -124,12 +121,15 @@ Code Monkey on Fired!
 </div>
 </div>
 </div>
-</section> <!-- #viewForgot -->
 
-<!-- View: Recovery
-============================================ -->
-<section id="viewRecovery" class="viewPanel" style="display: none;">
-<div class="cloudUI-center">
+   </div><!-- /content -->
+
+</div><!-- /page -->
+
+
+<div data-role="page" id="page-recovery">
+
+   <div data-role="content" style="text-align:center;">
 <form id="formRecovery" class="form-horizontal well cloudUI-form-login">
 <input type="hidden" id="recoveryToken" name="recoveryToken" value="">
 <fieldset>
@@ -156,8 +156,10 @@ Code Monkey on Fired!
 </div>
 </fieldset>
 </form>
-</div>
-</section> <!-- #viewRecovery -->
+
+   </div><!-- /content -->
+
+</div><!-- /page -->
 
 
-</div>
+

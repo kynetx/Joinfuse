@@ -1,0 +1,160 @@
+---
+layout: single
+title: Application 
+authors:
+  - Phil Windley
+published: true
+---
+<div class="container">
+
+   <!-- please stand by ... calling the server
+   ================================================== -->
+   <div id="modalSpinner" class="modal" aria-hidden="true" style="display: none;">
+     <div class="modal-body"><img src="img/spinner70.gif"></div>
+   </div>
+
+
+   <!-- View: Login
+   ============================================ -->
+   <section id="viewLogin" class="viewPanel" style="">
+     <div class="cloudUI-center">
+       <form id="formLogin" class="form-horizontal well cloudUI-form-login">
+         <input type="hidden" class="authNextAction" name="authNextAction" value="">
+	 <fieldset>
+	   <legend>myCloud Login</legend>
+	   <div id="alertLogin" class="alert alert-info" style="margin-bottom:18px;display:none;">
+	     Code Monkey on Fired!
+	   </div>
+	   <div class="control-group">
+	     <label class="control-label" for="loginEmail">Email</label>
+  	     <div class="controls">
+	       <input type="email" id="loginEmail" name="loginEmail" required="" autofocus="">
+	     </div>
+	   </div>
+	   <div class="control-group">
+	     <label class="control-label" for="loginPassword">Password</label>
+	     <div class="controls">
+	       <input type="password" id="loginPassword" name="loginPassword" required="">
+	     </div>
+	  </div>
+ 	  <div class="form-actions" style="background-color:inherit;border:none;margin:0;padding-top:0;padding-bottom:0;">
+	    <button type="submit" class="btn btn-primary">Login</button>
+	    <span class="help-block" style="margin-top:10px;"><a href="#!/forgot" id="navLinkLogin">Forgot your password?</a></span>
+ 	  </div>
+	</fieldset>
+       </form>
+     </div>
+   </section> <!-- #viewLogin -->
+
+<!-- View: Signup
+============================================ -->
+<section id="viewSignup" class="viewPanel" style="display: none;">
+
+<div class="cloudUI-center">
+<form id="formSignup" class="form-horizontal well cloudUI-form-login">
+<input type="hidden" class="authNextAction" name="authNextAction" value="">
+<fieldset>
+<legend>myCloud Signup</legend>
+<div id="alertSignup" class="alert alert-info" style="margin-bottom:18px;display:none;">
+Code Monkey on Fired!
+</div>
+<div class="control-group">
+<label class="control-label" for="signupEmail">Email Address</label>
+<div class="controls">
+<input type="email" id="signupEmail" name="signupEmail" required="" autofocus="">
+</div>
+</div>
+<div class="control-group">
+<label class="control-label" for="signupPassword">Password</label>
+<div class="controls">
+<input type="password" id="signupPassword" name="signupPassword" required="">
+</div>
+</div>
+<div class="control-group">
+<label class="control-label" for="confirmPassword">Verify Password</label>
+<div class="controls">
+<input type="password" id="confirmPassword" name="confirmPassword" required="">
+</div>
+</div>
+<div class="form-actions" style="background-color:inherit;border:none;margin:0;padding-top:0;padding-bottom:0;">
+<button id="signupSubmit" type="submit" class="btn btn-primary">Signup</button>
+<span class="help-block" style="margin-top:10px;"><a href="#!/forgot" id="navLinkLogin">Forgot your password?</a></span>
+</div>
+</fieldset>
+</form>
+
+</div>
+</section> <!-- #viewSignup -->
+
+<!-- View: Forgot
+============================================ -->
+<section id="viewForgot" class="viewPanel" style="display: none;">
+<div class="cloudUI-center">
+<form id="formForgot" class="form-horizontal well cloudUI-form-login">
+<fieldset>
+<legend>Forgot Password</legend>
+<div id="alertForgot" class="alert alert-error" style="margin-bottom:18px;display:none;">
+Code Monkey on Fired!
+</div>
+<div class="control-group">
+<label class="control-label" for="forgotEmail">Email</label>
+<div class="controls">
+<input type="email" id="forgotEmail" name="forgotEmail" required="" autofocus="">
+</div>
+</div>
+<div class="form-actions" style="background-color:inherit;border:none;margin:0;padding-top:0;padding-bottom:0;">
+<button type="submit" class="btn btn-primary">Submit</button>
+</div>
+</fieldset>
+</form>
+</div>
+</section> <!-- #viewForgot -->
+
+<!-- View: ForgotSuccess
+============================================ -->
+<section id="viewForgotSuccess" class="viewPanel" style="display: none;">
+<div class="row">
+<div class="span6 offset3">
+<div class="well" style="color:#333333;">
+<h4>Password reset confirmation sent successfully!</h4>
+<p>We've sent an email to <strong class="forgotEmail"></strong> containing a temporary link that will allow you to reset your password for the next 60 minutes. Please check your spam folder if the email doesn't appear within a few minutes.</p>
+</div>
+</div>
+</div>
+</section> <!-- #viewForgot -->
+
+<!-- View: Recovery
+============================================ -->
+<section id="viewRecovery" class="viewPanel" style="display: none;">
+<div class="cloudUI-center">
+<form id="formRecovery" class="form-horizontal well cloudUI-form-login">
+<input type="hidden" id="recoveryToken" name="recoveryToken" value="">
+<fieldset>
+<legend>Change Password</legend>
+<div id="alertRecovery" class="alert alert-info" style="margin-bottom:18px;display:none;">
+Code Monkey on Fired!
+</div>
+<div id="formElementsRecovery">
+<div class="control-group">
+<label class="control-label" for="recoveryPassword">Password</label>
+<div class="controls">
+<input type="password" id="recoveryPassword" name="recoveryPassword" required="">
+</div>
+</div>
+<div class="control-group">
+<label class="control-label" for="confirmRecoveryPassword">Verify Password</label>
+<div class="controls">
+<input type="password" id="confirmRecoveryPassword" name="confirmRecoveryPassword" required="">
+</div>
+</div>
+<div class="form-actions" style="background-color:inherit;border:none;margin:0;padding-top:0;padding-bottom:0;">
+<button id="recoverySubmit" type="submit" class="btn btn-primary">Submit</button>
+</div>
+</div>
+</fieldset>
+</form>
+</div>
+</section> <!-- #viewRecovery -->
+
+
+</div>

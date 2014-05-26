@@ -1,27 +1,20 @@
 ---
-layout: single
+layout: app
 title: Application 
 authors:
   - Phil Windley
 published: true
 ---
-<div class="container">
-
-   <!-- please stand by ... calling the server
-   ================================================== -->
-   <div id="modalSpinner" class="modal" aria-hidden="true" style="display: none;">
-     <div class="modal-body"><img src="img/spinner70.gif"></div>
-   </div>
 
 
-   <!-- View: Login
-   ============================================ -->
-   <section id="viewLogin" class="viewPanel" style="">
-     <div class="cloudUI-center">
+<!-- Authorize===================================================================================== -->
+<div data-role="page" id="page-authorize">
+
+   <div data-role="content" style="text-align:center;">
        <form id="formLogin" class="form-horizontal well cloudUI-form-login">
          <input type="hidden" class="authNextAction" name="authNextAction" value="">
 	 <fieldset>
-	   <legend>myCloud Login</legend>
+	   <legend>Fuse Login</legend>
 	   <div id="alertLogin" class="alert alert-info" style="margin-bottom:18px;display:none;">
 	     Code Monkey on Fired!
 	   </div>
@@ -43,6 +36,27 @@ published: true
  	  </div>
 	</fieldset>
        </form>
+        </div><!-- /content -->
+
+        <div data-role="footer" data-theme="b">
+            <h4>Guard Tours by Kynetx</h4>
+        </div><!-- /footer -->
+    </div><!-- /page -->
+
+
+<div class="container">
+
+   <!-- please stand by ... calling the server
+   ================================================== -->
+   <div id="modalSpinner" class="modal" aria-hidden="true" style="display: none;">
+     <div class="modal-body"><img src="img/spinner70.gif"></div>
+   </div>
+
+
+   <!-- View: Login
+   ============================================ -->
+   <section id="viewLogin" class="viewPanel" style="">
+     <div class="cloudUI-center">
      </div>
    </section> <!-- #viewLogin -->
 

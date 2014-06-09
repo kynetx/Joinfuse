@@ -3,189 +3,164 @@
     window.CloudOS = {};
 
     // ------------------------------------------------------------------------
-    // Personal Cloud Hostname
-    // Also in config now.
-    // CloudOS.host = "cs.kobj.net";
 
-    // these should be in config now..
-    // CloudOS.appKey = "C665EA88-3613-11E3-862C-61A7D61CF0AC";
+    CloudOS.defaultECI = "none";
+    CloudOS.access_token = "none";
 
-    // CloudOS.callbackURL = "http://hbdc.kynetx.com/";
+    var mkEci = function(cid) {
+	var res = cid || CloudOS.defaultECI;
+        if (res === "none") {
+	    throw "No CloudOS event channel identifier (ECI) defined";
+        }
+	return res;
+    };
 
-    CloudOS.sessionToken = "none";
-
-    CloudOS.deviceToken = "none";
+    var mkEsl = function(parts) {
+        if (CloudOS.host === "none") {
+            throw "No CloudOS host defined";
+        }
+	parts.unshift(CloudOS.host);
+	var res = 'https://'+ parts.join("/");
+	return res;
+    };
 
     // ------------------------------------------------------------------------
     // Raise Sky Event
-    CloudOS.raiseEvent = function(eventDomain, eventType, eventAttributes, eventParameters, postFunction)
+    CloudOS.raiseEvent = function(eventDomain, eventType, eventAttributes, eventParameters, postFunction, options)
     {
+	try {
 
+	    options = options || {};
 
-        if (CloudOS.host === "none") {
-            console.error("No CloudOS host defined");
-            return;
-        }
+	    var eci = mkEci(options.eci);
+            var eid = Math.floor(Math.random() * 9999999);
+            var esl = mkEsl(['sky/event',
+			     eci,
+			     eid,
+			     eventDomain,
+			     eventType
+			    ]);
 
-        if (CloudOS.sessionToken === "none") {
-            console.error("No CloudOS session token defined");
-            return;
-        }
+            if (typeof eventParameters !== "undefined" &&
+		eventParameters !== null &&
+		eventParameters !== ""
+	       ) {
+		   console.log("Attaching event parameters ", eventParameters);
+		   var param_string = $.param(eventParameters);
+		   if (param_string.length > 0) {
+                       esl = esl + "?" + param_string;
+		   }
+               }
 
+            console.log("CloudOS.raise ESL: ", esl);
+            console.log("event attributes: ", eventAttributes);
 
-
-        var eid = Math.floor(Math.random() * 9999999);
-        var esl = 'https://' + CloudOS.host + '/sky/event/' +
-            CloudOS.sessionToken + '/' + eid + '/' +
-	     eventDomain + '/' + eventType;
-
-        if (typeof eventParameters !== "undefined" &&
-	       eventParameters !== null &&
-	       eventParameters !== ""
-	      ) {
-            console.log("Attaching event parameters ", eventParameters);
-            var param_string = $.param(eventParameters);
-            if (param_string.length > 0) {
-                esl = esl + "?" + param_string;
-            }
-        }
-
-        console.log("CloudOS.raise ESL: ", esl);
-        console.log("event attributes: ", eventAttributes);
-
-        $.ajax({
-            type: 'POST',
-            url: esl,
-            data: $.param(eventAttributes),
-            dataType: 'json',
-            headers: { 'Kobj-Session': CloudOS.sessionToken }, // not sure needed since eci in URL
-            success: postFunction,
-            error: function(res) { console.error(res) }
-        });
+            return $.ajax({
+		type: 'POST',
+		url: esl,
+		data: $.param(eventAttributes),
+		dataType: 'json',
+		headers: { 'Kobj-Session': eci }, // not sure needed since eci in URL
+		success: postFunction,
+		error: options.errorFunc || function(res) { console.error(res) }
+            });
+	} catch(error) {
+	    console.error("[raise]", error);
+	    return null;
+	}
     };
 
-    // I don't know what these device functions are. Does anyone else? 
-    CloudOS.raiseEventDevice = function(eventDomain, eventType, eventAttributes, eventParameters, postFunction)
+    CloudOS.skyCloud = function(module, func_name, parameters, getSuccess, options)
     {
-        var eid = Math.floor(Math.random() * 9999999);
-        var esl = 'https://' + CloudOS.host + '/sky/event/' +
-            CloudOS.deviceToken + '/' + eid + '/' +
-            eventDomain + '/' + eventType +
-            "?" + eventParameters;
+	try {
 
-        $.ajax({
-            type: 'POST',
-            url: esl,
-            data: eventAttributes,
-            dataType: 'json',
-            headers: { 'Kobj-Session': CloudOS.deviceToken },
-            success: postFunction,
-        });
-    };
+	    var retries = 2;
+	    
+	     console.log("Options ", options);
 
-    CloudOS.skyCloud = function(Module, FuncName, parameters, getSuccess, getError, repeats)
-    {
+	    options = options || {};
 
-	var retries = 2;
+	    console.log("Options ", options);
 
-        if (typeof repeats !== "undefined") {
-            console.warn("This is a repeated request: ", repeats);
-            if (repeats > retries) {
-                console.error("terminating repeating request due to consistent failure.");
-		if (typeof getError === "function") {
-                    getError();
-		    return;
-		} else {
-		    // no error function defined...
-		    // [PJW] I don't like having things that depend on a browser window mixed in this code...
-                    alert("Something went wrong! If the problem persists, contact the kynetx development team.");
-                    window.location.search = "";
+            if (typeof options.repeats !== "undefined") {
+		console.warn("This is a repeated request: ", options.repeats);
+		if (options.repeats > retries) {
+                    throw "terminating repeating request due to consistent failure.";
 		}
-                return;
             }
-        }
 
-        if (CloudOS.host === "none") {
-            console.error("No CloudOS host defined");
-            return;
-        }
+	    var eci = mkEci(options.eci);
 
-        if (CloudOS.sessionToken === "none") {
-            console.error("No CloudOS session token defined");
-            return;
-        }
+            var esl = mkEsl(['sky/cloud',
+			     module,
+			     func_name
+			    ]);
 
-        var esl = 'https://' +
-                   CloudOS.host +
-                   '/sky/cloud/' +
-	               Module + '/' + FuncName;
+            $.extend(parameters, { "_eci": eci });
 
-        $.extend(parameters, { "_eci": CloudOS.sessionToken });
+            console.log("Attaching event parameters ", parameters);
+            esl = esl + "?" + $.param(parameters);
 
-        console.log("Attaching event parameters ", parameters);
-        esl = esl + "?" + $.param(parameters);
+            var process_error = function(res)
+            {
+		console.error("skyCloud Server Error with esl ", esl, res);
+		if (typeof options.errorFunc === "function") {
+                    options.errorFunc(res);
+		}
+            };
 
-        var process_error = function(res)
-        {
-            console.error("skyCloud Server Error with esl ", esl, res);
-            if (typeof getError === "function") {
-                getError(res);
-            }
-        };
+            var process_result = function(res)
+            {
+		console.log("Seeing res ", res, " for ", esl);
+		var sky_cloud_error = typeof res === 'Object' && typeof res.skyCloudError !== 'undefined';
+		if (! sky_cloud_error ) {
+                    getSuccess(res);
+		} else {
+                    console.error("skyCloud Error (", res.skyCloudError, "): ", res.skyCloudErrorMsg);
+                    if (!!res.httpStatus && 
+			!!res.httpStatus.code && 
+			(parseInt(res.httpStatus.code) === 400 || parseInt(res.httpStatus.code) === 500)) 
+		    {
+			console.error("The request failed due to an ECI error. Going to repeat the request.");
+			var repeat_num = (typeof options.repeats !== "undefined") ? ++options.repeats : 0;
+			options.repeats = repeat_num;
+			// I don't think this will support promises; not sure how to fix
+			CloudOS.skyCloud(module, func_name, parameters, getSuccess, options);
+                    }
+		}
+            };
 
-        var process_result = function(res)
-        {
-            //        console.log("Seeing res ", res, " for ", esl);
-            if (typeof res.skyCloudError === 'undefined') {
-                getSuccess(res);
-            } else {
-                console.error("skyCloud Error (", res.skyCloudError, "): ", res.skyCloudErrorMsg);
-                if (!!res.httpStatus && !!res.httpStatus.code && (parseInt(res.httpStatus.code) === 400 || parseInt(res.httpStatus.code) === 500)) {
-                    console.error("The request failed due to an ECI error. Going to repeat the request.");
-                    var repeat_num = (typeof repeats !== "undefined") ? ++repeats : 0;
-                    CloudOS.skyCloud(Module, FuncName, parameters, getSuccess, getError, repeat_num);
-                }
-            }
-        };
+            console.log("sky cloud call to ", module+':'+func_name, " on ", esl, " with token ", eci);
 
-        console.log("sky cloud call to ", FuncName, " on ", esl, " with token ", CloudOS.sessionToken);
-
-        $.ajax({
-            type: 'GET',
-            url: esl,
-            dataType: 'json',
-            // try this as an explicit argument
-            //		headers: {'Kobj-Session' : CloudOS.sessionToken},
-            success: process_result
-            // error: process_error
-        });
-    };
-
-    CloudOS.skyCloudDevice = function(Module, FuncName, parameters, getSuccess)
-    {
-        var esl = 'https://' + CloudOS.host + '/sky/cloud/' +
-					Module + '/' + FuncName + '?' + parameters;
-
-        $.ajax({
-            type: 'GET',
-            url: esl,
-            dataType: 'json',
-            headers: { 'Kobj-Session': CloudOS.deviceToken },
-            success: getSuccess
-        });
+            return $.ajax({
+		type: 'GET',
+		url: esl,
+		dataType: 'json',
+		// try this as an explicit argument
+		//		headers: {'Kobj-Session' : eci},
+		success: process_result
+		// error: process_error
+            });
+	} catch(error) {
+	    console.error("[skyCloud]", error);
+	    if (typeof options.errorFunc === "function") {
+		options.errorFunc();
+	    } 
+	    return null;
+	}
     };
 
 
     // ------------------------------------------------------------------------
     CloudOS.createChannel = function(postFunction)
     {
-        CloudOS.raiseEvent('cloudos', 'api_Create_Channel', {}, {}, postFunction);
+        return CloudOS.raiseEvent('cloudos', 'api_Create_Channel', {}, {}, postFunction);
     };
 
     // ------------------------------------------------------------------------
     CloudOS.destroyChannel = function(myToken, postFunction)
     {
-        CloudOS.raiseEvent('cloudos', 'api_Destroy_Channel',
+        return CloudOS.raiseEvent('cloudos', 'api_Destroy_Channel',
 			{ "token": myToken }, {}, postFunction);
     };
 
@@ -194,19 +169,24 @@
 
     CloudOS.getMyProfile = function(getSuccess)
     {
-        CloudOS.skyCloud("a169x676", "get_all_me", {}, getSuccess);
+        return CloudOS.skyCloud("a169x676", "get_all_me", {}, function(res) {
+	    clean(res);
+	    if(typeof getSuccess !== "undefined"){
+		getSuccess(res);
+	    }
+	});
     };
 
     CloudOS.updateMyProfile = function(eventAttributes, postFunction)
     {
         var eventParameters = { "element": "profileUpdate.post" };
-        CloudOS.raiseEvent('web', 'submit', eventAttributes, eventParameters, postFunction);
+        return CloudOS.raiseEvent('web', 'submit', eventAttributes, eventParameters, postFunction);
     };
 
     CloudOS.getFriendProfile = function(friendToken, getSuccess)
     {
         var parameters = { "myToken": friendToken };
-        CloudOS.skyCloud("a169x727", "getFriendProfile", parameters, getSuccess);
+        return CloudOS.skyCloud("a169x727", "getFriendProfile", parameters, getSuccess);
     };
 
     // ========================================================================
@@ -221,7 +201,7 @@
             "pdsValue": JSON.stringify(pdsValue)
         };
 
-        CloudOS.raiseEvent('cloudos', 'api_pds_add', eventAttributes, {}, postFunction);
+        return CloudOS.raiseEvent('cloudos', 'api_pds_add', eventAttributes, {}, postFunction);
     };
 
     // ------------------------------------------------------------------------
@@ -232,7 +212,7 @@
             "pdsKey": pdsKey
         };
 
-        CloudOS.raiseEvent('cloudos', 'api_pds_delete', eventAttributes, {}, postFunction);
+        return CloudOS.raiseEvent('cloudos', 'api_pds_delete', eventAttributes, {}, postFunction);
     };
 
     // ------------------------------------------------------------------------
@@ -244,7 +224,7 @@
     CloudOS.PDSList = function(namespace, getSuccess)
     {
         var callParmeters = { "namespace": namespace };
-        CloudOS.skyCloud("pds", "get_items", callParmeters, getSuccess);
+        return CloudOS.skyCloud("pds", "get_items", callParmeters, getSuccess);
     };
 
     // ------------------------------------------------------------------------
@@ -256,7 +236,7 @@
             "subject": subject,
             "body": body
         };
-        CloudOS.raiseEvent('cloudos', 'api_send_email', eventAttributes, {}, postFunction);
+        return CloudOS.raiseEvent('cloudos', 'api_send_email', eventAttributes, {}, postFunction);
     };
 
     // ------------------------------------------------------------------------
@@ -269,38 +249,50 @@
             "priority": priority,
             "token": token
         };
-        CloudOS.raiseEvent('cloudos', 'api_send_notification', eventAttributes, {}, postFunction);
-    };
-
-    // ========================================================================
-    // Subscription Management
-
-    // ------------------------------------------------------------------------
-    CloudOS.subscribe = function(namespace, name, relationship, token, subAttributes, postFunction)
-    {
-        var eventAttributes = {
-            "namespace": namespace,
-            "channelName": name,
-            "relationship": relationship,
-            "targetChannel": token,
-            "subAttrs": subAttributes
-        };
-        CloudOS.raiseEvent('cloudos', 'api_subscribe', eventAttributes, {}, postFunction);
+        return CloudOS.raiseEvent('cloudos', 'api_send_notification', eventAttributes, {}, postFunction);
     };
 
     // ------------------------------------------------------------------------
     CloudOS.subscriptionList = function(callParmeters, getSuccess)
     {
-        CloudOS.skyCloud("cloudos", "subscriptionList", callParmeters, getSuccess);
+        return CloudOS.skyCloud("cloudos", "subscriptionList", callParmeters, getSuccess);
     };
 
-    CloudOS.getFriendsList = function(getSuccess)
-    {
-        CloudOS.skyCloud("a169x727", "getFriendsList", {}, getSuccess);
+
+    // ========================================================================
+    // Login functions
+    // ========================================================================
+    CloudOS.login = function(username, password, success, failure) {
+
+
+	var parameters = {"email": username, "pass": password};
+
+        if (typeof CloudOS.anonECI === "undefined") {
+	    console.error("CloudOS.anonECI undefined. Configure CloudOS.js in CloudOS-config.js; failing...");
+	    return null;
+        }
+
+	return CloudOS.skyCloud("cloudos",
+				"cloudAuth", 
+				parameters, 
+				function(res){
+				    // patch this up since it's not OAUTH
+				    var tokens = {"access_token": "none",
+						  "OAUTH_ECI": res.token
+						 };
+				    CloudOS.saveSession(tokens); success(tokens);}, 
+				{eci: CloudOS.anonECI,
+				 errorFunc: failure
+				}
+			       );
+
     };
+
+
 
     // ========================================================================
     // OAuth functions
+    // ========================================================================
 
     // ------------------------------------------------------------------------
     CloudOS.getOAuthURL = function(fragment)
@@ -344,7 +336,7 @@
             "code": code
         };
 
-        $.ajax({
+        return $.ajax({
             type: 'POST',
             url: url,
             data: data,
@@ -357,7 +349,7 @@
                     callback(json);
                     return;
                 };
-                CloudOS.saveSession(json.OAUTH_ECI);
+                CloudOS.saveSession(json);
                 window.localStorage.removeItem("CloudOS_CLIENT_STATE");
                 callback(json);
             },
@@ -378,50 +370,48 @@
 
         console.log("Retrieving session ", SessionCookie);
         if (SessionCookie != "undefined") {
-            CloudOS.sessionToken = SessionCookie;
+            CloudOS.defaultECI = SessionCookie;
         } else {
-            CloudOS.sessionToken = "none";
+            CloudOS.defaultECI = "none";
         }
+	return CloudOS.defaultECI;
     };
 
     // ------------------------------------------------------------------------
-    CloudOS.saveSession = function(Session_ECI)
+    CloudOS.saveSession = function(token_json)
     {
+	var Session_ECI = token_json.OAUTH_ECI;
+	var access_token = token_json.access_token;
         console.log("Saving session for ", Session_ECI);
-        CloudOS.sessionToken = Session_ECI;
+        CloudOS.defaultECI = Session_ECI;
+	CloudOS.access_token = access_token;
         kookie_create(Session_ECI);
     };
-
-    CloudOS.saveDeviceToken = function(deviceChannel)
-    {
-        CloudOS.deviceToken = deviceChannel;
-    };
-
     // ------------------------------------------------------------------------
     CloudOS.removeSession = function(hard_reset)
     {
-        console.log("Removing session ", CloudOS.sessionToken);
+        console.log("Removing session ", CloudOS.defaultECI);
         if (hard_reset) {
             var cache_breaker = Math.floor(Math.random() * 9999999);
             var reset_url = 'https://' + CloudOS.login_server + "/login/logout?" + cache_breaker;
             $.ajax({
                 type: 'POST',
                 url: reset_url,
-                headers: { 'Kobj-Session': CloudOS.sessionToken },
+                headers: { 'Kobj-Session': CloudOS.defaultECI },
                 success: function(json)
                 {
                     console.log("Hard reset on " + CloudOS.login_server + " complete");
                 }
             });
         }
-        CloudOS.sessionToken = "none";
+        CloudOS.defaultECI = "none";
         kookie_delete();
     };
 
     // ------------------------------------------------------------------------
     CloudOS.authenticatedSession = function()
     {
-        var authd = CloudOS.sessionToken != "none";
+        var authd = CloudOS.defaultECI != "none";
         if (authd) {
             console.log("Authenicated session");
         } else {
@@ -452,7 +442,12 @@
         return false;
     };
 
-
+    function clean(obj) {
+	delete obj._type;
+	delete obj._domain;
+	delete obj._async;
+	
+    };
 
     var SkyTokenName = '__SkySessionToken';
     var SkyTokenExpire = 7;

@@ -1,0 +1,89 @@
+<!-- Account stuff ===================================================================================== -->
+
+</div><!-- /page -->
+
+<div data-role="page" id="page-forgot">
+   <div data-role="header">
+     <div style="text-align:left;width:100%"><img class="fuse-logo" src="img/fuseicon_40.png" style="padding-top: 6px;"></div>
+   </div><!-- /header -->
+
+
+   <div data-role="content" style="text-align:center;">
+<form id="formForgot" class="form-horizontal well cloudUI-form-login">
+<fieldset>
+<legend>Password Recovery</legend>
+<div id="alertForgot" class="alert alert-error" style="margin-bottom:18px;display:none;">
+Code Monkey on Fired!
+</div>
+<div class="control-group">
+<label class="control-label" for="forgotEmail">Email</label>
+<div class="controls">
+<input type="email" id="forgotEmail" name="forgotEmail" required="" autofocus="">
+</div>
+</div>
+
+<a id="forgot" href="#page-forgot" class="ui-btn ui-corner-all ui-btn-b ui-shadow ui-btn-inline">Submit</a>
+<a id="create-account" href="#" class="ui-btn ui-corner-all ui-btn ui-shadow ui-btn-inline">Signup</a>
+<a id="login" href="#page-login" class="ui-btn ui-corner-all ui-btn ui-shadow ui-btn-inline">Login</a>
+
+</fieldset>
+</form>
+
+   </div><!-- /content -->
+
+</div><!-- /page -->
+
+
+
+<div data-role="page" id="page-forgot-success">
+
+   <div data-role="content" style="text-align:center;">
+
+<div class="row">
+<div class="span6 offset3">
+<div class="well" style="color:#333333;">
+<h4>Password reset confirmation sent successfully!</h4>
+<p>We've sent an email to <strong class="forgotEmail"></strong> containing a temporary link that will allow you to reset your password for the next 60 minutes. Please check your spam folder if the email doesn't appear within a few minutes.</p>
+</div>
+</div>
+</div>
+
+   </div><!-- /content -->
+
+</div><!-- /page -->
+
+
+<div data-role="page" id="page-recovery">
+
+   <div data-role="content" style="text-align:center;">
+<form id="formRecovery" class="form-horizontal well cloudUI-form-login">
+<input type="hidden" id="recoveryToken" name="recoveryToken" value="">
+<fieldset>
+<legend>Change Password</legend>
+<div id="alertRecovery" class="alert alert-info" style="margin-bottom:18px;display:none;">
+Code Monkey on Fired!
+</div>
+<div id="formElementsRecovery">
+<div class="control-group">
+<label class="control-label" for="recoveryPassword">Password</label>
+<div class="controls">
+<input type="password" id="recoveryPassword" name="recoveryPassword" required="">
+</div>
+</div>
+<div class="control-group">
+<label class="control-label" for="confirmRecoveryPassword">Verify Password</label>
+<div class="controls">
+<input type="password" id="confirmRecoveryPassword" name="confirmRecoveryPassword" required="">
+</div>
+</div>
+<div class="form-actions" style="background-color:inherit;border:none;margin:0;padding-top:0;padding-bottom:0;">
+<button id="recoverySubmit" type="submit" class="btn btn-primary">Submit</button>
+</div>
+</div>
+</fieldset>
+</form>
+
+   </div><!-- /content -->
+
+</div><!-- /page -->
+

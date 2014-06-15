@@ -10,8 +10,30 @@
     <title>{{ page.title}}</title>
 
     <!-- Css -->
-    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css">	
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css">
 
+    <style>
+      .header-image {
+        margin-top: 4px;
+        text-align: center;
+      }
+      .alert {
+        color: red
+      }
+      @media (min-width:800px) {
+        .ui-content {
+          width: 800px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+      }
+      .center-wrapper{
+        text-align: center;
+      }			  
+      .center-wrapper * {
+        margin: 0 auto;
+      }
+   </style>
     <!-- Themes -->
     <link rel="stylesheet" href="https://s3.amazonaws.com/Fuse_assets/themes/Fuse.css" />
     <link rel="stylesheet" href="https://s3.amazonaws.com/Fuse_assets/themes/jquery.mobile.icons.min.css" />

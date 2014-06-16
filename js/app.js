@@ -17,12 +17,12 @@
     });
 
 
-    plant_authorize_button: function()
+    function plant_authorize_button()
     {
         //Oauth through kynetx
         var OAuth_kynetx_URL = CloudOS.getOAuthURL();
         $('#authorize-link').attr('href', OAuth_kynetx_URL);
-    },
+    };
 
 
     /////////////////////////////////////////////////////////////////////

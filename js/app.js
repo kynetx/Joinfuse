@@ -51,10 +51,11 @@
 	}); 
     } else {
 	console.log("We're authorized...");
-	$( ":mobile-pagecontainer" ).pagecontainer( "change", '#page-manage-fuse', {
+	var foo = $( ":mobile-pagecontainer" ).pagecontainer( "change", '#page-manage-fuse', {
 	    transition: 'slide'
 	}); 
-	console.log("What are we doing???");
+
+	console.log("What are we doing???", foo);
     }
 
    

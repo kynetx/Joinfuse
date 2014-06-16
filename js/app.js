@@ -9,14 +9,6 @@
     window['snippets'] = {
     };
 
-
-    // Listen for any attempts to call changePage().
-    $(document).on("pagebeforechange", function(e, data)
-    {
-        console.log("before page change", data);
-    });
-
-
     function plant_authorize_button()
     {
         //Oauth through kynetx

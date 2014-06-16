@@ -10,11 +10,26 @@
     };
 
 
-
     // Listen for any attempts to call changePage().
     $(document).on("pagebeforechange", function(e, data)
     {
         console.log("before page change", data);
     });
+
+
+    plant_authorize_button: function()
+    {
+        //Oauth through kynetx
+        var OAuth_kynetx_URL = CloudOS.getOAuthURL();
+        $('#authorize-link').attr('href', OAuth_kynetx_URL);
+    },
+
+
+    /////////////////////////////////////////////////////////////////////
+    // this is the actual code that runs and sets everything off
+    // pull the session out of the cookie.
+    CloudOS.retrieveSession();
+    this.plant_authorize_button();
+
 
 });

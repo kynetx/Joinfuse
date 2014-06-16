@@ -51,7 +51,7 @@
 	}); 
     } else {
 	console.log("We're authorized...");
-	$("document").pagecontainer('#page-manage-fuse', {
+	$( ":mobile-pagecontainer" ).pagecontainer( "change", '#page-manage-fuse', {
 	    transition: 'slide'
 	}); 
 	console.log("What are we doing???");

@@ -30,7 +30,7 @@
     // this is the actual code that runs and sets everything off
     // pull the session out of the cookie.
     CloudOS.retrieveSession();
-    this.plant_authorize_button();
+    plant_authorize_button();
 
 
 })(jQuery);

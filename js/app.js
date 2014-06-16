@@ -31,18 +31,32 @@
     CloudOS.retrieveSession();
     plant_authorize_button();
 
+    var router=new $.mobile.Router([
+        { "#page-manage-fuse": "pageManageFuse" }
+    ],
+    {
+	pageManageFuse: function(type, ui, page) {
+	    console.log("manage fuse: main page");
+	}
+    }, 
+    { 
+        defaultHandler: function(type, ui, page) {
+            console.log("Default handler called due to unknown route (" + type + ", " + ui + ", " + page + ")");
+        },
+        defaultHandlerEvents: "s",
+	defaultArgsRe: true
+    });
+
+
     if(! CloudOS.authenticatedSession()) {
 	console.log("We're not authorized...");
 	$.mobile.changePage('', {
 	    transition: 'slide'
 	}); 
     } else {
-	var router=new $.mobile.Router([
-            { "#page-manage-fuse": "pageManageFuse" }
-	],
-	{pageManageFuse: function() {
-	    console.log("manage fuse: main page");
-	}
-	});
+	$.mobile.changePage('#page-manage-fuse', {
+	    transition: 'slide'
+	}); 
     }
+
 })(jQuery);

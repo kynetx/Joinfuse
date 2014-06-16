@@ -4,24 +4,6 @@
 
 (function($)
 {
-    // Handlebar templates compiled at load time to create functions
-    // templates are in index.html where they should be
-    window['snippets'] = {
-    };
-
-    function plant_authorize_button()
-    {
-        //Oauth through kynetx
-        var OAuth_kynetx_URL = CloudOS.getOAuthURL();
-        $('#authorize-link').attr('href', OAuth_kynetx_URL);
-    };
-
-
-    /////////////////////////////////////////////////////////////////////
-    // this is the actual code that runs and sets everything off
-    // pull the session out of the cookie.
-    CloudOS.retrieveSession();
-    plant_authorize_button();
 
     var router=new $.mobile.Router( {
        "#page-manage-fuse": {handler: "pageManageFuse",
@@ -42,6 +24,25 @@
 	defaultArgsRe: true
     });
 
+
+    // Handlebar templates compiled at load time to create functions
+    // templates are in index.html where they should be
+    window['snippets'] = {
+    };
+
+    function plant_authorize_button()
+    {
+        //Oauth through kynetx
+        var OAuth_kynetx_URL = CloudOS.getOAuthURL();
+        $('#authorize-link').attr('href', OAuth_kynetx_URL);
+    };
+
+
+    /////////////////////////////////////////////////////////////////////
+    // this is the actual code that runs and sets everything off
+    // pull the session out of the cookie.
+    CloudOS.retrieveSession();
+    plant_authorize_button();
     
     if(! CloudOS.authenticatedSession()) {
 	console.log("We're not authorized...");
@@ -50,7 +51,7 @@
 	}); 
     } else {
 	console.log("We're authorized...")
-	$.mobile.changePage('#page-manage-fuse', {
+	$("document").pagecontainer('#page-manage-fuse', {
 	    transition: 'slide'
 	}); 
     }

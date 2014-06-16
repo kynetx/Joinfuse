@@ -23,9 +23,12 @@
     CloudOS.retrieveSession();
     plant_authorize_button();
 
-    var router=new $.mobile.Router([
-        { "#page-manage-fuse": "pageManageFuse" }
-    ],
+    var router=new $.mobile.Router( {
+       "#page-manage-fuse": {handler: "pageManageFuse",
+			     events: "bs,bh",
+			     argsre: true
+			    }
+    },
     {
 	pageManageFuse: function(type, ui, page) {
 	    console.log("manage fuse: main page");
@@ -42,7 +45,7 @@
     
     if(! CloudOS.authenticatedSession()) {
 	console.log("We're not authorized...");
-	$.mobile.changePage('', {
+	$.mobile.changePage('#page-authorize', {
 	    transition: 'slide'
 	}); 
     } else {

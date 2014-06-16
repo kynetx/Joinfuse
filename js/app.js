@@ -37,6 +37,10 @@
         $('#authorize-link').attr('href', OAuth_kynetx_URL);
     };
 
+    function onMobileInit() {
+	console.log("mobile init");
+	$.mobile.autoInitialize = false;
+    }
 
     function onPageLoad() {// Document.Ready
 	console.log("document ready");

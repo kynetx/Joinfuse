@@ -21,6 +21,7 @@
     {
         //Oauth through kynetx
         var OAuth_kynetx_URL = CloudOS.getOAuthURL();
+	console.log("Linking to ", OAuth_kynetx_URL);
         $('#authorize-link').attr('href', OAuth_kynetx_URL);
     };
 

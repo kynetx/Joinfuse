@@ -17,4 +17,4 @@
         console.log("before page change", data);
     });
 
-}
+});

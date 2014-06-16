@@ -34,21 +34,23 @@
     { 
         defaultHandler: function(type, ui, page) {
             console.log("Default handler called due to unknown route (" + type + ", " + ui + ", " + page + ")");
- if(! CloudOS.authenticatedSession()) {
-	console.log("We're not authorized...");
-	$.mobile.changePage('', {
-	    transition: 'slide'
-	}); 
-    } else {
-	$.mobile.changePage('#page-manage-fuse', {
-	    transition: 'slide'
-	}); 
-    }
         },
         defaultHandlerEvents: "s",
 	defaultArgsRe: true
     });
 
+    
+    if(! CloudOS.authenticatedSession()) {
+	console.log("We're not authorized...");
+	$.mobile.changePage('', {
+	    transition: 'slide'
+	}); 
+    } else {
+	console.log("We're authorized...")
+	$.mobile.changePage('#page-manage-fuse', {
+	    transition: 'slide'
+	}); 
+    }
 
    
 

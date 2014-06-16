@@ -84,13 +84,15 @@ CloudOS.getOAuthAccessToken(CloudOS.retrieveOAuthCode(), function(oauth_payload)
         {
           console.log("Recieved directives from bootstrap.execute: ", kns_directives);
         });
+
+        $.mobile.changePage('app.html#page-manage-fuse', {
+          transition: 'slide'
+        }); 
+
       } 
     });
   }
 
-  $.mobile.changePage('app.html', {
-    transition: 'slide'
-  }); 
 
 });
 })

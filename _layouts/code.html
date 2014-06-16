@@ -76,9 +76,15 @@ CloudOS.getOAuthAccessToken(CloudOS.retrieveOAuthCode(), function(oauth_payload)
      alert("Authentication failed. We apologize for this inconvenience. Please try again.");
 
   } else {
-    CloudOS.raiseEvent("fuse", "bootstrap", { state: state }, {}, function(kns_directives)
-    {
-      console.log("Recieved directives from bootstrap.execute: ", kns_directives);
+    Fuse.fleetChannel(function(channel) {
+      console.log("Fleet channel: ", channel);
+      // do we need to bootstrap?
+      if (typeof channel !== "undefined") {
+        CloudOS.raiseEvent("fuse", "bootstrap", { state: state }, {}, function(kns_directives)
+        {
+          console.log("Recieved directives from bootstrap.execute: ", kns_directives);
+        });
+      } 
     });
   }
 

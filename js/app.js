@@ -32,5 +32,12 @@
     CloudOS.retrieveSession();
     plant_authorize_button();
 
+    if(CloudOS.authenticatedSession()) {
+	$.mobile.changePage('#page-manage-fuse', {
+	    transition: 'slide'
+	}); 
+    } else {
+	// default is the auth page
+    }
 
 })(jQuery);

@@ -2,7 +2,7 @@
 /* globals console:false, CloudOS:false  */
 /* globals console, setTimeout, CloudOS, Fuse */
 
-(function()
+(function($)
 {
     // Handlebar templates compiled at load time to create functions
     // templates are in index.html where they should be
@@ -33,4 +33,4 @@
     this.plant_authorize_button();
 
 
-});
+})(jQuery);

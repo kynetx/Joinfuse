@@ -1,0 +1,36 @@
+---
+layout: app
+title: Get Code and Redirect
+authors:
+  - Phil Windley
+published: true
+---
+
+<script>
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+};
+
+var state = getParameterByName("state");
+
+CloudOS.getOAuthAccessToken(CloudOS.retrieveOAuthCode(), function(oauth_payload)
+{
+  if (!oauth_payload.OAUTH_ECI) {
+     alert("Authentication failed. We apologize for this inconvenience. Please try again.");
+
+  } else {
+    CloudOS.raiseEvent("fuse", "bootstrap", { state: state }, {}, function(kns_directives)
+    {
+      console.log("Recieved directives from bootstrap.execute: ", kns_directives);
+    });
+  }
+
+  $.mobile.changePage('app.html', {
+    transition: 'slide'
+  }); 
+
+});
+</script>

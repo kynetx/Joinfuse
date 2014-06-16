@@ -16,6 +16,8 @@ function getParameterByName(name) {
 
 var state = getParameterByName("state");
 
+$("document").ready(function() {
+
 CloudOS.getOAuthAccessToken(CloudOS.retrieveOAuthCode(), function(oauth_payload)
 {
   if (!oauth_payload.OAUTH_ECI) {
@@ -33,4 +35,5 @@ CloudOS.getOAuthAccessToken(CloudOS.retrieveOAuthCode(), function(oauth_payload)
   }); 
 
 });
+})
 </script>

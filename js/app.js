@@ -50,10 +50,11 @@
 	    transition: 'slide'
 	}); 
     } else {
-	console.log("We're authorized...")
+	console.log("We're authorized...");
 	$("document").pagecontainer('#page-manage-fuse', {
 	    transition: 'slide'
 	}); 
+	console.log("What are we doing???");
     }
 
    

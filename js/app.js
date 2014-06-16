@@ -38,26 +38,31 @@
     };
 
 
+    function onPageLoad() {// Document.Ready
+	console.log("document ready");
+	CloudOS.retrieveSession();
+	plant_authorize_button();
+	try {
+	    var authd = CloudOS.authenticatedSession();
+            if(authd) {
+		console.log("Authorized");
+		document.location.hash = "#page-manage-fuse";
+            } else {	
+		console.log("Asking for authorization");
+		document.location.hash = "#page-authorize";
+            }
+	} catch (exception) {
+	    
+	} finally {
+            $.mobile.initializePage();
+	}
+
+    }
+
     /////////////////////////////////////////////////////////////////////
     // this is the actual code that runs and sets everything off
     // pull the session out of the cookie.
-    CloudOS.retrieveSession();
-    plant_authorize_button();
-    
-    if(! CloudOS.authenticatedSession()) {
-	console.log("We're not authorized...");
-	$.mobile.changePage('#page-authorize', {
-	    transition: 'slide'
-	}); 
-    } else {
-	console.log("We're authorized...");
-	var foo = $( ":mobile-pagecontainer" ).pagecontainer( "change", '#page-manage-fuse', {
-	    transition: 'slide'
-	}); 
-
-	console.log("What are we doing???", foo);
-    }
-
-   
+    $(document).bind("mobileinit", onMobileInit);
+    $(document).ready(onPageLoad);
 
 })(jQuery);

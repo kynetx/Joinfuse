@@ -21,7 +21,6 @@
     {
         //Oauth through kynetx
         var OAuth_kynetx_URL = CloudOS.getOAuthURL();
-	console.log("Linking to ", OAuth_kynetx_URL);
         $('#authorize-link').attr('href', OAuth_kynetx_URL);
     };
 
@@ -32,12 +31,18 @@
     CloudOS.retrieveSession();
     plant_authorize_button();
 
-    if(CloudOS.authenticatedSession()) {
-	$.mobile.changePage('#page-manage-fuse', {
+    if(! CloudOS.authenticatedSession()) {
+	console.log("We're not authorized...");
+	$.mobile.changePage('', {
 	    transition: 'slide'
 	}); 
     } else {
-	// default is the auth page
+	var router=new $.mobile.Router([
+            { "#page-manage-fuse": "pageManageFuse" }
+	],
+	{pageManageFuse: function() {
+	    console.log("manage fuse: main page");
+	}
+	});
     }
-
 })(jQuery);

@@ -78,6 +78,9 @@ CloudOS.getOAuthAccessToken(CloudOS.retrieveOAuthCode(), function(oauth_payload)
   } else {
     Fuse.fleetChannel(function(channel) {
       console.log("Fleet channel: ", channel);
+      $.mobile.changePage('app.html#page-manage-fuse', {
+          transition: 'slide'
+      }); 
       // do we need to bootstrap?
       if (typeof channel !== "undefined") {
         CloudOS.raiseEvent("fuse", "bootstrap", { state: state }, {}, function(kns_directives)
@@ -85,9 +88,6 @@ CloudOS.getOAuthAccessToken(CloudOS.retrieveOAuthCode(), function(oauth_payload)
           console.log("Recieved directives from bootstrap.execute: ", kns_directives);
         });
 
-        $.mobile.changePage('app.html#page-manage-fuse', {
-          transition: 'slide'
-        }); 
 
       } 
     });

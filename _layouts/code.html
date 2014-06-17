@@ -85,7 +85,7 @@ CloudOS.getOAuthAccessToken(CloudOS.retrieveOAuthCode(), function(oauth_payload)
           console.log("Recieved directives from bootstrap.execute: ", kns_directives);
           $('#dialog-please wait').dialog('open')
           $.mobile.loading("show", {
-             text: "Loading profile...",
+             text: "Please wait while we create your account...",
              textVisible: true
           });
           window.location = "app.html";

@@ -14,9 +14,7 @@
     {
 	pageManageFuse: function(type, ui, page) {
 	    console.log("manage fuse: main page");
-	    console.log("ready to get COU")
             Fuse.carvoyantOauthUrl(function(json) {
-		console.log("Got COU")
 		$('#carvoyant_url').attr('href', json.url);
 	    });
 

@@ -151,11 +151,11 @@
 	    cb = cb || function(){};
 	    options = options || {};
             Fuse.log("Retrieving access token");
-		return CloudOS.skyCloud(Fuse.get_rid("owner"), "fleetChannel", {}, function(json) {
-		    Fuse.fleet_eci = json.cid;
-		    Fuse.log("Retrieved fleet channel", json);
-		    cb(json);
-		});
+	    return CloudOS.skyCloud(Fuse.get_rid("owner"), "fleetChannel", {}, function(json) {
+		Fuse.fleet_eci = json.cid;
+		Fuse.log("Retrieved fleet channel", json);
+		cb(json);
+	    });
 	},
 
 	carvoyantOauthUrl: function(cb, options) 
@@ -165,10 +165,22 @@
 	    options.rid = "carvoyant";
             Fuse.log("Retrieving Carvoyant OAuth URL");
 	    return Fuse.ask_fleet("carvoyantOauthUrl", Fuse.carvoyant_oauth_url, function(json) {
-		          Fuse.carvoyant_oauth_url = json.url;
-		          Fuse.log("URL: ", json);
-			  cb(json);
-  		       }, options);
+		Fuse.carvoyant_oauth_url = json.url;
+		Fuse.log("URL: ", json);
+		cb(json);
+  	    }, options);
+	},
+
+	isAuthorizedWithCarvoyant: function(cb, options) 
+	{
+	    cb = cb || function(){};
+	    options = options || {};
+	    options.rid = "carvoyant";
+            Fuse.log("Retrieving Carvoyant OAuth URL");
+	    return Fuse.ask_fleet("isAuthorized", {}, function(json) {
+		Fuse.log("Authorized with Carvoyant? ", json);
+		cb(json);
+  	    }, options);
 	},
 
 	// ---------- manage and use fleet pico ----------

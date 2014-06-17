@@ -177,7 +177,7 @@
 	    options = options || {};
 	    options.rid = "carvoyant";
             Fuse.log("Retrieving Carvoyant OAuth URL");
-	    return Fuse.ask_fleet("isAuthorized", {}, function(json) {
+	    return Fuse.ask_fleet("isAuthorized", null, function(json) {
 		Fuse.log("Authorized with Carvoyant? ", json);
 		cb(json);
   	    }, options);

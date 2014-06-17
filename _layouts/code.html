@@ -74,8 +74,8 @@ CloudOS.getOAuthAccessToken(CloudOS.retrieveOAuthCode(), function(oauth_payload)
 {
   if (!oauth_payload.OAUTH_ECI) {
      alert("Authentication failed. We apologize for this inconvenience. Please try again.");
-
   } else {
+    $('#dialog-please wait').dialog('open')
     Fuse.fleetChannel(function(channel) {
       console.log("Fleet channel: ", channel);
       // do we need to bootstrap?
@@ -83,10 +83,12 @@ CloudOS.getOAuthAccessToken(CloudOS.retrieveOAuthCode(), function(oauth_payload)
         CloudOS.raiseEvent("fuse", "bootstrap", { state: state }, {}, function(kns_directives)
         {
           console.log("Recieved directives from bootstrap.execute: ", kns_directives);
+          $('#dialog-please wait').dialog('open')
           window.location = "app.html";
         });
       } else {
         console.log("No need to bootstrap");
+        $('#dialog-please wait').dialog('open')
         window.location = "app.html";
       }
     });

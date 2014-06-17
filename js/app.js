@@ -15,6 +15,7 @@
 	pageManageFuse: function(type, ui, page) {
 	    console.log("manage fuse: main page");
 	    Fuse.isAuthorizedWithCarvoyant(function(authd) {
+		console.log("Is Carvoyant auth'd?", authd);
 		if(authd) {
 		    $('#carvoyant_item').html("Carvoyant is Linked");
 		    $('#carvoyant_item').parent().listview().listview('refresh')

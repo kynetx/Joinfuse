@@ -80,20 +80,18 @@ CloudOS.getOAuthAccessToken(CloudOS.retrieveOAuthCode(), function(oauth_payload)
       console.log("Fleet channel: ", channel);
       // do we need to bootstrap?
       if (typeof channel === "undefined") {
+        $.mobile.loading("show", {
+             text: "Please wait while we create your account...",
+             textVisible: true
+        });         
         CloudOS.raiseEvent("fuse", "bootstrap", { state: state }, {}, function(kns_directives)
         {
           console.log("Recieved directives from bootstrap.execute: ", kns_directives);
-          $('#dialog-please wait').dialog('open')
-          $.mobile.loading("show", {
-             text: "Please wait while we create your account...",
-             textVisible: true
-          });
+          $.mobile.loading("hide");
           window.location = "app.html";
         });
       } else {
         console.log("No need to bootstrap");
-        $('#dialog-please wait').dialog('close')
-        $.mobile.loading("hide");
         window.location = "app.html";
       }
     });

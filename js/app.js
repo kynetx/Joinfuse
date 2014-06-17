@@ -14,6 +14,7 @@
     {
 	pageManageFuse: function(type, ui, page) {
 	    console.log("manage fuse: main page");
+
 	}
     }, 
     { 
@@ -45,14 +46,19 @@
     function onPageLoad() {// Document.Ready
 	console.log("document ready");
 	CloudOS.retrieveSession();
-	plant_authorize_button();
 
+	// only put static stuff here...
+	plant_authorize_button();
 	$('.logout').off("tap").on("tap", function(event)
         {
             CloudOS.removeSession(true); // true for hard reset (log out of login server too)
             $.mobile.changePage('#page-authorize', {
 		transition: 'slide'
         }); // this will go to the authorization page.
+
+        Fuse.carvoyantOauthUrl(function(json) {
+	    $('#carvoyant_url').attr('href', json.url);
+	});
 
     });
 

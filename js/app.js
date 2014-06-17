@@ -49,6 +49,7 @@
 
 	// only put static stuff here...
 	plant_authorize_button();
+
 	$('.logout').off("tap").on("tap", function(event)
         {
             CloudOS.removeSession(true); // true for hard reset (log out of login server too)

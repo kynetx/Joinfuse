@@ -84,11 +84,16 @@ CloudOS.getOAuthAccessToken(CloudOS.retrieveOAuthCode(), function(oauth_payload)
         {
           console.log("Recieved directives from bootstrap.execute: ", kns_directives);
           $('#dialog-please wait').dialog('open')
+          $.mobile.loading("show", {
+             text: "Loading profile...",
+             textVisible: true
+          });
           window.location = "app.html";
         });
       } else {
         console.log("No need to bootstrap");
-        $('#dialog-please wait').dialog('open')
+        $('#dialog-please wait').dialog('close')
+        $.mobile.loading("hide");
         window.location = "app.html";
       }
     });

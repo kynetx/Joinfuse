@@ -14,8 +14,14 @@
     {
 	pageManageFuse: function(type, ui, page) {
 	    console.log("manage fuse: main page");
-            Fuse.carvoyantOauthUrl(function(json) {
-		$('#carvoyant_url').attr('href', json.url);
+	    Fuse.isAuthorizedWithCarvoyant(function(authd) {
+		if(authd) {
+		    $('#carvoyant_item').html("Carvoyant is Linked");
+		} else {
+		    Fuse.carvoyantOauthUrl(function(json) {
+			$('#carvoyant_url').attr('href', json.url);
+		    });
+		}
 	    });
 
 	}

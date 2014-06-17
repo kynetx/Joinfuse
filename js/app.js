@@ -7,7 +7,7 @@
 
     var router=new $.mobile.Router( {
        "#page-manage-fuse": {handler: "pageManageFuse",
-			     events: "bs,bh",
+			     events: "all",
 			     argsre: true
 			    }
     },
@@ -49,11 +49,11 @@
 
 	$('.logout').off("tap").on("tap", function(event)
         {
-//            event.preventDefault();
             CloudOS.removeSession(true); // true for hard reset (log out of login server too)
             $.mobile.changePage('#page-authorize', {
 		transition: 'slide'
-            }); // this will go to the authorization page.
+        }); // this will go to the authorization page.
+
     });
 
 	try {

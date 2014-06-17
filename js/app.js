@@ -7,7 +7,7 @@
 
     var router=new $.mobile.Router( {
        "#page-manage-fuse": {handler: "pageManageFuse",
-			     events: "all",
+			     events: "bs,bh",
 			     argsre: true
 			    }
     },

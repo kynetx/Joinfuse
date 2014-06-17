@@ -17,8 +17,11 @@
 	    Fuse.isAuthorizedWithCarvoyant(function(authd) {
 		if(authd) {
 		    $('#carvoyant_item').html("Carvoyant is Linked");
+		    $('#carvoyant_item').parent().listview().listview('refresh')
 		} else {
 		    Fuse.carvoyantOauthUrl(function(json) {
+			$('#carvoyant_item').html("<a id='carvoyant_url' href='#'>Connect Carvoyant Account</a>");
+			$('#carvoyant_item').parent().listview().listview('refresh')
 			$('#carvoyant_url').attr('href', json.url);
 		    });
 		}

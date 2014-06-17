@@ -46,6 +46,16 @@
 	console.log("document ready");
 	CloudOS.retrieveSession();
 	plant_authorize_button();
+
+	$('.logout').off("tap").on("tap", function(event)
+        {
+//            event.preventDefault();
+            CloudOS.removeSession(true); // true for hard reset (log out of login server too)
+            $.mobile.changePage('#page-authorize', {
+		transition: 'slide'
+            }); // this will go to the authorization page.
+    });
+
 	try {
 	    var authd = CloudOS.authenticatedSession();
             if(authd) {
@@ -68,5 +78,7 @@
     // pull the session out of the cookie.
     $(document).bind("mobileinit", onMobileInit);
     $(document).ready(onPageLoad);
+
+
 
 })(jQuery);

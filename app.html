@@ -6,7 +6,7 @@ authors:
 published: true
 ---
 
-<!-- Authorize===================================================================================== -->
+<!-- ---------- authorize ---------- -->
 <div data-role="page" id="page-authorize">
 
    <div data-role="header" style="text-align:center;">
@@ -27,7 +27,6 @@ published: true
 
 
 <!-- ---------- fuse account settings ---------- -->
-
 <div data-role="page" id="page-manage-fuse">
 
    <div data-role="header">
@@ -41,14 +40,36 @@ published: true
         <ul id="manage-fuse" class="settings-list" data-role="listview" data-inset="true">
 	  <li data-role="list-divider" >Fuse Account Settings</li>
 	  <li id="carvoyant_item">Carvoyant</li>
-	  <li id="fleet" data-role="collapsible">
-            Fleet
-            <ul id="fleet_list" data-role="listview">
-               <li id="add-vehicle"><a href="#">Add Vehicle</a></li>
-            </ul>
-          </li>
-	  <li><a href="#" class="logout">Disconnect</a></li>
+	  <li><a href="#" class="logout">Disconnect from Kynetx</a></li>
         </ul><!-- /listview -->
+	
+        <ul id="manage-fleet" class="settings-list" data-role="listview" data-inset="true"> 
+	  <li data-role="list-divider" >Fuse Fleet</li>
+	  <li id="add-vehicle"><a href="#page-add-vehicle">Add New Vehicle</a></li>
+        </ul><!-- /listview -->
+	       
+
+   </div><!-- /content -->
+
+   <div data-role="footer" data-position="fixed">
+      <h4>Fuse from Kynetx</h5>
+   </div><!-- /footer -->
+</div><!-- /page -->
+
+
+<!-- ---------- fuse add vehicle ---------- -->
+<div data-role="page" id="page-add-vehicle">
+
+   <div data-role="header">
+     <div class="header-image">
+        <img class="fuse-logo" src="https://s3.amazonaws.com/Fuse_assets/img/fuse_logo-40.png">
+     </div>
+     <a class="back" href="#page-manage-fuse" data-icon="arrow-l" data-theme="b" data-iconpos="notext" data-transition="slide" data-direction="reverse" class="ui-btn-left">Back</a>
+   </div><!-- /header -->
+
+   <div data-role="content">
+	       
+
    </div><!-- /content -->
 
    <div data-role="footer" data-position="fixed">

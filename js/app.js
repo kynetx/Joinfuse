@@ -68,6 +68,7 @@
             {
 		console.log("Cancelling add vehicle");
 		$(frm)[0].reset();
+		$('#photo-preview').attr('src', dummy_image);
 	    });
 
 	}

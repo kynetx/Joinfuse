@@ -21,8 +21,9 @@
 		    $('#carvoyant_item').parent().listview().listview('refresh')
 		} else {
 		    Fuse.carvoyantOauthUrl(function(json) {
-			$('#carvoyant_item').html("<a id='carvoyant_url' href='#'>Connect Carvoyant Account</a>");
-			$('#carvoyant_item').parent().listview().listview('refresh')
+			$('#carvoyant_item').remove();
+			$( ".settings-list li:nth-child(2)" ).before("<li><a id='carvoyant_url' href='#'>Connect Carvoyant Account</a></li>")
+			$('.settings-list').listview('refresh');
 			$('#carvoyant_url').attr('href', json.url);
 		    });
 		}

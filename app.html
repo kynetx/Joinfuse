@@ -68,7 +68,7 @@ published: true
    </div><!-- /header -->
 
    <div data-role="content">
-     <form id="form-location-edit">
+     <form id="form-add-vehicle">
         <ul data-role="listview" data-inset="true"> 
  	  <li data-role="list-divider" >Add New Vehicle</li>
           <li class="ui-field-contain">
@@ -81,7 +81,7 @@ published: true
               <img id="photo-preview" src="" name style="max-width:200px;">
               <div id="photo-success" class="alert alert-success" style="display:none;margin-right:20px;margin-bottom:0px;margin-top:8px;"></div>
               <div id="photo-error" class="alert alert-error" style="display:none;margin-right:20px;"></div>
-              <input type="file" id="photo-file" elid="photo" data-clear-btn="true" name="photo" data-theme="b" value="" onchange="Gtour.previewPhoto(this, '#form-location-edit')">
+              <input type="file" id="photo-file" elid="photo" data-clear-btn="true" name="photo" data-theme="b" value="" onchange="previewPhoto(this, '#form-location-edit')">
               <input type="hidden" id="photo" name="photo" value="">
            </li>
 

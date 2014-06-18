@@ -47,7 +47,7 @@
                 textVisible: true
             });
 
-	    $(".save", pageSelector).off('tap').on('tap', function(event)
+	    $(".save", frm).off('tap').on('tap', function(event)
             {
                 var vehicle_data = process_form(frm);
                 console.log(">>>>>>>>> Saving new vehicle ", vehicle_data);

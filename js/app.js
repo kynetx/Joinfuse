@@ -7,7 +7,7 @@
 
     var router=new $.mobile.Router( {
        "#page-manage-fuse": {handler: "pageManageFuse",
-			     events: "bs,bh",
+			     events: "c", // just do when we create the page
 			     argsre: true
 			    }
     },
@@ -22,8 +22,8 @@
 		} else {
 		    Fuse.carvoyantOauthUrl(function(json) {
 			$('#carvoyant_item').remove();
-			$( ".settings-list li:nth-child(2)" ).before("<li><a id='carvoyant_url' href='#'>Connect Carvoyant Account</a></li>")
-			$('.settings-list').listview('refresh');
+			$("#manage-fuse li:nth-child(2)" ).before("<li><a id='carvoyant_url' href='#'>Connect Carvoyant Account</a></li>");
+			$('#manage-fuse').listview('refresh');
 			$('#carvoyant_url').attr('href', json.url);
 		    });
 		}

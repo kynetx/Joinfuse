@@ -69,8 +69,9 @@ published: true
 
    <div data-role="content">
      <form id="form-location-edit">
-        <ul data-role="listview" data-inset="true">
-           <li class="ui-field-contain">
+        <ul data-role="listview" data-inset="true"> 
+ 	  <li data-role="list-divider" >Add New Vehicle</li>
+          <li class="ui-field-contain">
               <label for="text">Name</label>
               <input type="text" data-clear-btn="true" name="name" id="text" value="">
            </li>
@@ -83,7 +84,6 @@ published: true
               <input type="file" id="photo-file" elid="photo" data-clear-btn="true" name="photo" data-theme="b" value="" onchange="Gtour.previewPhoto(this, '#form-location-edit')">
               <input type="hidden" id="photo" name="photo" value="">
            </li>
-        </ul>
 
            <li class="ui-field-contain">
               <label for="text">Vehicle Identification Number (VIN)</label>
@@ -98,8 +98,8 @@ published: true
 
 
         <a class="save" href="#" data-icon="check" data-role="button" data-inline="true" data-theme="b">Save</a>
-        <a class="cancel" href="#page-manager-locations" data-icon="delete" data-role="button" data-inline="true">Cancel</a>
-        <a class="delete" href="#page-manager-locations" data-icon="delete" data-role="button" data-inline="true">Delete Location</a>
+        <a class="cancel" href="#page-manage-fuse" data-icon="delete" data-role="button" data-inline="true">Cancel</a>
+        <a class="delete" href="#page-manage-fuse" data-icon="delete" data-role="button" data-inline="true">Delete Vehicle</a>
      </form>
 
 	       

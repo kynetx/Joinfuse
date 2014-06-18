@@ -43,7 +43,7 @@
 
             // show jQuery mobile's built in loady spinner.
             $.mobile.loading("show", {
-                text: "getting location...",
+                text: "Saving vehicle data...",
                 textVisible: true
             });
 
@@ -51,16 +51,24 @@
             {
                 var vehicle_data = process_form(frm);
                 console.log(">>>>>>>>> Saving new vehicle ", vehicle_data);
-                // Gtour.reports.finish(Gtour.current_report, report_summary, function()
-                // {
-                //     Gtour.loading("hide");
-                //     console.log("Report saved.");
-                //     alert("You're all done! Tour completed succesfully.");
-                //     $.mobile.changePage("#page-manage-fuse", {
-                //         transition: 'slide'
-                //     });
-                // });
+		Fuse.createVehicle(vehicle_data.name,
+				   vehicle_data.photo,
+				   vehicle_data.vin,
+				   vehicle_data.deviceId,
+				   function(directives) {
+				       $.mobile.loading("hide");
+				       console.log("Vehicle saved ", directives);
+
+				       $.mobile.changePage("#page-manage-fuse", {
+					   transition: 'slide'
+				       });
+				   });
             });
+	    $(".cancel", frm).off('tap').on('tap', function(event)
+            {
+		console.log("Cancelling add vehicle");
+		$(frm)[0].reset();
+	    });
 
 	}
     }, 

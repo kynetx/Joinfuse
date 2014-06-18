@@ -17,7 +17,7 @@ published: true
 
    <div data-role="content" style="text-align:center;">
       <h3>Welcome to Fuse from Kynetx</h3>
-      <a id="authorize-link" href="#page-manage-fuse" class="ui-btn ui-corner-all ui-btn-b ui-shadow ui-btn-inline">Authorize with Kynetx</a>
+      <a id="authorize-link" href="#page-manage-fuse" data-transition="slide" class="ui-btn ui-corner-all ui-btn-b ui-shadow ui-btn-inline">Authorize with Kynetx</a>
    </div><!-- /content -->
 
    <div data-role="footer" data-position="fixed">
@@ -40,12 +40,12 @@ published: true
         <ul id="manage-fuse" class="settings-list" data-role="listview" data-inset="true">
 	  <li data-role="list-divider" >Fuse Account Settings</li>
 	  <li id="carvoyant_item">Carvoyant</li>
-	  <li><a href="#" class="logout">Disconnect from Kynetx</a></li>
+	  <li><a href="#" class="logout" data-transition="slide">Disconnect from Kynetx</a></li>
         </ul><!-- /listview -->
 	
         <ul id="manage-fleet" class="vehicle-list" data-role="listview" data-inset="true"> 
 	  <li data-role="list-divider" >Fuse Fleet</li>
-	  <li id="add-vehicle"><a href="#page-add-vehicle">Add New Vehicle</a></li>
+	  <li id="add-vehicle"><a href="#page-add-vehicle" data-transition="slide">Add New Vehicle</a></li>
         </ul><!-- /listview -->
 	       
 
@@ -86,7 +86,7 @@ published: true
            </li>
 
            <li class="ui-field-contain">
-              <label for="text">Vehicle Identification Number (VIN)</label>
+              <label for="text">VIN</label>
               <input type="text" data-clear-btn="true" name="vin" id="text" value="">
            </li>
 
@@ -99,7 +99,7 @@ published: true
 
         <a class="save" href="#" data-icon="check" data-role="button" data-inline="true" data-theme="b">Save</a>
         <a class="cancel" href="#page-manage-fuse" data-icon="delete" data-role="button" data-inline="true">Cancel</a>
-        <a class="delete" href="#page-manage-fuse" data-icon="delete" data-role="button" data-inline="true">Delete Vehicle</a>
+        <a class="delete" href="#page-manage-fuse" data-icon="delete" data-role="button" data-inline="true">Delete</a>
      </form>
 
 	       

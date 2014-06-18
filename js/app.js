@@ -9,6 +9,10 @@
        "#page-manage-fuse": {handler: "pageManageFuse",
 			     events: "c", // just do when we create the page
 			     argsre: true
+			    },
+       "#page-add-vehicle": {handler: "pageAddVehicle",
+			     events: "c", // just do when we create the page
+			     argsre: true
 			    }
     },
     {
@@ -22,12 +26,16 @@
 		} else {
 		    Fuse.carvoyantOauthUrl(function(json) {
 			$('#carvoyant_item').remove();
-			$("#manage-fuse li:nth-child(2)" ).before("<li><a id='carvoyant_url' href='#'>Connect Carvoyant Account</a></li>");
+			$("#manage-fuse li:nth-child(2)" ).before("<li><a id='carvoyant_url' data-transition='slide' href='#'>Connect Carvoyant Account</a></li>");
 			$('#manage-fuse').listview('refresh');
 			$('#carvoyant_url').attr('href', json.url);
 		    });
 		}
 	    });
+
+	},
+	pageAddVehicle: function(type, ui, page) {
+	    console.log("add vehicle");
 
 	}
     }, 

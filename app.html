@@ -41,7 +41,12 @@ published: true
         <ul id="manage-fuse" class="settings-list" data-role="listview" data-inset="true">
 	  <li data-role="list-divider" >Fuse Account Settings</li>
 	  <li id="carvoyant_item">Carvoyant</li>
-	  <li>Fleet</li>
+	  <li id="fleet" data-role="collapsible">
+            Fleet
+            <ul id="fleet_list" data-role="listview">
+               <li id="add-vehicle"><a href="#">Add Vehicle</a></li>
+            </ul>
+          </li>
 	  <li><a href="#" class="logout">Disconnect</a></li>
         </ul><!-- /listview -->
    </div><!-- /content -->

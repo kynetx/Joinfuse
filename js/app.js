@@ -43,7 +43,12 @@
 	    Fuse.isAuthorizedWithCarvoyant(function(authd) {
 		console.log("Is Carvoyant auth'd?", authd);
 		if(authd.authorized) {
-		    Fuse.vehicleSu
+		    Fuse.vehicleSummary(function(json) {
+			$.each(json, function(n,v) {
+			   console.log("Seeing ", n);
+			   console.log("Seeing ", v);
+			});
+		    });
 		} else {
 		}
 	    });

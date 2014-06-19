@@ -24,7 +24,7 @@
 				} }  
     ],
     {
-	pageManageFuse: function(type, ui, page) {
+	pageManageFuse: function(type, match, ui, page) {
 	    console.log("manage fuse: main page");
 	    Fuse.isAuthorizedWithCarvoyant(function(authd) {
 		console.log("Is Carvoyant auth'd?", authd);
@@ -42,7 +42,7 @@
 	    });
 
 	},
-	pageManageFuseUpdate: function(type, ui, page) {
+	pageManageFuseUpdate: function(type,  match, ui, page) {
 	    console.log("main page update");
 	    $("#manage-fleet").html(snippets.fleet_template());
 	    $('#manage-fleet').listview('refresh');
@@ -59,7 +59,7 @@
 		$('#manage-fleet').listview('refresh');
 	    });
 	}, 
-	pageAddVehicle: function(type, ui, page) {
+	pageAddVehicle: function(type,  match, ui, page) {
 	    console.log("add vehicle");
             var frm = "#form-add-vehicle";
             $(frm)[0].reset();
@@ -96,7 +96,7 @@
 	    });
 
 	},
-	pageUpdateVehicle: function(type, ui, page) {
+	pageUpdateVehicle: function(type,  match, ui, page) {
 	    console.log("update vehicle");
             var frm = "#form-update-vehicle";
             $(frm)[0].reset();

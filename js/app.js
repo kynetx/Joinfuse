@@ -105,7 +105,7 @@
 	    Fuse.vehicleSummary(function(json){
 		console.log("Update json ", json, params.id);
 		var vehicle = json[params.id];
-		$("#name", frm).val(vehicle.myProfileName);
+		$("#name", frm).val(vehicle.profileName);
 		$("#vin", frm).val(vehicle.vin);
 		$("#deviceId", frm).val(vehicle.deviceId);
 		$("#photo", frm).val(vehicle.profilePhoto);

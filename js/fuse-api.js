@@ -163,12 +163,23 @@
 	    cb = cb || function(){};
 	    options = options || {};
 	    options.rid = "carvoyant";
-            Fuse.log("Retrieving Carvoyant OAuth URL");
-	    return Fuse.ask_fleet("carvoyantOauthUrl", Fuse.carvoyant_oauth_url, function(json) {
-		Fuse.carvoyant_oauth_url = json.url;
-		Fuse.log("URL: ", json);
-		cb(json);
-  	    }, options);
+
+	    if ( typeof Fuse.carvoyant_oauth_url === "undefined" 
+	      || Fuse.carvoyant_oauth_url === "" 
+	      || Fuse.carvoyant_oauth_url === null 
+              || options.force) {
+		Fuse.log("Retrieving Carvoyant OAuth URL");
+		return Fuse.ask_fleet("carvoyantOauthUrl", Fuse.carvoyant_oauth_url, function(json) {
+		    Fuse.carvoyant_oauth_url = json.url;
+		    Fuse.log("URL: ", json);
+		    cb(json);
+  		}, options);
+	    } else {
+		cb(Fuse.carvoyant_oauth_url);
+		return Fuse.carvoyant_oauth_url;
+	    }
+
+
 	},
 
 	isAuthorizedWithCarvoyant: function(cb, options) 

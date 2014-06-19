@@ -132,6 +132,7 @@
 			myProfileName: vehicle_data.name,
 			myProfilePhoto: vehicle_data.photo
 		    };
+		    console.log("New profile: ", profile);
 		    Fuse.updateVehicleSummary(id, profile);
 		    Fuse.saveProfile(channel, profile,
 				     function(directives) {

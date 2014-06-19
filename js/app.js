@@ -18,7 +18,7 @@
 			      events: "s", // just do when we create the page
 			      argsre: true
 			     } }  
-    }],
+    ],
     {
 	pageManageFuse: function(type, ui, page) {
 	    console.log("manage fuse: main page");

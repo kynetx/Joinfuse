@@ -43,6 +43,7 @@
 	    Fuse.vehicleSummary(function(json) {
 		var keys = $.map(json,function(v,k){return k}).sort();
 		$.each(keys, function(k) {
+		    console.log("Key: ", k, keys);
 		    console.log("Seeing ", json[k].profileName);
 		});
 	    });

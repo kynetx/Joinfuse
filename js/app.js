@@ -100,11 +100,11 @@
 	    console.log("update vehicle");
             var frm = "#form-update-vehicle";
             $(frm)[0].reset();
-	    var id = router.getParams("id");
-	    console.log("ID: ", id)
+	    var params = router.getParams(match[1]);
+	    console.log("ID: ", params.id)
 	    Fuse.vehicleSummary(function(json){
-		console.log("Update json ", json, id);
-		var vehicle = json[id];
+		console.log("Update json ", json, params.id);
+		var vehicle = json[params.id];
 		$("#name", frm).val(vehicle.myProfileName);
 		$("#vin", frm).val(vehicle.vin);
 		$("#deviceId", frm).val(vehicle.deviceId);

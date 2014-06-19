@@ -85,7 +85,7 @@
 	// ---------- profile ----------
 
 	// need to redefine since we're often interested in the profile of another cloud
-        get_profile: function(channel, cb, options)
+        getProfile: function(channel, cb, options)
         {
 	    cb = cb || function(){};
 	    options = options || {};
@@ -100,7 +100,7 @@
 	    {"eci": channel});
         },
 
-        save_profile: function(channel, json, cb)
+        saveProfile: function(channel, json, cb)
         {
             var eventParameters = { "element": "profileUpdate.post" };
             return CloudOS.raiseEvent('web', 'submit', json, eventParameters, cb, {"eci": channel});

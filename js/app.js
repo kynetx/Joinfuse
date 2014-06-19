@@ -17,7 +17,11 @@
        {"#page-add-vehicle": {handler: "pageAddVehicle",
 			      events: "s", // just do when we create the page
 			      argsre: true
-			     } }  
+			     } },
+       {"#page-update-vehicle": {handler: "pageUpdateVehicle",
+				 events: "s", // just do when we create the page
+				 argsre: true
+				} }  
     ],
     {
 	pageManageFuse: function(type, ui, page) {
@@ -62,6 +66,49 @@
             $("#photo", frm).val("");
             $("#photo-preview", frm).attr("src", dummy_image);
 
+            // show jQuery mobile's built in loady spinner.
+	    $(".save", frm).off('tap').on('tap', function(event)
+            {
+                var vehicle_data = process_form(frm);
+                console.log(">>>>>>>>> Saving new vehicle ", vehicle_data);
+		$.mobile.loading("show", {
+                    text: "Saving vehicle data...",
+                    textVisible: true
+		});
+		Fuse.createVehicle(vehicle_data.name,
+				   vehicle_data.photo,
+				   vehicle_data.vin,
+				   vehicle_data.deviceId,
+				   function(directives) {
+				       $.mobile.loading("hide");
+				       console.log("Vehicle saved ", directives);
+
+				       $.mobile.changePage("#page-manage-fuse", {
+					   transition: 'slide'
+				       });
+				   });
+            });
+	    $(".cancel", frm).off('tap').on('tap', function(event)
+            {
+		console.log("Cancelling add vehicle");
+		$(frm)[0].reset();
+		$('#photo-preview').attr('src', dummy_image);
+	    });
+
+	},
+	pageUpdateVehicle: function(type, ui, page) {
+	    console.log("update vehicle");
+            var frm = "#form-update-vehicle";
+            $(frm)[0].reset();
+	    var id = router.getParams("id");
+	    Fuse.vehicleSummary(function(json){
+		var vehicle = json[id];
+		$("#name", frm).val(vehicle.myProfileName);
+		$("#vin", frm).val(vehicle.vin);
+		$("#deviceId", frm).val(vehicle.deviceId);
+		$("#photo", frm).val(vehicle.profilePhoto);
+		$("#photo-preview", frm).attr("src", vehicle.profilePhoto);
+	    });
             // show jQuery mobile's built in loady spinner.
 	    $(".save", frm).off('tap').on('tap', function(event)
             {

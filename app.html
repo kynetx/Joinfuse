@@ -44,8 +44,7 @@ published: true
         </ul><!-- /listview -->
 	
         <ul id="manage-fleet" class="vehicle-list" data-role="listview" data-inset="true"> 
-	  <li data-role="list-divider" >Fuse Fleet</li>
-	  <li id="add-vehicle"><a href="#page-add-vehicle" data-transition="slide">Add New Vehicle</a></li>
+ 
         </ul><!-- /listview -->
 	       
 
@@ -117,11 +116,19 @@ published: true
 
 <!-- ----------templates ---------- -->
 {% raw %} <!-- turn off jekyl (in github pages) -->
+
+<div id="fleet-template" style="display:none;">
+  <li data-role="list-divider" >Fuse Fleet</li>
+  <li id="add-vehicle"><a href="#page-add-vehicle" data-transition="slide">Add New Vehicle</a></li>
+</div>
+
 <div id="vehicle-update-item-template" style="display:none;">
   <li><a data-transition="slide" href="#page-update-vehicle?id={{id}}">
     {{name}}</a>
   </li>
 </div>
+
+
 
 
 {% endraw %}

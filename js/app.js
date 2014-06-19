@@ -40,6 +40,7 @@
 	},
 	pageManageFuseUpdate: function(type, ui, page) {
 	    console.log("main page update");
+	    $("#manage-fleet").append(snippets.fleet_template());
 	    Fuse.vehicleSummary(function(json) {
 		// sort so we get a consistent order
 		var keys = $.map(json,function(v,k){return k}).sort();
@@ -104,6 +105,8 @@
     // templates are in index.html where they should be
     window['snippets'] = {
         vehicle_update_item_template: Handlebars.compile($("#vehicle-update-item-template").html() || "")
+        fleet_template: Handlebars.compile($("#fleet-template").html() || "")
+
     };
 
 

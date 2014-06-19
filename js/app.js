@@ -40,19 +40,12 @@
 	},
 	pageManageFuseUpdate: function(type, ui, page) {
 	    console.log("main page update");
-	    Fuse.isAuthorizedWithCarvoyant(function(authd) {
-		console.log("Is Carvoyant auth'd?", authd);
-		if(authd.authorized) {
-		    Fuse.vehicleSummary(function(json) {
-			$.each(json, function(n,v) {
-			   console.log("Seeing ", n);
-			   console.log("Seeing ", v);
-			});
-		    });
-		} else {
-		}
+	    Fuse.vehicleSummary(function(json) {
+		$.each(json, function(n,v) {
+		    console.log("Seeing ", n);
+		    console.log("Seeing ", v);
+		});
 	    });
-
 	},
 	pageAddVehicle: function(type, ui, page) {
 	    console.log("add vehicle");

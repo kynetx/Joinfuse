@@ -41,6 +41,7 @@
 	pageManageFuseUpdate: function(type, ui, page) {
 	    console.log("main page update");
 	    Fuse.vehicleSummary(function(json) {
+		// sort so we get a consistent order
 		var keys = $.map(json,function(v,k){return k}).sort();
 		$.each(keys, function(v,k) {
 		    $("#manage-fleet li:nth-child(1)" ).after(

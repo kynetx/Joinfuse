@@ -332,7 +332,7 @@
 	},
 
 	updateVehicleSummary: function(id, profile) {
-	    $.each(profile, function(v,k){
+	    $.each(profile, function(k,v){
 		console.log(k, v);
 		Fuse.vehicle_summary[id][k] = v;
 	    });

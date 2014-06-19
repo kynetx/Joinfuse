@@ -42,7 +42,7 @@
 	    console.log("main page update");
 	    Fuse.vehicleSummary(function(json) {
 		var keys = $.map(json,function(v,k){return k}).sort();
-		$.each(keys, function(k) {
+		$.each(keys, function(v,k) {
 		    console.log("Key: ", k, keys);
 		    console.log("Seeing ", json[k].profileName);
 		});

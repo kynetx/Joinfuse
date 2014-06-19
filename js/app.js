@@ -51,7 +51,7 @@
 		});
 		$('#manage-fleet').listview('refresh');
 	    });
-	},
+	}, 
 	pageAddVehicle: function(type, ui, page) {
 	    console.log("add vehicle");
             var frm = "#form-add-vehicle";

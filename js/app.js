@@ -127,10 +127,10 @@
 		    var channel = $.grep(chan_array, function(obj, i){return obj["id"] === id})[0]["channel"];
 //		    console.log(channel);
 		    var profile = {
-			deviceId: vehicle.deviceId,
-			vin: vehicle.vin,
-			myProfileName: vehicle.name,
-			myProfilePhoto: vehicle.photo
+			deviceId: vehicle_data.deviceId,
+			vin: vehicle_data.vin,
+			myProfileName: vehicle_data.name,
+			myProfilePhoto: vehicle_data.photo
 		    };
 		    Fuse.saveProfile(channel, profile,
 				     function(directives) {

@@ -331,6 +331,12 @@
   		       }, options);
 	},
 
+	updateVehicleSummary: function(id, profile) {
+	    $.each(profile, function(v,k){
+		Fuse.vehicle_summary[id][k] = v;
+	    });
+	},
+
 	// ---------- manage and use vehicle picos ----------
         createVehicle: function(name, photo_url, vin, deviceId, cb, options)
         {

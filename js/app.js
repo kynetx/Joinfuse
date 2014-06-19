@@ -125,8 +125,14 @@
 
 		Fuse.vehicleChannels(function(chan_array){
 		    var channel = $.grep(chan_array, function(obj, i){return obj["id"] === id})[0]["channel"];
-		    console.log(channel);
-		    Fuse.saveProfile(channel, vehicle_data,
+//		    console.log(channel);
+		    var profile = {
+			deviceId: vehicle.deviceId,
+			vin: vehicle.vin,
+			myProfileName: vehicle.name,
+			myProfilePhoto: vehicle.photo
+		    };
+		    Fuse.saveProfile(channel, profile,
 				     function(directives) {
 					 $.mobile.loading("hide");
 					 console.log("Vehicle saved ", directives);

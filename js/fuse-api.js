@@ -102,8 +102,7 @@
 
         saveProfile: function(channel, json, cb)
         {
-            var eventParameters = { "element": "profileUpdate.post" };
-            return CloudOS.raiseEvent('web', 'submit', json, eventParameters, cb, {"eci": channel});
+            return CloudOS.raiseEvent('pds', 'new_profile_item_available', json, {}, cb, {"eci": channel});
         },
 
 	// ---------- account ----------

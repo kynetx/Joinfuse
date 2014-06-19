@@ -43,9 +43,13 @@
 	    Fuse.vehicleSummary(function(json) {
 		var keys = $.map(json,function(v,k){return k}).sort();
 		$.each(keys, function(v,k) {
-		    console.log("Key: ", k, keys);
-		    console.log("Seeing ", json[k].profileName);
+		    $("#manage-fleet li:nth-child(1)" ).after(
+			snippets.vehicle_update_item_template(
+			    {"name": json[k].profileName,
+			     "id": k
+			    }));
 		});
+		$('#manage-fleet').listview('refresh');
 	    });
 	},
 	pageAddVehicle: function(type, ui, page) {
@@ -98,6 +102,7 @@
     // Handlebar templates compiled at load time to create functions
     // templates are in index.html where they should be
     window['snippets'] = {
+        vehicle_update_item_template: Handlebars.compile($("#vehicle-update-item-template").html() || "")
     };
 
 

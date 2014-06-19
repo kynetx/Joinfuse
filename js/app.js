@@ -104,7 +104,7 @@
     // Handlebar templates compiled at load time to create functions
     // templates are in index.html where they should be
     window['snippets'] = {
-        vehicle_update_item_template: Handlebars.compile($("#vehicle-update-item-template").html() || "")
+        vehicle_update_item_template: Handlebars.compile($("#vehicle-update-item-template").html() || ""),
         fleet_template: Handlebars.compile($("#fleet-template").html() || "")
 
     };

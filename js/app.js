@@ -40,7 +40,8 @@
 	},
 	pageManageFuseUpdate: function(type, ui, page) {
 	    console.log("main page update");
-	    $("#manage-fleet").append(snippets.fleet_template());
+	    $("#manage-fleet").html(snippets.fleet_template());
+	    $('#manage-fleet').listview('refresh');
 	    Fuse.vehicleSummary(function(json) {
 		// sort so we get a consistent order
 		var keys = $.map(json,function(v,k){return k}).sort();

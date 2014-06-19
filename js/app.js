@@ -41,9 +41,9 @@
 	pageManageFuseUpdate: function(type, ui, page) {
 	    console.log("main page update");
 	    Fuse.vehicleSummary(function(json) {
-		$.each(json, function(n,v) {
-		    console.log("Seeing ", n);
-		    console.log("Seeing ", v);
+		var keys = $.map(foo,function(v,k){return k}).sort();
+		$.each(keys, function(k) {
+		    console.log("Seeing ", json[k].profileName);
 		});
 	    });
 	},

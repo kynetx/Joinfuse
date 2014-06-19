@@ -5,16 +5,20 @@
 (function($)
 {
 
-    var router=new $.mobile.Router( {
-       "#page-manage-fuse": {handler: "pageManageFuse",
-			     events: "c", // just do when we create the page
-			     argsre: true
-			    },
-       "#page-add-vehicle": {handler: "pageAddVehicle",
-			     events: "c", // just do when we create the page
-			     argsre: true
-			    }
-    },
+    var router=new $.mobile.Router( [
+       {"#page-manage-fuse": {handler: "pageManageFuse",
+			      events: "c", // just do when we create the page
+			      argsre: true
+			     } },
+       {"#page-manage-fuse": {handler: "pageManageFuseUpdate",
+			      events: "s", // just do when we show the page
+			      argsre: true
+			     } },
+       {"#page-add-vehicle": {handler: "pageAddVehicle",
+			      events: "s", // just do when we create the page
+			      argsre: true
+			     } }  
+    }],
     {
 	pageManageFuse: function(type, ui, page) {
 	    console.log("manage fuse: main page");
@@ -30,6 +34,17 @@
 			$('#manage-fuse').listview('refresh');
 			$('#carvoyant_url').attr('href', json.url);
 		    });
+		}
+	    });
+
+	},
+	pageManageFuseUpdate: function(type, ui, page) {
+	    console.log("main page update");
+	    Fuse.isAuthorizedWithCarvoyant(function(authd) {
+		console.log("Is Carvoyant auth'd?", authd);
+		if(authd.authorized) {
+		    Fuse.vehicleSu
+		} else {
 		}
 	    });
 

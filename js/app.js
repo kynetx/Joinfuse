@@ -102,6 +102,7 @@
             $(frm)[0].reset();
 	    var id = router.getParams("id");
 	    Fuse.vehicleSummary(function(json){
+		console.log("seeing ", json, id);
 		var vehicle = json[id];
 		$("#name", frm).val(vehicle.myProfileName);
 		$("#vin", frm).val(vehicle.vin);

@@ -109,29 +109,33 @@
 		$("#vin", frm).val(vehicle.vin);
 		$("#deviceId", frm).val(vehicle.deviceId);
 		$("#photo", frm).val(vehicle.profilePhoto);
+		$("#id", frm).val(params.id);
 		$("#photo-preview", frm).attr("src", vehicle.profilePhoto);
 	    });
             // show jQuery mobile's built in loady spinner.
 	    $(".save", frm).off('tap').on('tap', function(event)
             {
-                var vehicle_data = process_form(frm);
-                console.log(">>>>>>>>> Saving new vehicle ", vehicle_data);
 		$.mobile.loading("show", {
-                    text: "Saving vehicle data...",
+                    text: "Updating vehicle data...",
                     textVisible: true
 		});
-		Fuse.createVehicle(vehicle_data.name,
-				   vehicle_data.photo,
-				   vehicle_data.vin,
-				   vehicle_data.deviceId,
-				   function(directives) {
-				       $.mobile.loading("hide");
-				       console.log("Vehicle saved ", directives);
+                var vehicle_data = process_form(frm);
+                console.log(">>>>>>>>> Updating vehicle ", vehicle_data);
+		var id = vehicle_data.id;
 
-				       $.mobile.changePage("#page-manage-fuse", {
-					   transition: 'slide'
-				       });
-				   });
+		Fuse.vehicleChannels(function(chan_array){
+		    var channel = $.grep(chan_array, function(obj, i){return obj["id"] === id})[0]["channel"];
+		    console.log(channel);
+		    Fuse.saveProfile(channel, vehicle_data,
+				     function(directives) {
+					 $.mobile.loading("hide");
+					 console.log("Vehicle saved ", directives);
+
+					 $.mobile.changePage("#page-manage-fuse", {
+					     transition: 'slide'
+					 });
+				     });
+		});
             });
 	    $(".cancel", frm).off('tap').on('tap', function(event)
             {

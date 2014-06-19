@@ -83,27 +83,27 @@
         },
 
 	// ---------- profile ----------
-        get_profile: function(cb)
+
+	// need to redefine since we're often interested in the profile of another cloud
+        get_profile: function(channel, cb, options)
         {
 	    cb = cb || function(){};
-            if (typeof Fuse.user === "undefined") {
-                Fuse.log("Retrieving profile for user");
-                return CloudOS.getMyProfile(function(profile)
-                {
-                    Fuse.user = profile;
-                    if (typeof cb === "function") {
-                        cb(Fuse.user);
-                    }
-                });
-            } else {
-                cb(Fuse.user);
-		return null;
-            }
+	    options = options || {};
+            Fuse.log("Retrieving profile for user");
+
+	    return CloudOS.skyCloud("a169x676", "get_all_me", {}, function(res) {
+		CloudOS.clean(res);
+		if(typeof cb !== "undefined"){
+		    cb(res);
+		}
+	    },
+	    {"eci": channel});
         },
 
-        save_profile: function(json, cb)
+        save_profile: function(channel, json, cb)
         {
-            return CloudOS.updateMyProfile(json, cb);
+            var eventParameters = { "element": "profileUpdate.post" };
+            return CloudOS.raiseEvent('web', 'submit', json, eventParameters, cb, {"eci": channel});
         },
 
 	// ---------- account ----------

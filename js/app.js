@@ -57,15 +57,14 @@
             $("#photo-preview", frm).attr("src", dummy_image);
 
             // show jQuery mobile's built in loady spinner.
-            $.mobile.loading("show", {
-                text: "Saving vehicle data...",
-                textVisible: true
-            });
-
 	    $(".save", frm).off('tap').on('tap', function(event)
             {
                 var vehicle_data = process_form(frm);
                 console.log(">>>>>>>>> Saving new vehicle ", vehicle_data);
+		$.mobile.loading("show", {
+                    text: "Saving vehicle data...",
+                    textVisible: true
+		});
 		Fuse.createVehicle(vehicle_data.name,
 				   vehicle_data.photo,
 				   vehicle_data.vin,

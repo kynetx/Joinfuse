@@ -240,7 +240,6 @@
 		$(frm)[0].reset();
 		$('#photo-preview').attr('src', dummy_image);
 	    });
-	    $(".delete", frm).attr("href","#page-vehicle-confirm-delete?id=" + params.id);
 	}
     }, 
     { 

@@ -197,13 +197,13 @@
             $(frm)[0].reset();
 	    owner_eci = CloudOS.defaultECI;
 	    Fuse.getProfile(owner_eci,function(json){
-		console.log("Profile json ", json, params.id);
-		$("#name", frm).val(vehicle.profileName);
-		$("#vin", frm).val(vehicle.vin);
-		$("#deviceId", frm).val(vehicle.deviceId);
-		$("#photo", frm).val(vehicle.profilePhoto);
-		$("#id", frm).val(params.id);
-		$("#photo-preview", frm).attr("src", vehicle.profilePhoto);
+		console.log("Profile json ", json);
+		// $("#name", frm).val(vehicle.profileName);
+		// $("#vin", frm).val(vehicle.vin);
+		// $("#deviceId", frm).val(vehicle.deviceId);
+		// $("#photo", frm).val(vehicle.profilePhoto);
+		// $("#id", frm).val.id);
+		// $("#photo-preview", frm).attr("src", vehicle.profilePhoto);
 	    });
             // show jQuery mobile's built in loady spinner.
 	    $(".save", frm).off('tap').on('tap', function(event)

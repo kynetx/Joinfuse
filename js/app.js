@@ -46,12 +46,12 @@
 	    console.log("main page update");
 	    $("#manage-fleet").html(snippets.fleet_template());
 	    $('#manage-fleet').listview('refresh');
-	    console.log("Really! ");
 	    Fuse.vehicleSummary(function(json) {
 		// sort so we get a consistent order
 		console.log("Displaying items...");
 		var keys = $.map(json,function(v,k){return k}).sort();
 		$.each(keys, function(v,k) {
+		    console.log("Updating ", k, v);
 		    $("#manage-fleet li:nth-child(1)" ).after(
 			snippets.vehicle_update_item_template(
 			    {"name": json[k].profileName,
@@ -127,7 +127,6 @@
 
 		Fuse.vehicleChannels(function(chan_array){
 		    var channel = $.grep(chan_array, function(obj, i){return obj["id"] === id;})[0]["channel"];
-//		    console.log(channel);
 		    var profile = {
 			deviceId: vehicle_data.deviceId,
 			vin: vehicle_data.vin,

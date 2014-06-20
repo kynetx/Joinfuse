@@ -25,6 +25,10 @@
        {"#page-vehicle-confirm-delete": {handler: "pageVehicleConfirmDelete",
 					 events: "s", // just do when we create the page
 					 argsre: true
+					} },
+       {"#page-update-profile": {handler: "pageUpdateProfile",
+					 events: "s", // just do when we create the page
+					 argsre: true
 					} }  
     ],
     {
@@ -186,8 +190,57 @@
 		    });
                 });
             });
+	},
+	pageUpdateProfile: function(type,  match, ui, page) {
+	    console.log("update vehicle");
+            var frm = "#form-update-vehicle";
+            $(frm)[0].reset();
+	    owner_eci = CloudOS.defaultECI;
+	    Fuse.getProfile(owner_eci,function(json){
+		console.log("Profile json ", json, params.id);
+		$("#name", frm).val(vehicle.profileName);
+		$("#vin", frm).val(vehicle.vin);
+		$("#deviceId", frm).val(vehicle.deviceId);
+		$("#photo", frm).val(vehicle.profilePhoto);
+		$("#id", frm).val(params.id);
+		$("#photo-preview", frm).attr("src", vehicle.profilePhoto);
+	    });
+            // show jQuery mobile's built in loady spinner.
+	    $(".save", frm).off('tap').on('tap', function(event)
+            {
+		$.mobile.loading("show", {
+                    text: "Updating vehicle data...",
+                    textVisible: true
+		});
+                var vehicle_data = process_form(frm);
+                console.log(">>>>>>>>> Updating vehicle ", vehicle_data);
+		var id = vehicle_data.id;
 
-
+		Fuse.vehicleChannels(function(chan_array){
+		    var channel = $.grep(chan_array, function(obj, i){return obj["id"] === id;})[0]["channel"];
+		    var profile = {
+			deviceId: vehicle_data.deviceId,
+			vin: vehicle_data.vin,
+			myProfileName: vehicle_data.name,
+			myProfilePhoto: vehicle_data.photo
+		    };
+		    Fuse.updateVehicleSummary(id, profile);
+		    Fuse.saveProfile(channel, profile,
+				     function(directives) {
+					 $.mobile.loading("hide");
+					 $.mobile.changePage("#page-manage-fuse", {
+					     transition: 'slide'
+					 });
+				     });
+		});
+            });
+	    $(".cancel", frm).off('tap').on('tap', function(event)
+            {
+		console.log("Cancelling add vehicle");
+		$(frm)[0].reset();
+		$('#photo-preview').attr('src', dummy_image);
+	    });
+	    $(".delete", frm).attr("href","#page-vehicle-confirm-delete?id=" + params.id);
 	}
     }, 
     { 

@@ -200,7 +200,12 @@
 		$("#name", frm).val(json.myProfileName);
 		$("#email", frm).val(json.myProfileEmail);
 		$("#phone", frm).val(json.myProfilePhone);
-		$("#notify", frm).val(json.notificationPreference);
+		$("#notify", frm).val(json.notificationPreference).attr("selected","selected");
+
+		$("#notify option", frm).each(function(){
+		    if($(this).val() == "alert")$(this).attr("selected", "selected");
+		});
+
 		$("#photo", frm).val(json.myProfilePhoto);
 		$("#photo-preview", frm).attr("src", json.myProfilePhoto);
 	    });

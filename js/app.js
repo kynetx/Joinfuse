@@ -169,7 +169,7 @@
                     text: "Updating vehicle data...",
                     textVisible: true
 		});
-		console.log("Should delete " params.id);
+		console.log("Should delete ", params.id);
                 {
 		    $.mobile.loading("hide");
 		    $.mobile.changePage("#page-manage-fuse", {

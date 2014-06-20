@@ -200,12 +200,10 @@
 		$("#name", frm).val(json.myProfileName);
 		$("#email", frm).val(json.myProfileEmail);
 		$("#phone", frm).val(json.myProfilePhone);
-		$("#notify", frm).val(json.notificationPreference).attr("selected","selected");
-
 		$("#notify option", frm).each(function(){
-		    if($(this).val() == "alert")$(this).attr("selected", "selected");
+		    if($(this).val() == json.notificationPreference)$(this).attr("selected", "selected");
 		});
-
+		$( "#notify" ).selectmenu( "refresh" );
 		$("#photo", frm).val(json.myProfilePhoto);
 		$("#photo-preview", frm).attr("src", json.myProfilePhoto);
 	    });

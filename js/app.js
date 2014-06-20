@@ -76,7 +76,7 @@
 		$.mobile.loading("show", {
                     text: "Saving vehicle data...",
                     textVisible: true
-		});
+		});	
 		Fuse.createVehicle(vehicle_data.name,
 				   vehicle_data.photo,
 				   vehicle_data.vin,
@@ -84,6 +84,19 @@
 				   function(directives) {
 				       $.mobile.loading("hide");
 				       console.log("Vehicle saved ", directives);
+
+				       var profile = {
+					   deviceId: vehicle_data.deviceId,
+					   vin: vehicle_data.vin,
+					   myProfileName: vehicle_data.name,
+					   myProfilePhoto: vehicle_data.photo
+				       };
+				       var id = $.grep(directives.directives, 
+						       function(obj, i){
+							   return obj["name"] === "Vehicle created";
+						       })[0].options.id;
+				       Fuse.updateVehicleSummary(id, profile);
+
 
 				       $.mobile.changePage("#page-manage-fuse", {
 					   transition: 'slide'
@@ -133,13 +146,10 @@
 			myProfileName: vehicle_data.name,
 			myProfilePhoto: vehicle_data.photo
 		    };
-		    console.log("New profile: ", profile);
 		    Fuse.updateVehicleSummary(id, profile);
 		    Fuse.saveProfile(channel, profile,
 				     function(directives) {
 					 $.mobile.loading("hide");
-					 console.log("Vehicle saved ", directives);
-
 					 $.mobile.changePage("#page-manage-fuse", {
 					     transition: 'slide'
 					 });

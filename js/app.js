@@ -46,6 +46,7 @@
 	    console.log("main page update");
 	    $("#manage-fleet").html(snippets.fleet_template());
 	    $('#manage-fleet').listview('refresh');
+	    console.log("Really! ");
 	    Fuse.vehicleSummary(function(json) {
 		// sort so we get a consistent order
 		console.log("Displaying items...");

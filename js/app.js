@@ -93,7 +93,7 @@
 				       };
 				       var id = $.grep(directives.directives, 
 						       function(obj, i){
-							   return obj["name"] === "Vehicle created";
+							   return obj["name"] === "vehicle_created";
 						       })[0].options.id;
 				       Fuse.updateVehicleSummary(id, profile);
 

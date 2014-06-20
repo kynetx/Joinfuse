@@ -159,7 +159,7 @@ published: true
 
         <a class="save" href="#" data-icon="check" data-role="button" data-inline="true" data-theme="b">Save</a>
         <a class="cancel" href="#page-manage-fuse" data-icon="delete" data-role="button" data-inline="true">Cancel</a>
-        <a class="delete" href="#page-manage-fuse" data-icon="delete" data-role="button" data-inline="true">Delete</a>
+        <a class="delete" href="#page-vehicle-confirm-delete" data-rel="dialog" data-transition="pop" data-role="button" data-inline="true">Delete</a>
      </form>
 
 	       
@@ -170,6 +170,21 @@ published: true
    </div><!-- /footer -->
 </div><!-- /page -->
 
+
+<!-- ---------- fuse update vehicle ---------- -->
+<div data-role="page" id="page-vehicle-confirm-delete">
+   <div data-role="header">
+      <h3>Delete?</h3>
+      <a href="#page-manager-tours" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+   </div><!-- /header -->
+
+   <div data-role="content">
+      <p>
+        <a href="#page-manage-fuse" data-role="button" data-theme="b" data-inline="true">Yes</a>
+        <a href="#page-manage-fuse" data-role="button" data-inline="true">No</a>
+      </p>
+   </div><!-- /content -->
+ </div><!-- /page -->
 
 
 <!-- ----------templates ---------- -->

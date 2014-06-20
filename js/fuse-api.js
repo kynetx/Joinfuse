@@ -334,10 +334,10 @@
 	updateVehicleSummary: function(id, profile) {
 	    Fuse.vehicle_summary[id] = Fuse.vehicle_summary[id] || {};
 	    $.each(profile, function(k,v){
-		console.log(k, v);
 		k = (k === "myProfileName") ? "profileName"
                   : (k === "myProfilePhoto") ? "profilePhoto"
-                  : k;
+                  : k;	
+		console.log("Storing in vehicle summary ", k, v);
 		Fuse.vehicle_summary[id][k] = v;
 	    });
 	},

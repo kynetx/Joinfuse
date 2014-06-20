@@ -162,6 +162,21 @@
 		$(frm)[0].reset();
 		$('#photo-preview').attr('src', dummy_image);
 	    });
+	    $('.delete', frm).off('tap').on('tap', function(event)
+            {
+                console.log("Deleting vehicle ", $("#name", frm));
+		$.mobile.loading("show", {
+                    text: "Updating vehicle data...",
+                    textVisible: true
+		});
+		console.log("Should delete " params.id);
+                {
+		    $.mobile.loading("hide");
+		    $.mobile.changePage("#page-manage-fuse", {
+			transition: 'slide'
+		    });
+                });
+            });
 
 	}
     }, 

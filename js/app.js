@@ -21,7 +21,11 @@
        {"#page-update-vehicle": {handler: "pageUpdateVehicle",
 				 events: "s", // just do when we create the page
 				 argsre: true
-				} }  
+				} },
+       {"#page-vehicle-confirm-delete": {handler: "pageVehicleConfirmDelete",
+					 events: "s", // just do when we create the page
+					 argsre: true
+					} }  
     ],
     {
 	pageManageFuse: function(type, match, ui, page) {
@@ -162,21 +166,27 @@
 		$(frm)[0].reset();
 		$('#photo-preview').attr('src', dummy_image);
 	    });
-	    $('.delete', frm).off('tap').on('tap', function(event)
+	    $(".delete", frm).attr("href","#page-vehicle-confirm-delete?id=" + params.id);
+	},
+	pageVehicleConfirmDelete: function(type,  match, ui, page) {
+	    var id = router.getParams(match[1])["id"];
+            console.log("Deleting vehicle ", id);
+
+	    $('#delete-vehicle').off('tap').on('tap', function(event)
             {
-                console.log("Deleting vehicle ", $("#name", frm));
 		$.mobile.loading("show", {
-                    text: "Updating vehicle data...",
+                    text: "Deleting vehicle...",
                     textVisible: true
 		});
-		console.log("Should delete ", params.id);
-//                Fuse.deleteVehicle(function(directives) {
+		console.log("Should delete ", id);
+//                Fuse.deleteVehicle(..., function(directives) {
 		    $.mobile.loading("hide");
 		    $.mobile.changePage("#page-manage-fuse", {
 			transition: 'slide'
 		    });
 //                });
             });
+
 
 	}
     }, 

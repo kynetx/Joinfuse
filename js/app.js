@@ -197,7 +197,6 @@
             $(frm)[0].reset();
 	    owner_eci = CloudOS.defaultECI;
 	    Fuse.getProfile(owner_eci,function(json){
-		console.log("Profile json ", json);
 		$("#name", frm).val(json.myProfileName);
 		$("#email", frm).val(json.myProfileEmail);
 		$("#phone", frm).val(json.myProfilePhone);

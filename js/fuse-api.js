@@ -333,7 +333,6 @@
 
 	updateVehicleSummary: function(id, profile) {
 	    Fuse.vehicle_summary[id] = Fuse.vehicle_summary[id] || {};
-	    console.log("Summary for ", id, Fuse.vehicle_summary);
 	    $.each(profile, function(k,v){
 		k = (k === "myProfileName") ? "profileName"
                   : (k === "myProfilePhoto") ? "profilePhoto"

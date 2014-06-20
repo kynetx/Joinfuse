@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ page.title }}">
+    <meta name="author" content="{{ page.authors | array_to_sentence_string }}">
+    <link rel="shortcut icon" href="img/favicon.png">
+
+    <title>{{ page.title}}</title>
+
+    <!-- Css -->
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css">
+
+    <style>
+      .header-image {
+        margin-top: 4px;
+        text-align: center;
+      }
+      .alert {
+        color: red
+      }
+      @media (min-width:800px) {
+        .ui-content {
+          width: 800px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+      }
+      .center-wrapper{
+        text-align: center;
+      }			  
+      .center-wrapper * {
+        margin: 0 auto;
+      }
+   </style>
+    <!-- Themes -->
+    <link rel="stylesheet" href="https://s3.amazonaws.com/Fuse_assets/themes/Fuse.css" />
+    <link rel="stylesheet" href="https://s3.amazonaws.com/Fuse_assets/themes/jquery.mobile.icons.min.css" />
+
+
+  </head>
+
+  <body>
+
+
+    {{ content }}
+
+
+    <!-- Javascript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+
+<script>
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+};
+
+// we could check this to see if there was an error
+var token = getParameterByName("access_token");
+
+$("document").ready(function() {
+  window.location = "app.html";
+});
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,270 @@
+---
+layout: app
+title: Application 
+authors:
+  - Phil Windley
+published: true
+---
+
+<!-- ---------- authorize ---------- -->
+<div data-role="page" id="page-authorize">
+
+   <div data-role="header" style="text-align:center;">
+     <div class="header-image">
+        <img class="fuse-logo" src="https://s3.amazonaws.com/Fuse_assets/img/fuse_logo-40.png">
+     </div>
+   </div><!-- /header -->
+
+   <div data-role="content" style="text-align:center;">
+      <h3>Welcome to Fuse from Kynetx</h3>
+      <a id="authorize-link" href="#page-manage-fuse" data-transition="slide" class="ui-btn ui-corner-all ui-btn-b ui-shadow ui-btn-inline">Authorize with Kynetx</a>
+   </div><!-- /content -->
+
+   <div data-role="footer" data-position="fixed">
+      <h4>Fuse by Kynetx</h4>
+   </div><!-- /footer -->
+</div><!-- /page -->
+
+
+<!-- ---------- fuse account settings ---------- -->
+<div data-role="page" id="page-manage-fuse">
+
+   <div data-role="header">
+     <div class="header-image">
+        <img class="fuse-logo" src="https://s3.amazonaws.com/Fuse_assets/img/fuse_logo-40.png">
+     </div>
+   </div><!-- /header -->
+
+   <div data-role="content">
+      <h3></h3>
+        <ul id="manage-fuse" class="settings-list" data-role="listview" data-inset="true">
+	  <li data-role="list-divider" >Fuse Account Settings</li>
+	  <li id="carvoyant_item">Carvoyant</li>
+	  <li><a href="#page-update-profile" data-transition="slide">Update Profile</a></li>
+	  <li><a href="#" class="logout" data-transition="slide">Disconnect from Kynetx</a></li>
+        </ul><!-- /listview -->
+	
+        <ul id="manage-fleet" class="vehicle-list" data-role="listview" data-inset="true"> 
+ 
+        </ul><!-- /listview -->
+	       
+
+   </div><!-- /content -->
+
+   <div data-role="footer" data-position="fixed">
+      <h4>Fuse from Kynetx</h5>
+   </div><!-- /footer -->
+</div><!-- /page -->
+
+
+<!-- ---------- fuse add vehicle ---------- -->
+<div data-role="page" id="page-add-vehicle">
+
+   <div data-role="header">
+     <div class="header-image">
+        <img class="fuse-logo" src="https://s3.amazonaws.com/Fuse_assets/img/fuse_logo-40.png">
+     </div>
+   </div><!-- /header -->
+
+   <div data-role="content">
+     <form id="form-add-vehicle">
+        <ul data-role="listview" data-inset="true"> 
+ 	  <li data-role="list-divider" >Add New Vehicle</li>
+          <li class="ui-field-contain">
+              <label for="text">Name</label>
+              <input type="text" data-clear-btn="true" name="name" id="name" value="">
+           </li>
+
+           <li class="ui-field-contain">
+              <label for="text">VIN</label>
+              <input type="text" data-clear-btn="true" name="vin" id="vin" value="">
+           </li>
+
+           <li class="ui-field-contain">
+              <label for="text">Fuse Device ID</label>
+              <input type="text" data-clear-btn="true" name="deviceId" id="deviceId" value="">
+           </li>
+
+           <li class="ui-field-contain" style="padding: .7em 1em;">
+              <label for="location-image">Image</label>
+	      <div> 
+                <img id="photo-preview" src="" name style="max-width:200px;">
+                <div id="photo-success" class="alert alert-success" style="display:none;margin-right:20px;margin-bottom:0px;margin-top:8px;"></div>
+                <div id="photo-error" class="alert alert-error" style="display:none;margin-right:20px;"></div>
+                <input type="file" id="photo-file" elid="photo" data-clear-btn="true" name="photo" data-theme="b" value="" onchange="previewPhoto(this, '#form-add-vehicle')">
+                <input type="hidden" id="photo" name="photo" value="">
+              </div>
+           </li>
+
+        </ul>
+
+
+        <a class="save" href="#" data-icon="check" data-role="button" data-inline="true" data-theme="b">Save</a>
+        <a class="cancel" href="#page-manage-fuse" data-icon="delete" data-role="button" data-inline="true">Cancel</a>
+     </form>
+
+	       
+   </div><!-- /content -->
+
+   <div data-role="footer" data-position="fixed">
+      <h4>Fuse from Kynetx</h5>
+   </div><!-- /footer -->
+</div><!-- /page -->
+
+
+<!-- ---------- fuse update vehicle ---------- -->
+<div data-role="page" id="page-update-vehicle">
+
+   <div data-role="header">
+     <div class="header-image">
+        <img class="fuse-logo" src="https://s3.amazonaws.com/Fuse_assets/img/fuse_logo-40.png">
+     </div>
+   </div><!-- /header -->
+
+   <div data-role="content">
+     <form id="form-update-vehicle">
+        <ul data-role="listview" data-inset="true"> 
+ 	  <li data-role="list-divider" >Update Vehicle</li>
+          <li class="ui-field-contain">
+              <label for="text">Name</label>
+              <input type="text" data-clear-btn="true" name="name" id="name" value="">
+           </li>
+
+           <li class="ui-field-contain">
+              <label for="text">VIN</label>
+              <input type="text" data-clear-btn="true" name="vin" id="vin" value="">
+           </li>
+
+           <li class="ui-field-contain">
+              <label for="text">Fuse Device ID</label>
+              <input type="text" data-clear-btn="true" name="deviceId" id="deviceId" value="">
+           </li>
+
+           <li class="ui-field-contain" style="padding: .7em 1em;">
+              <label for="location-image">Image</label>
+	      <div> 
+                <img id="photo-preview" src="" name style="max-width:200px;">
+                <div id="photo-success" class="alert alert-success" style="display:none;margin-right:20px;margin-bottom:0px;margin-top:8px;"></div>
+                <div id="photo-error" class="alert alert-error" style="display:none;margin-right:20px;"></div>
+                <input type="file" id="photo-file" elid="photo" data-clear-btn="true" name="photo" data-theme="b" value="" onchange="previewPhoto(this, '#form-add-vehicle')">
+                <input type="hidden" id="photo" name="photo" value="">
+              </div>
+           </li>
+
+        </ul>
+
+	<input type="hidden" id="id" name="id" value="">
+
+        <a class="save" href="#" data-icon="check" data-role="button" data-inline="true" data-theme="b">Save</a>
+        <a class="cancel" href="#page-manage-fuse" data-icon="delete" data-role="button" data-inline="true">Cancel</a>
+        <a class="delete" href="#page-vehicle-confirm-delete" data-rel="dialog" data-transition="pop" data-role="button" data-inline="true">Delete</a>
+     </form>
+
+	       
+   </div><!-- /content -->
+
+   <div data-role="footer" data-position="fixed">
+      <h4>Fuse from Kynetx</h5>
+   </div><!-- /footer -->
+</div><!-- /page -->
+
+
+<!-- ---------- fuse delete vehicle confirmation ---------- -->
+<div data-role="page" id="page-vehicle-confirm-delete">
+   <div data-role="header">
+      <h3>Delete Vehicle?</h3>
+   </div><!-- /header -->
+
+   <div data-role="content">
+      <p>This action cannot be undone. You will lose any trip, maintenance, and fuel reports associated with this vehicle. </p>
+      <p>
+        <a id="delete-vehicle" href="#" data-role="button" data-theme="b" data-inline="true">Yes</a>
+        <a href="#page-manage-fuse" data-role="button" data-inline="true">No</a>
+      </p>
+   </div><!-- /content -->
+ </div><!-- /page -->
+
+
+<!-- ---------- fuse update profile ---------- -->
+<div data-role="page" id="page-update-profile">
+
+   <div data-role="header">
+     <div class="header-image">
+        <img class="fuse-logo" src="https://s3.amazonaws.com/Fuse_assets/img/fuse_logo-40.png">
+     </div>
+   </div><!-- /header -->
+
+   <div data-role="content">
+     <form id="form-update-profile">
+        <ul data-role="listview" data-inset="true">
+ 	  <li data-role="list-divider" >Update Owner Profile</li >
+          <li class="ui-field-contain">
+              <label for="name">Name</label>
+              <input type="text" data-theme="b" name="name" class="name" id="name" placeholder="Full Name" value="">
+           </li>
+
+           <li class="ui-field-contain">
+              <label for="email">Email</label>
+              <input type="text" data-theme="b" name="email" class="email" id="email" placeholder="Email Address" value="">
+           </li>
+
+           <li class="ui-field-contain">
+              <label for="phone">Phone</label>
+              <input type="text" data-theme="b" name="phone" class="phone" id="phone" placeholder="Phone Number" value="">
+           </li>
+
+           <li class="ui-field-contain">
+              <label for="notify" class="select">Notification</label>
+              <select name="notify" class="notify" id="notify">
+                 <option value="info">Info</option>
+                 <option value="alert">Alert</option>
+                 <option value="emergency">Emergency</option>
+              </select>
+           </li>
+           <li class="ui-field-contain" style="padding: .7em 1em;">
+              <label for="location-image">Image</label>
+	      <div> 
+                <img id="photo-preview" src="" name style="max-width:200px;">
+                <div id="photo-success" class="alert alert-success" style="display:none;margin-right:20px;margin-bottom:0px;margin-top:8px;"></div>
+                <div id="photo-error" class="alert alert-error" style="display:none;margin-right:20px;"></div>
+                <input type="file" id="photo-file" elid="photo" data-clear-btn="true" name="photo" data-theme="b" value="" onchange="previewPhoto(this, '#form-update-profile')">
+                <input type="hidden" id="photo" name="photo" value="">
+              </div>
+           </li>
+
+        </ul>
+
+	<input type="hidden" id="id" name="id" value="">
+
+        <a class="save" href="#" data-icon="check" data-role="button" data-inline="true" data-theme="b">Save</a>
+        <a class="cancel" href="#page-manage-fuse" data-icon="delete" data-role="button" data-inline="true">Cancel</a>
+     </form>
+
+	       
+   </div><!-- /content -->
+
+   <div data-role="footer" data-position="fixed">
+      <h4>Fuse from Kynetx</h5>
+   </div><!-- /footer -->
+</div><!-- /page -->
+
+
+
+<!-- ----------templates ---------- -->
+{% raw %} <!-- turn off jekyl (in github pages) -->
+
+<div id="fleet-template" style="display:none;">
+  <li data-role="list-divider" >Fuse Fleet</li>
+  <li id="add-vehicle"><a href="#page-add-vehicle" data-transition="slide">Add New Vehicle</a></li>
+</div>
+
+<div id="vehicle-update-item-template" style="display:none;">
+  <li><a data-transition="slide" href="#page-update-vehicle?id={{id}}">
+    {{name}}</a>
+  </li>
+</div>
+
+
+
+
+{% endraw %}

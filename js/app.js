@@ -201,7 +201,9 @@
 		$("#email", frm).val(json.myProfileEmail);
 		$("#phone", frm).val(json.myProfilePhone);
 		$("#notify option", frm).each(function(){
-		    if($(this).val() == json.notificationPreference)$(this).attr("selected", "selected");
+		    console.log("Setting ", json.notificationPreferences);
+		    if($(this).val() == "alert") 
+			$(this).attr("selected", "selected");
 		});
 		$( "#notify" ).selectmenu( "refresh" );
 		$("#photo", frm).val(json.myProfilePhoto);

@@ -443,7 +443,7 @@
         return false;
     };
 
-    function clean(obj) {
+    CloudOS.clean = function(obj) {
 	delete obj._type;
 	delete obj._domain;
 	delete obj._async;

@@ -382,7 +382,7 @@
 		    throw "Vehicle channel is null; can't delete vehicle";
 		};
 		var attrs = { "vehicle_name": vehicle_name };
-		return CloudOS.raiseEvent("fuse", "delete_vehicle", {}, attrs, function(response)
+		return CloudOS.raiseEvent("fuse", "delete_vehicle", attrs, {}, function(response)
 					  {
 					      Fuse.log("Fleet deleted with ECI: " + fleet_channel);
 					      Fuse.vehicles = []; // reset so that the next call to vehicleChannels() is forced to update

@@ -166,7 +166,7 @@
             });
 	    $(".cancel", frm).off('tap').on('tap', function(event)
             {
-		console.log("Cancelling add vehicle");
+		console.log("Cancelling update vehicle");
 		$(frm)[0].reset();
 		$('#photo-preview').attr('src', dummy_image);
 	    });
@@ -198,45 +198,42 @@
 	    owner_eci = CloudOS.defaultECI;
 	    Fuse.getProfile(owner_eci,function(json){
 		console.log("Profile json ", json);
-		// $("#name", frm).val(vehicle.profileName);
-		// $("#vin", frm).val(vehicle.vin);
-		// $("#deviceId", frm).val(vehicle.deviceId);
-		// $("#photo", frm).val(vehicle.profilePhoto);
-		// $("#id", frm).val.id);
-		// $("#photo-preview", frm).attr("src", vehicle.profilePhoto);
+		$("#name", frm).val(json.myProfileName);
+		$("#email", frm).val(json.myProfileEmail);
+		$("#phone", frm).val(json.myProfilePhone);
+		$("#notify", frm).val(json.notificationPreference);
+		$("#photo", frm).val(json.myProfilePhoto);
+		$("#photo-preview", frm).attr("src", json.myProfilePhoto);
 	    });
             // show jQuery mobile's built in loady spinner.
 	    $(".save", frm).off('tap').on('tap', function(event)
             {
 		$.mobile.loading("show", {
-                    text: "Updating vehicle data...",
+                    text: "Updating owner profile...",
                     textVisible: true
 		});
-                var vehicle_data = process_form(frm);
-                console.log(">>>>>>>>> Updating vehicle ", vehicle_data);
-		var id = vehicle_data.id;
+                var owner_data = process_form(frm);
+                console.log(">>>>>>>>> Updating owner ", owner_data);
 
-		Fuse.vehicleChannels(function(chan_array){
-		    var channel = $.grep(chan_array, function(obj, i){return obj["id"] === id;})[0]["channel"];
-		    var profile = { 
-			deviceId: vehicle_data.deviceId,
-			vin: vehicle_data.vin,
-			myProfileName: vehicle_data.name,
-			myProfilePhoto: vehicle_data.photo
-		    };
-		    Fuse.updateVehicleSummary(id, profile);
-		    Fuse.saveProfile(channel, profile,
-				     function(directives) {
-					 $.mobile.loading("hide");
-					 $.mobile.changePage("#page-manage-fuse", {
-					     transition: 'slide'
-					 });
+		var profile = { 
+		    myProfileName: owner_data.name,
+		    myProfilePhoto: owner_data.photo,
+		    myProfileEmail: owner_data.email,
+		    myProfilePhone: owner_data.phone,
+		    notificationPreferences: owner_data.notify
+		};
+		
+		Fuse.saveProfile(owner_eci, profile,
+				 function(directives) {
+				     $.mobile.loading("hide");
+				     $.mobile.changePage("#page-manage-fuse", {
+					 transition: 'slide'
 				     });
-		});
-            });
+				 });
+	    });
 	    $(".cancel", frm).off('tap').on('tap', function(event)
             {
-		console.log("Cancelling add vehicle");
+		console.log("Cancelling update profile");
 		$(frm)[0].reset();
 		$('#photo-preview').attr('src', dummy_image);
 	    });

@@ -193,7 +193,7 @@
 	},
 	pageUpdateProfile: function(type,  match, ui, page) {
 	    console.log("update vehicle");
-            var frm = "#form-update-vehicle";
+            var frm = "#form-update-profile";
             $(frm)[0].reset();
 	    owner_eci = CloudOS.defaultECI;
 	    Fuse.getProfile(owner_eci,function(json){

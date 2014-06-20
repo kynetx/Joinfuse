@@ -387,7 +387,7 @@
 					      Fuse.log("Fleet deleted with ECI: " + fleet_channel);
 					      Fuse.vehicles = []; // reset so that the next call to vehicleChannels() is forced to update
 					      // remove from vehicle_summary
-					      delete Fuse.vehicle_summary[vehicle_summary];
+					      delete Fuse.vehicle_summary[vehicle_name];
 					      if(response.length < 1) {
 						  throw "Vehicle deletion failed";
 					      }

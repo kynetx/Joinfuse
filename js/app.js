@@ -170,12 +170,12 @@
                     textVisible: true
 		});
 		console.log("Should delete ", params.id);
-                {
+//                Fuse.deleteVehicle(function(directives) {
 		    $.mobile.loading("hide");
 		    $.mobile.changePage("#page-manage-fuse", {
 			transition: 'slide'
 		    });
-                });
+//                });
             });
 
 	}

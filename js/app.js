@@ -48,7 +48,7 @@
 	    $('#manage-fleet').listview('refresh');
 	    Fuse.vehicleSummary(function(json) {
 		// sort so we get a consistent order
-		console.log("Displaying items...");
+		console.log("Displaying items...", json);
 		var keys = $.map(json,function(v,k){return k}).sort();
 		$.each(keys, function(v,k) {
 		    console.log("Updating ", k, v);

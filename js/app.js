@@ -179,12 +179,12 @@
                     textVisible: true
 		});
 		console.log("Should delete ", id);
-//                Fuse.deleteVehicle(..., function(directives) {
+                Fuse.deleteVehicle(id, function(directives) {
 		    $.mobile.loading("hide");
 		    $.mobile.changePage("#page-manage-fuse", {
 			transition: 'slide'
 		    });
-//                });
+                });
             });
 
 

@@ -178,8 +178,8 @@
                     text: "Deleting vehicle...",
                     textVisible: true
 		});
-		console.log("Should delete ", id);
                 Fuse.deleteVehicle(id, function(directives) {
+		    console.log("Delete ", id, directives);
 		    $.mobile.loading("hide");
 		    $.mobile.changePage("#page-manage-fuse", {
 			transition: 'slide'

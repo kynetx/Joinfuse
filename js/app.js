@@ -218,7 +218,7 @@
 
 		Fuse.vehicleChannels(function(chan_array){
 		    var channel = $.grep(chan_array, function(obj, i){return obj["id"] === id;})[0]["channel"];
-		    var profile = {
+		    var profile = { 
 			deviceId: vehicle_data.deviceId,
 			vin: vehicle_data.vin,
 			myProfileName: vehicle_data.name,

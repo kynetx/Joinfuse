@@ -52,7 +52,7 @@
 	    cb = cb || function(){};
 	    Fuse.log("Initializing...");
 	    $.when(
-		Fuse.get_profile(),
+		Fuse.getProfile(CloudOS.defaultECI),
 		Fuse.fleetChannel()
 	    ).done(function(profile, eci){
 		Fuse.log("Stored fleet channel", eci[0]);

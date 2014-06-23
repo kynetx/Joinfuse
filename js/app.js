@@ -7,7 +7,7 @@
 
     var router=new $.mobile.Router( [
        {"#page-authorize": {handler: "pageAuthorize",
-				 events: "c", // just do when we create the page
+				 events: "csh", // just do when we create the page
 				 argsre: true
 				} },
        {"#page-manage-fuse": {handler: "pageManageFuse",

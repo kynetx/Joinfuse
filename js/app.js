@@ -351,7 +351,8 @@
     // pull the session out of the cookie.
     $(document).bind("mobileinit", onMobileInit);
     $(document).ready(onPageLoad);
-
+    console.log("Loaded page");
+	    $.mobile.loading("hide");
 
 
 })(jQuery);

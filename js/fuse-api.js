@@ -357,7 +357,7 @@
 		    throw "Fleet channel is null; can't add vehicle";
 		};
 		Fuse.log("Creating vehicle with attributes ", json);
-		return CloudOS.raiseEvent("fuse", "need_new_vehicle", {}, json, function(response)
+		return CloudOS.raiseEvent("fuse", "need_new_vehicle", json, {}, function(response)
 			{
 			    // note that because the channel is create asynchronously, processing callback does
 			    // NOT mean the channel exists. 

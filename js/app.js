@@ -6,6 +6,10 @@
 {
 
     var router=new $.mobile.Router( [
+       {"#page-authorize-fuse": {handler: "pageAuthorizeFuse",
+				 events: "c", // just do when we create the page
+				 argsre: true
+				} },
        {"#page-manage-fuse": {handler: "pageManageFuse",
 			      events: "c", // just do when we create the page
 			      argsre: true
@@ -32,6 +36,10 @@
 					} }  
     ],
     {
+	pageAuthorizeFuse: function(type, match, ui, page) {
+	    console.log("manage fuse: authorize page");
+
+	},
 	pageManageFuse: function(type, match, ui, page) {
 	    console.log("manage fuse: main page");
 	    Fuse.isAuthorizedWithCarvoyant(function(authd) {

@@ -6,7 +6,7 @@
 {
 
     var router=new $.mobile.Router( [
-       {"#page-authorize-fuse": {handler: "pageAuthorizeFuse",
+       {"#page-authorize": {handler: "pageAuthorize",
 				 events: "c", // just do when we create the page
 				 argsre: true
 				} },
@@ -36,9 +36,9 @@
 					} }  
     ],
     {
-	pageAuthorizeFuse: function(type, match, ui, page) {
+	pageAuthorize: function(type, match, ui, page) {
 	    console.log("manage fuse: authorize page");
-
+	    $.mobile.loading("hide");
 	},
 	pageManageFuse: function(type, match, ui, page) {
 	    console.log("manage fuse: main page");

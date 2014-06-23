@@ -301,6 +301,9 @@
         //Oauth through kynetx
         var OAuth_kynetx_URL = CloudOS.getOAuthURL();
         $('#authorize-link').attr('href', OAuth_kynetx_URL);
+        var OAuth_kynetx_newuser_URL = CloudOS.getOAuthNewAccountURL();
+        $('#create-link').attr('href', OAuth_kynetx_newuser_URL);
+
     };
 
 

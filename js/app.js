@@ -337,12 +337,12 @@
             } else {	
 		console.log("Asking for authorization");
 		document.location.hash = "#page-authorize";
-		$.mobile.loading("hide");
             }
 	} catch (exception) {
 	    
 	} finally {
             $.mobile.initializePage();
+	    $.mobile.loading("hide");
 	}
 
     }

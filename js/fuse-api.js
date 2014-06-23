@@ -244,6 +244,7 @@
 			cb(json.eci);
 		    } else {
 			console.log("Seeing null fleet eci, not storing...");
+			cb(null);
 		    }
 		});
 	    } else {

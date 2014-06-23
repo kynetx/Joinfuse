@@ -317,6 +317,30 @@
         return (url)
     };
 
+    CloudOS.getOAuthNewAccountURL = function(fragment)
+    {
+        if (typeof CloudOS.login_server === "undefined") {
+            CloudOS.login_server = CloudOS.host;
+        }
+
+
+        var client_state = Math.floor(Math.random() * 9999999);
+        var current_client_state = window.localStorage.getItem("CloudOS_CLIENT_STATE");
+        if (!current_client_state) {
+            window.localStorage.setItem("CloudOS_CLIENT_STATE", client_state.toString());
+        }
+        var url = 'https://' + CloudOS.login_server +
+			'/oauth/authorize/newuser?response_type=code' +
+			'&redirect_uri=' + encodeURIComponent(CloudOS.callbackURL + (fragment || "")) +
+			'&client_id=' + CloudOS.appKey +
+			'&state=' + client_state;
+
+        return (url)
+    };
+
+//https://kibdev.kobj.net/oauth/authorize/newuser?response_type=code&redirect_uri=http%3A%2F%2Fjoinfuse.com%2Fcode.html&client_id=D98022C6-C4F4-11E3-942D-E857D61CF0AC&state=6970625
+
+
     // ------------------------------------------------------------------------
     CloudOS.getOAuthAccessToken = function(code, callback)
     {

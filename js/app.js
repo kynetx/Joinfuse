@@ -6,6 +6,10 @@
 {
 
     var router=new $.mobile.Router( [
+       {"#page-authorize": {handler: "pageAuthorize",
+				 events: "s", // just do when we create the page
+				 argsre: true
+				} },
        {"#page-manage-fuse": {handler: "pageManageFuse",
 			      events: "c", // just do when we create the page
 			      argsre: true
@@ -32,6 +36,10 @@
 					} }  
     ],
     {
+	pageAuthorize: function(type, match, ui, page) {
+	    console.log("manage fuse: authorize page");
+	    $.mobile.loading("hide");
+	},
 	pageManageFuse: function(type, match, ui, page) {
 	    console.log("manage fuse: main page");
 	    Fuse.isAuthorizedWithCarvoyant(function(authd) {
@@ -293,6 +301,9 @@
         //Oauth through kynetx
         var OAuth_kynetx_URL = CloudOS.getOAuthURL();
         $('#authorize-link').attr('href', OAuth_kynetx_URL);
+        var OAuth_kynetx_newuser_URL = CloudOS.getOAuthNewAccountURL();
+        $('#create-link').attr('href', OAuth_kynetx_newuser_URL);
+
     };
 
 
@@ -331,6 +342,7 @@
 	    
 	} finally {
             $.mobile.initializePage();
+	    $.mobile.loading("hide");
 	}
 
     }
@@ -340,8 +352,6 @@
     // pull the session out of the cookie.
     $(document).bind("mobileinit", onMobileInit);
     $(document).ready(onPageLoad);
-
-
 
 })(jQuery);
 

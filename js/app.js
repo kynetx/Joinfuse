@@ -64,16 +64,18 @@
 	    $('#manage-fleet').listview('refresh');
 	    Fuse.vehicleSummary(function(json) {
 		// sort so we get a consistent order
-		console.log("Displaying items...", json);
-		var keys = $.map(json,function(v,k){return k}).sort();
-		$.each(keys, function(v,k) {
-		    console.log("Updating ", k, v);
-		    $("#manage-fleet li:nth-child(1)" ).after(
-			snippets.vehicle_update_item_template(
-			    {"name": json[k].profileName,
-			     "id": k
-			    }));
-		});
+		if(typeof json.error === "undefined") {
+		    console.log("Displaying items...", json);
+		    var keys = $.map(json,function(v,k){return k}).sort();
+		    $.each(keys, function(v,k) {
+			console.log("Updating ", k, v);
+			$("#manage-fleet li:nth-child(1)" ).after(
+			    snippets.vehicle_update_item_template(
+				{"name": json[k].profileName,
+				 "id": k
+				}));
+		    });
+		}
 		$('#manage-fleet').listview('refresh');
 	    });
 	}, 

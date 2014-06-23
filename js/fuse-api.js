@@ -44,8 +44,8 @@
 	// we'll retrieve the fleet and vehicle ECIs later and put them here...
 	fleet_eci: "", 
 	vehicles: [],
-	vehicle_status: "",
-	vehicle_summary: "",
+	vehicle_status: {},
+	vehicle_summary: {},
 
         init: function(cb)
         {
@@ -238,9 +238,13 @@
 	    if (typeof Fuse.fleet_eci === "undefined" || Fuse.fleet_eci == "" || Fuse.fleet_eci == null || options.force) {
                 Fuse.log("Retrieving fleet channel");
 		return CloudOS.skyCloud(Fuse.get_rid("owner"), "fleetChannel", {}, function(json) {
-		    Fuse.fleet_eci = json.eci;
-		    Fuse.log("Retrieved fleet channel", json);
-		    cb(json.eci);
+		    if(json.eci != null)  {
+			Fuse.fleet_eci = json.eci;
+			Fuse.log("Retrieved fleet channel", json);
+			cb(json.eci);
+		    } else {
+			console.log("Seeing null fleet eci, not storing...");
+		    }
 		});
 	    } else {
 		Fuse.log("Using cached value of fleet channel ", Fuse.fleet_eci);
@@ -345,6 +349,7 @@
 	},
 
 	updateVehicleSummary: function(id, profile) {
+	    Fuse.vehicle_summary = Fuse.vehicle_summary || {};
 	    Fuse.vehicle_summary[id] = Fuse.vehicle_summary[id] || {};
 	    $.each(profile, function(k,v){
 		k = (k === "myProfileName") ? "profileName"

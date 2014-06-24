@@ -342,6 +342,9 @@
 	vehicleSummary: function(cb, options) {
 	    cb = cb || function(){};
 	    options = options || {};
+	    if(Fuse.vehicle_summary == {}) {
+		options.force = true;
+	    }
 	    return Fuse.ask_fleet("vehicleSummary", Fuse.vehicle_summary, function(json) {
 		if(typeof json.error === "undefined") {
 			Fuse.vehicle_summary = json;

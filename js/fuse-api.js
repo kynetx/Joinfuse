@@ -342,7 +342,7 @@
 	vehicleSummary: function(cb, options) {
 	    cb = cb || function(){};
 	    options = options || {};
-	    if(Fuse.vehicle_summary == {}) {
+	    if(isEmpty(Fuse.vehicle_summary)) {
 		options.force = true;
 	    }
 	    return Fuse.ask_fleet("vehicleSummary", Fuse.vehicle_summary, function(json) {
@@ -813,6 +813,27 @@
 
     };
 
+    function isEmpty(obj) {
+
+	// null and undefined are "empty"
+	if (obj == null) return true;
+
+	// Assume if it has a length property with a non-zero value
+	// that that property is correct.
+	if (obj.length > 0)    return false;
+	if (obj.length === 0)  return true;
+
+	// Otherwise, does it have any properties of its own?
+	// Note that this doesn't handle
+	// toString and valueOf enumeration bugs in IE < 9
+	for (var key in obj) {
+            if (hasOwnProperty.call(obj, key)) return false;
+	}
+
+	return true;
+
+
+    };
 
 
 })(jQuery);

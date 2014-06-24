@@ -366,13 +366,14 @@
 	},
 
 	// ---------- manage and use vehicle picos ----------
-        createVehicle: function(name, photo_url, vin, deviceId, cb, options)
+        createVehicle: function(name, photo_url, vin, deviceId, mileage, cb, options)
         {
 	    cb = cb || function(){}; // prophilaxis
 	    options = options || {};
 	    var json = {"name": name,
 			"photo": photo_url,
 			"vin": vin,
+			"mileage": mileage,
 			"deviceId": deviceId
 		       };
 	    Fuse.fleetChannel(function(fleet_channel) {

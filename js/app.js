@@ -97,6 +97,7 @@
 				   vehicle_data.photo,
 				   vehicle_data.vin,
 				   vehicle_data.deviceId,
+				   vehicle_data.mileage,
 				   function(directives) {
 				       $.mobile.loading("hide");
 				       console.log("Vehicle saved ", directives);
@@ -104,6 +105,7 @@
 				       var profile = {
 					   deviceId: vehicle_data.deviceId,
 					   vin: vehicle_data.vin,
+					   mileage: vehicle_data.mileage,
 					   myProfileName: vehicle_data.name,
 					   myProfilePhoto: vehicle_data.photo
 				       };
@@ -139,6 +141,7 @@
 		$("#name", frm).val(vehicle.profileName);
 		$("#vin", frm).val(vehicle.vin);
 		$("#deviceId", frm).val(vehicle.deviceId);
+		$("#mileage", frm).val(vehicle.mileage);
 		$("#photo", frm).val(vehicle.profilePhoto);
 		$("#id", frm).val(params.id);
 		$("#photo-preview", frm).attr("src", vehicle.profilePhoto);
@@ -159,6 +162,7 @@
 		    var profile = {
 			deviceId: vehicle_data.deviceId,
 			vin: vehicle_data.vin,
+			mileage: vehicle_data.mileage,
 			myProfileName: vehicle_data.name,
 			myProfilePhoto: vehicle_data.photo
 		    };

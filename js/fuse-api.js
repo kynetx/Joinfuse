@@ -262,10 +262,13 @@
 	    cb = cb || function(){};
 	    options = options || {};
 	    var rid = options.rid || "fleet";
-	    if (typeof cache === "undefined" 
-	      || cache === "" 
-	      || cache === null
-	      || (typeof cache === "object" && typeof cache.length === "number" && cache.length < 1)
+	    // if (typeof cache === "undefined" 
+	    //   || cache === "" 
+	    //   || cache === null
+	    //   || (typeof cache === "object" && typeof cache.length === "number" && cache.length < 1)
+	    //   || options.force
+	    //    ) {
+	    if (isEmpty(cache)
 	      || options.force
 	       ) {
                    Fuse.log("Calling " + funcName);

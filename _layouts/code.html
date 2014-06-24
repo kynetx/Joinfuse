@@ -78,7 +78,7 @@ CloudOS.getOAuthAccessToken(CloudOS.retrieveOAuthCode(), function(oauth_payload)
     Fuse.fleetChannel(function(channel) {
       console.log("Fleet channel: ", channel);
       // do we need to bootstrap?
-      if (typeof channel === "undefined" || channel == "") {
+      if (typeof channel === "undefined" || channel == "" || channel == null) {
         $.mobile.loading("show", {
              text: "Please wait while we create your account...",
              textVisible: true

@@ -189,7 +189,7 @@
 	{
 	    cb = cb || function(){};
 	    options = options || {};
-	    options.rid = "carvoyant_oauth";
+	    options.rid = "carvoyant";
             Fuse.log("Are we authorized with Carvoyant?");
 	    return Fuse.ask_fleet("isAuthorized", null, function(json) {
 		Fuse.log("Authorized with Carvoyant? ", json);

@@ -35,7 +35,10 @@
 			 },
 		"carvoyant":  {"prod": "b16x11",
 			       "dev":  "b16x11"
-			 }
+			 },
+		"carvoyant_oauth":  {"prod": "b16x23",
+				     "dev":  "b16x23"
+				    }
 	    };
 
 	    return this.defaults.production ? rids[name].prod :  rids[name].dev;
@@ -106,6 +109,7 @@
         },
 
 	// ---------- account ----------
+	// this is called in _layouts/code.html when the account is created
 	initAccount: function(attrs, cb, options)
         {
 	    cb = cb || function(){};
@@ -145,23 +149,23 @@
 	    });
         },
 
-	codeForToken: function(code, cb, options) 
-	{
-	    cb = cb || function(){};
-	    options = options || {};
-            Fuse.log("Retrieving access token");
-	    return CloudOS.skyCloud(Fuse.get_rid("owner"), "fleetChannel", {}, function(json) {
-		Fuse.fleet_eci = json.cid;
-		Fuse.log("Retrieved fleet channel", json);
-		cb(json);
-	    });
-	},
+	// codeForToken: function(code, cb, options) 
+	// {
+	//     cb = cb || function(){};
+	//     options = options || {};
+        //     Fuse.log("Retrieving access token");
+	//     return CloudOS.skyCloud(Fuse.get_rid("owner"), "fleetChannel", {}, function(json) {
+	// 	Fuse.fleet_eci = json.cid;
+	// 	Fuse.log("Retrieved fleet channel", json);
+	// 	cb(json);
+	//     });
+	// },
 
 	carvoyantOauthUrl: function(cb, options) 
 	{
 	    cb = cb || function(){};
 	    options = options || {};
-	    options.rid = "carvoyant";
+	    options.rid = "carvoyant_oauth";
 
 	    if ( typeof Fuse.carvoyant_oauth_url === "undefined" 
 	      || Fuse.carvoyant_oauth_url === "" 
@@ -185,7 +189,7 @@
 	{
 	    cb = cb || function(){};
 	    options = options || {};
-	    options.rid = "carvoyant";
+	    options.rid = "carvoyant_oauth";
             Fuse.log("Are we authorized with Carvoyant?");
 	    return Fuse.ask_fleet("isAuthorized", null, function(json) {
 		Fuse.log("Authorized with Carvoyant? ", json);

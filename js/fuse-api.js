@@ -42,7 +42,7 @@
 	},
 
 	// we'll retrieve the fleet and vehicle ECIs later and put them here...
-	fleet_eci: "", 
+	fleet_eci: null, 
 	vehicles: [],
 	vehicle_status: {},
 	vehicle_summary: {},

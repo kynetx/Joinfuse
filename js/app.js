@@ -42,7 +42,6 @@
 	},
 	pageManageFuse: function(type, match, ui, page) {
 	    console.log("manage fuse: main page");
-	    Fuse.init();
 	    Fuse.isAuthorizedWithCarvoyant(function(authd) {
 		console.log("Is Carvoyant auth'd?", authd);
 		if(authd.authorized) {

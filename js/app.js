@@ -46,7 +46,7 @@
 		console.log("Is Carvoyant auth'd?", authd);
 		if(authd.authorized) {
 		    $('#carvoyant_item').html("Carvoyant is Linked");
-		    $('#carvoyant_item').parent().listview().listview('refresh')
+		    $('#carvoyant_item').parent().listview().listview('refresh');
 		} else {
 		    Fuse.carvoyantOauthUrl(function(json) {
 			$('#carvoyant_item').remove();

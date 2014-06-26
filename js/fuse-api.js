@@ -173,7 +173,7 @@
 	      || Fuse.carvoyant_oauth_url === null 
               || options.force) {
 		Fuse.log("Retrieving Carvoyant OAuth URL");
-		return Fuse.ask_fleet("carvoyantOauthUrl", {"hostsite" : }, Fuse.carvoyant_oauth_url, function(json) {
+		return Fuse.ask_fleet("carvoyantOauthUrl", {"hostsite" : Fuse.defaults.hostsite}, Fuse.carvoyant_oauth_url, function(json) {
 		    Fuse.carvoyant_oauth_url = json.url;
 		    Fuse.log("URL: ", json);
 		    cb(json);

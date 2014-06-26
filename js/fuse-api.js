@@ -12,7 +12,8 @@
 
         defaults: {
             logging: false,  // false to turn off logging
-	    production: false
+	    production: false,
+	    hostsite: "http://windley.github.io/Joinfuse/carvoyant.html"
         },
 
 	get_rid : function(name) {
@@ -172,7 +173,7 @@
 	      || Fuse.carvoyant_oauth_url === null 
               || options.force) {
 		Fuse.log("Retrieving Carvoyant OAuth URL");
-		return Fuse.ask_fleet("carvoyantOauthUrl", Fuse.carvoyant_oauth_url, function(json) {
+		return Fuse.ask_fleet("carvoyantOauthUrl", {"hostsite" : }, Fuse.carvoyant_oauth_url, function(json) {
 		    Fuse.carvoyant_oauth_url = json.url;
 		    Fuse.log("URL: ", json);
 		    cb(json);
@@ -191,7 +192,7 @@
 	    options = options || {};
 	    options.rid = "carvoyant";
             Fuse.log("Are we authorized with Carvoyant?");
-	    return Fuse.ask_fleet("isAuthorized", null, function(json) {
+	    return Fuse.ask_fleet("isAuthorized", {}, null, function(json) {
 		Fuse.log("Authorized with Carvoyant? ", json);
 		cb(json);
   	    }, options);
@@ -258,7 +259,7 @@
 	    }
 	},
 
-	ask_fleet: function(funcName, cache, cb, options) {
+	ask_fleet: function(funcName, args, cache, cb, options) {
 	    cb = cb || function(){};
 	    options = options || {};
 	    var rid = options.rid || "fleet";
@@ -275,7 +276,7 @@
 		   Fuse.fleetChannel(function(fc) {
 		       Fuse.log("Using fleet channel ", fc);
    		       if(fc !== "none") {
-			   return CloudOS.skyCloud(Fuse.get_rid(rid), funcName, {}, cb, {"eci": fc});
+			   return CloudOS.skyCloud(Fuse.get_rid(rid), funcName, args, cb, {"eci": fc});
 		       } else {
 			   Fuse.log("fleet_eci is undefined, you must get the fleet channel first");
 			   return null;
@@ -317,7 +318,7 @@
 	    cb = cb || function(){};
 	    options = options || {};
             Fuse.log("Retrieving vehicles");
-	    return Fuse.ask_fleet("vehicleChannels", Fuse.vehicles, function(json) {
+	    return Fuse.ask_fleet("vehicleChannels", {}, Fuse.vehicles, function(json) {
 		if(typeof json.error === "undefined") {
 		    Fuse.vehicles = json;
 		    Fuse.log("Retrieved vehicles", json);
@@ -331,7 +332,7 @@
 	vehicleStatus: function(cb, options) {
 	    cb = cb || function(){};
 	    options = options || {};
-	    return Fuse.ask_fleet("vehicleStatus", Fuse.vehicle_status, function(json) {
+	    return Fuse.ask_fleet("vehicleStatus", {}, Fuse.vehicle_status, function(json) {
 		if(typeof json.error === "undefined") {
 		    Fuse.vehicle_status = json;
 		    Fuse.log("Retrieve vehicle status", json);
@@ -348,7 +349,7 @@
 	    if(isEmpty(Fuse.vehicle_summary)) {
 		options.force = true;
 	    }
-	    return Fuse.ask_fleet("vehicleSummary", Fuse.vehicle_summary, function(json) {
+	    return Fuse.ask_fleet("vehicleSummary", {}, Fuse.vehicle_summary, function(json) {
 		if(typeof json.error === "undefined") {
 			Fuse.vehicle_summary = json;
 			Fuse.log("Retrieve vehicle summary", json);

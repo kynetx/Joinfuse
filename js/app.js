@@ -46,7 +46,7 @@
 		console.log("Is Carvoyant auth'd?", authd);
 		if(authd.authorized) {
 		    $('#carvoyant_item').html("Carvoyant is Linked");
-		    $('#carvoyant_item').parent().listview().listview('refresh')
+		    $('#carvoyant_item').parent().listview().listview('refresh');
 		} else {
 		    Fuse.carvoyantOauthUrl(function(json) {
 			$('#carvoyant_item').remove();
@@ -64,7 +64,6 @@
 	    $('#manage-fleet').listview('refresh');
 	    Fuse.vehicleSummary(function(json) {
 		// sort so we get a consistent order
-		if(typeof json.error === "undefined") {
 		    console.log("Displaying items...", json);
 		    var keys = $.map(json,function(v,k){return k}).sort();
 		    $.each(keys, function(v,k) {
@@ -75,7 +74,6 @@
 				 "id": k
 				}));
 		    });
-		}
 		$('#manage-fleet').listview('refresh');
 	    });
 	}, 
@@ -99,6 +97,7 @@
 				   vehicle_data.photo,
 				   vehicle_data.vin,
 				   vehicle_data.deviceId,
+				   vehicle_data.mileage,
 				   function(directives) {
 				       $.mobile.loading("hide");
 				       console.log("Vehicle saved ", directives);
@@ -106,6 +105,7 @@
 				       var profile = {
 					   deviceId: vehicle_data.deviceId,
 					   vin: vehicle_data.vin,
+					   mileage: vehicle_data.mileage,
 					   myProfileName: vehicle_data.name,
 					   myProfilePhoto: vehicle_data.photo
 				       };
@@ -141,6 +141,7 @@
 		$("#name", frm).val(vehicle.profileName);
 		$("#vin", frm).val(vehicle.vin);
 		$("#deviceId", frm).val(vehicle.deviceId);
+		$("#mileage", frm).val(vehicle.mileage);
 		$("#photo", frm).val(vehicle.profilePhoto);
 		$("#id", frm).val(params.id);
 		$("#photo-preview", frm).attr("src", vehicle.profilePhoto);
@@ -161,6 +162,7 @@
 		    var profile = {
 			deviceId: vehicle_data.deviceId,
 			vin: vehicle_data.vin,
+			mileage: vehicle_data.mileage,
 			myProfileName: vehicle_data.name,
 			myProfilePhoto: vehicle_data.photo
 		    };

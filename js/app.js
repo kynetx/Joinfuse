@@ -67,7 +67,6 @@
 		    console.log("Displaying items...", json);
 		    var keys = $.map(json,function(v,k){return k}).sort();
 		    $.each(keys, function(v,k) {
-			console.log("Updating ", k, v);
 			$("#manage-fleet li:nth-child(1)" ).after(
 			    snippets.vehicle_update_item_template(
 				{"name": json[k].profileName,
@@ -143,7 +142,7 @@
 		$("#deviceId", frm).val(vehicle.deviceId);
 		$("#mileage", frm).val(vehicle.mileage);
 		$("#photo", frm).val(vehicle.profilePhoto);
-		$("#id", frm).val(params.id);
+		$("#id", frm).val(vehicle.picoId);
 		$("#photo-preview", frm).attr("src", vehicle.profilePhoto);
 	    });
             // show jQuery mobile's built in loady spinner.

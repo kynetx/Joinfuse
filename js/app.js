@@ -67,7 +67,6 @@
 		    console.log("Displaying items...", json);
 		    var keys = $.map(json,function(v,k){return k}).sort();
 		    $.each(keys, function(v,k) {
-			console.log("Updating ", k, v);
 			$("#manage-fleet li:nth-child(1)" ).after(
 			    snippets.vehicle_update_item_template(
 				{"name": json[k].profileName,

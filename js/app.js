@@ -143,7 +143,7 @@
 		$("#deviceId", frm).val(vehicle.deviceId);
 		$("#mileage", frm).val(vehicle.mileage);
 		$("#photo", frm).val(vehicle.profilePhoto);
-		$("#id", frm).val(params.picoId);
+		$("#id", frm).val(vehicle.picoId);
 		$("#photo-preview", frm).attr("src", vehicle.profilePhoto);
 	    });
             // show jQuery mobile's built in loady spinner.

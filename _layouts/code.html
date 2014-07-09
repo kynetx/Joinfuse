@@ -53,9 +53,11 @@
     <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
     <script src="js/handlebars-v1.3.0.js"></script>
-    <script src="js/CloudOS.js"></script>
+    <script src="https://s3.amazonaws.com/CloudOS_assets/js/CloudOS-1.0.0.js"></script>
     <script src="js/CloudOS-config.js"></script>
-    <script src="js/fuse-api.js"></script>
+    <script src="https://s3.amazonaws.com/Fuse_assets/js/fuse-api-1.0.0.js"></script>
+    <script src="js/fuse-api-config.js"></script>
+
 
 <script>
 function getParameterByName(name) {
@@ -78,12 +80,12 @@ CloudOS.getOAuthAccessToken(CloudOS.retrieveOAuthCode(), function(oauth_payload)
     Fuse.fleetChannel(function(channel) {
       console.log("Fleet channel: ", channel);
       // do we need to bootstrap?
-      if (typeof channel === "undefined") {
+      if (typeof channel === "undefined" || channel == "" || channel == null) {
         $.mobile.loading("show", {
              text: "Please wait while we create your account...",
              textVisible: true
         });         
-        CloudOS.raiseEvent("fuse", "bootstrap", { state: state }, {}, function(kns_directives)
+        Fuse.initAccount({ state: state }, function(kns_directives)
         {
           console.log("Recieved directives from bootstrap.execute: ", kns_directives);
           $.mobile.loading("hide");

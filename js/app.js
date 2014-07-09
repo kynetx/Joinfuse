@@ -6,6 +6,10 @@
 {
 
     var router=new $.mobile.Router( [
+       {"#page-authorize": {handler: "pageAuthorize",
+				 events: "s", // just do when we create the page
+				 argsre: true
+				} },
        {"#page-manage-fuse": {handler: "pageManageFuse",
 			      events: "c", // just do when we create the page
 			      argsre: true
@@ -32,13 +36,17 @@
 					} }  
     ],
     {
+	pageAuthorize: function(type, match, ui, page) {
+	    console.log("manage fuse: authorize page");
+	    $.mobile.loading("hide");
+	},
 	pageManageFuse: function(type, match, ui, page) {
 	    console.log("manage fuse: main page");
 	    Fuse.isAuthorizedWithCarvoyant(function(authd) {
 		console.log("Is Carvoyant auth'd?", authd);
 		if(authd.authorized) {
 		    $('#carvoyant_item').html("Carvoyant is Linked");
-		    $('#carvoyant_item').parent().listview().listview('refresh')
+		    $('#carvoyant_item').parent().listview().listview('refresh');
 		} else {
 		    Fuse.carvoyantOauthUrl(function(json) {
 			$('#carvoyant_item').remove();
@@ -56,16 +64,15 @@
 	    $('#manage-fleet').listview('refresh');
 	    Fuse.vehicleSummary(function(json) {
 		// sort so we get a consistent order
-		console.log("Displaying items...", json);
-		var keys = $.map(json,function(v,k){return k}).sort();
-		$.each(keys, function(v,k) {
-		    console.log("Updating ", k, v);
-		    $("#manage-fleet li:nth-child(1)" ).after(
-			snippets.vehicle_update_item_template(
-			    {"name": json[k].profileName,
-			     "id": k
-			    }));
-		});
+		    console.log("Displaying items...", json);
+		    var keys = $.map(json,function(v,k){return k}).sort();
+		    $.each(keys, function(v,k) {
+			$("#manage-fleet li:nth-child(1)" ).after(
+			    snippets.vehicle_update_item_template(
+				{"name": json[k].profileName,
+				 "id": k
+				}));
+		    });
 		$('#manage-fleet').listview('refresh');
 	    });
 	}, 
@@ -89,6 +96,7 @@
 				   vehicle_data.photo,
 				   vehicle_data.vin,
 				   vehicle_data.deviceId,
+				   vehicle_data.mileage,
 				   function(directives) {
 				       $.mobile.loading("hide");
 				       console.log("Vehicle saved ", directives);
@@ -96,6 +104,7 @@
 				       var profile = {
 					   deviceId: vehicle_data.deviceId,
 					   vin: vehicle_data.vin,
+					   mileage: vehicle_data.mileage,
 					   myProfileName: vehicle_data.name,
 					   myProfilePhoto: vehicle_data.photo
 				       };
@@ -131,8 +140,9 @@
 		$("#name", frm).val(vehicle.profileName);
 		$("#vin", frm).val(vehicle.vin);
 		$("#deviceId", frm).val(vehicle.deviceId);
+		$("#mileage", frm).val(vehicle.mileage);
 		$("#photo", frm).val(vehicle.profilePhoto);
-		$("#id", frm).val(params.id);
+		$("#id", frm).val(vehicle.picoId);
 		$("#photo-preview", frm).attr("src", vehicle.profilePhoto);
 	    });
             // show jQuery mobile's built in loady spinner.
@@ -151,6 +161,7 @@
 		    var profile = {
 			deviceId: vehicle_data.deviceId,
 			vin: vehicle_data.vin,
+			mileage: vehicle_data.mileage,
 			myProfileName: vehicle_data.name,
 			myProfilePhoto: vehicle_data.photo
 		    };
@@ -293,6 +304,9 @@
         //Oauth through kynetx
         var OAuth_kynetx_URL = CloudOS.getOAuthURL();
         $('#authorize-link').attr('href', OAuth_kynetx_URL);
+        var OAuth_kynetx_newuser_URL = CloudOS.getOAuthNewAccountURL();
+        $('#create-link').attr('href', OAuth_kynetx_newuser_URL);
+
     };
 
 
@@ -331,6 +345,7 @@
 	    
 	} finally {
             $.mobile.initializePage();
+	    $.mobile.loading("hide");
 	}
 
     }
@@ -340,8 +355,6 @@
     // pull the session out of the cookie.
     $(document).bind("mobileinit", onMobileInit);
     $(document).ready(onPageLoad);
-
-
 
 })(jQuery);
 

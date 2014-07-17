@@ -295,7 +295,6 @@
 	    $(".cancel", frm).off('tap').on('tap', function(event)
             {
 		console.log("Cancelling update preferences");
-		$(frm)[0].reset();
 	    });
 	}
 

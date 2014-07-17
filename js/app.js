@@ -262,6 +262,7 @@
             $(frm)[0].reset();
 	    owner_eci = CloudOS.defaultECI;
 	    Fuse.getPreferences(owner_eci,function(json){
+		json = json || {reportPreference: "on"}; // default to on
 		$("#report option", frm).each(function(){
 		    if($(this).val() == json.reportPreference) {
 			$(this).attr("selected", "selected");

@@ -252,8 +252,6 @@
 	    $(".cancel", frm).off('tap').on('tap', function(event)
             {
 		console.log("Cancelling update profile");
-		$(frm)[0].reset();
-		$('#photo-preview').attr('src', dummy_image);
 	    });
 	},
 	pageUpdatePreferences: function(type,  match, ui, page) {

@@ -31,11 +31,11 @@
 					 argsre: true
 					} },
        {"#page-update-profile": {handler: "pageUpdateProfile",
-					 events: "s", // just do when we create the page
+					 events: "c", // just do when we create the page
 					 argsre: true
 					} },
        {"#page-update-preferences": {handler: "pageUpdatePreferences",
-					 events: "s", // just do when we create the page
+					 events: "c", // just do when we create the page
 					 argsre: true
 					} }  
     ],

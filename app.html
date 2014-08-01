@@ -49,6 +49,7 @@ published: true
 	  <li data-role="list-divider" >Fuse Account Settings</li>
 	  <li id="carvoyant_item">Carvoyant</li>
 	  <li><a href="#page-update-profile" data-transition="slide">Update Profile</a></li>
+	  <li><a href="#page-update-preferences" data-transition="slide">Fuse Preferences</a></li>
 	  <li><a href="#" class="logout" data-transition="slide">Disconnect from Kynetx</a></li>
         </ul><!-- /listview -->
 	
@@ -265,6 +266,43 @@ published: true
       <h4>Fuse from Kynetx</h5>
    </div><!-- /footer -->
 </div><!-- /page -->
+
+<!-- ---------- fuse update preferences ---------- -->
+<div data-role="page" id="page-update-preferences">
+
+   <div data-role="header">
+     <div class="header-image">
+        <img class="fuse-logo" src="https://s3.amazonaws.com/Fuse_assets/img/fuse_logo-40.png">
+     </div>
+   </div><!-- /header -->
+
+   <div data-role="content">
+     <form id="form-update-preferences">
+        <ul data-role="listview" data-inset="true">
+ 	  <li data-role="list-divider" >Fuse Preferences</li >
+          <li class="ui-field-contain">
+              <label for="report">Weekly Report</label>
+	      <select style="float:right" name="report" id="report" data-role="slider"  >
+	      	<option value="off">Off</option>
+		<option value="on">On</option>
+	      </select> 
+           </li>
+
+
+        </ul>
+
+        <a class="save" href="#" data-icon="check" data-role="button" data-inline="true" data-theme="b">Save</a>
+        <a class="cancel" href="#page-manage-fuse" data-icon="delete" data-role="button" data-inline="true">Cancel</a>
+     </form>
+
+	       
+   </div><!-- /content -->
+
+   <div data-role="footer" data-position="fixed">
+      <h4>Fuse from Kynetx</h5>
+   </div><!-- /footer -->
+</div><!-- /page -->
+
 
 
 

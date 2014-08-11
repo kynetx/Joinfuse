@@ -31,7 +31,11 @@
 					 argsre: true
 					} },
        {"#page-update-profile": {handler: "pageUpdateProfile",
-					 events: "s", // just do when we create the page
+					 events: "c", // just do when we create the page
+					 argsre: true
+					} },
+       {"#page-update-preferences": {handler: "pageUpdatePreferences",
+					 events: "c", // just do when we create the page
 					 argsre: true
 					} }  
     ],
@@ -157,7 +161,7 @@
 		var id = vehicle_data.id;
 
 		Fuse.vehicleChannels(function(chan_array){
-		    var channel = $.grep(chan_array, function(obj, i){return obj["id"] === id;})[0]["channel"];
+		    var channel = $.grep(chan_array, function(obj, i){return obj["picoId"] === id;})[0]["channel"];
 		    var profile = {
 			deviceId: vehicle_data.deviceId,
 			vin: vehicle_data.vin,
@@ -203,7 +207,7 @@
             });
 	},
 	pageUpdateProfile: function(type,  match, ui, page) {
-	    console.log("update vehicle");
+	    console.log("update profile");
             var frm = "#form-update-profile";
             $(frm)[0].reset();
 	    owner_eci = CloudOS.defaultECI;
@@ -248,10 +252,50 @@
 	    $(".cancel", frm).off('tap').on('tap', function(event)
             {
 		console.log("Cancelling update profile");
-		$(frm)[0].reset();
-		$('#photo-preview').attr('src', dummy_image);
+	    });
+	},
+	pageUpdatePreferences: function(type,  match, ui, page) {
+	    console.log("update preferences");
+            var frm = "#form-update-preferences";
+	    owner_eci = CloudOS.defaultECI;
+	    Fuse.getPreferences(owner_eci,function(json){
+		$("#report option", frm).each(function(){
+		    if($(this).val() == json.reportPreference) {
+			$(this).attr("selected", "selected");
+		    } else {
+			$(this).removeAttr("selected");
+		    }
+		});
+		$( "#report", frm ).slider().slider("refresh");
+	    });
+            // show jQuery mobile's built in loady spinner.
+	    $(".save", frm).off('tap').on('tap', function(event)
+            {
+		$.mobile.loading("show", {
+                    text: "Updating Fuse preferences...",
+                    textVisible: true
+		});
+                var preference_data = process_form(frm);
+                console.log(">>>>>>>>> Updating preferences ", preference_data);
+
+		var settings = { 
+		    reportPreference: preference_data.report
+		};
+		
+		Fuse.savePreferences(owner_eci, settings,
+				 function(directives) {
+				     $.mobile.loading("hide");
+				     $.mobile.changePage("#page-manage-fuse", {
+					 transition: 'slide'
+				     });
+				 });
+	    });
+	    $(".cancel", frm).off('tap').on('tap', function(event)
+            {
+		console.log("Cancelling update preferences");
 	    });
 	}
+
     }, 
     { 
         defaultHandler: function(type, ui, page) {

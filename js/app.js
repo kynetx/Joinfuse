@@ -70,18 +70,21 @@
 	    console.log("main page update");
 	    $("#manage-fleet").html(snippets.fleet_template());
 	    $('#manage-fleet').listview('refresh');
-	    Fuse.vehicleSummary(function(json) {
-		// sort so we get a consistent order
-		console.log("Displaying items...", json);
-		var keys = $.map(json,function(v,k){return k}).sort();
-		$.each(keys, function(v,k) {
-		    $("#manage-fleet li:nth-child(1)" ).after(
-			snippets.vehicle_update_item_template(
-			    {"name": json[k].profileName,
-			     "id": k
-			    }));
+	    Fuse.init(function() {
+		console.log("Updating vehicles");
+		Fuse.vehicleSummary(function(json) {
+		    // sort so we get a consistent order
+		    console.log("Displaying items...", json);
+		    var keys = $.map(json,function(v,k){return k}).sort();
+		    $.each(keys, function(v,k) {
+			$("#manage-fleet li:nth-child(1)" ).after(
+			    snippets.vehicle_update_item_template(
+				{"name": json[k].profileName,
+				 "id": k
+				}));
+		    });
+		    $('#manage-fleet').listview('refresh');
 		});
-		$('#manage-fleet').listview('refresh');
 	    });
 	}, 
 	pageAddVehicle: function(type,  match, ui, page) {

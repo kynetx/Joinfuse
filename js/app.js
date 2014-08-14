@@ -381,11 +381,7 @@
 	    var authd = CloudOS.authenticatedSession();
             if(authd) {
 		console.log("Authorized");
-		Fuse.init().done(function() {
-		    console.log("Using version: ", Fuse.fuse_version);
-		    console.log("Using fleet channel: ", Fuse.fleet_eci);
-		    document.location.hash = "#page-manage-fuse";
-		});
+		document.location.hash = "#page-manage-fuse";
             } else {	
 		console.log("Asking for authorization");
 		document.location.hash = "#page-authorize";
@@ -393,8 +389,12 @@
 	} catch (exception) {
 	    
 	} finally {
-            $.mobile.initializePage();
-	    $.mobile.loading("hide");
+	    Fuse.init().done(function() {
+		console.log("Using version: ", Fuse.fuse_version);
+		console.log("Using fleet channel: ", Fuse.fleet_eci);
+		$.mobile.initializePage();
+		$.mobile.loading("hide");
+	    });
 	}
 
     }

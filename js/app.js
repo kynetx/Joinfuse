@@ -46,19 +46,23 @@
 	},
 	pageManageFuse: function(type, match, ui, page) {
 	    console.log("manage fuse: main page");
-	    Fuse.isAuthorizedWithCarvoyant(function(authd) {
-		console.log("Is Carvoyant auth'd?", authd);
-		if(authd.authorized) {
-		    $('#carvoyant_item').html("Carvoyant is Linked");
-		    $('#carvoyant_item').parent().listview().listview('refresh');
-		} else {
-		    Fuse.carvoyantOauthUrl(function(json) {
-			$('#carvoyant_item').remove();
-			$("#manage-fuse li:nth-child(2)" ).before("<li><a id='carvoyant_url' data-transition='slide' href='#'>Connect Carvoyant Account</a></li>");
-			$('#manage-fuse').listview('refresh');
-			$('#carvoyant_url').attr('href', json.url);
-		    });
-		}
+	    Fuse.init(function() {
+		console.log("Using version: ", Fuse.fuse_version);
+		console.log("Using fleet channel: ", Fuse.fleet_eci);
+		Fuse.isAuthorizedWithCarvoyant(function(authd) {
+		    console.log("Is Carvoyant auth'd?", authd);
+		    if(authd.authorized) {
+			$('#carvoyant_item').html("Carvoyant is Linked");
+			$('#carvoyant_item').parent().listview().listview('refresh');
+		    } else {
+			Fuse.carvoyantOauthUrl(function(json) {
+			    $('#carvoyant_item').remove();
+			    $("#manage-fuse li:nth-child(2)" ).before("<li><a id='carvoyant_url' data-transition='slide' href='#'>Connect Carvoyant Account</a></li>");
+			    $('#manage-fuse').listview('refresh');
+			    $('#carvoyant_url').attr('href', json.url);
+			});
+		    }
+		});
 	    });
 
 	},
@@ -68,15 +72,15 @@
 	    $('#manage-fleet').listview('refresh');
 	    Fuse.vehicleSummary(function(json) {
 		// sort so we get a consistent order
-		    console.log("Displaying items...", json);
-		    var keys = $.map(json,function(v,k){return k}).sort();
-		    $.each(keys, function(v,k) {
-			$("#manage-fleet li:nth-child(1)" ).after(
-			    snippets.vehicle_update_item_template(
-				{"name": json[k].profileName,
-				 "id": k
-				}));
-		    });
+		console.log("Displaying items...", json);
+		var keys = $.map(json,function(v,k){return k}).sort();
+		$.each(keys, function(v,k) {
+		    $("#manage-fleet li:nth-child(1)" ).after(
+			snippets.vehicle_update_item_template(
+			    {"name": json[k].profileName,
+			     "id": k
+			    }));
+		});
 		$('#manage-fleet').listview('refresh');
 	    });
 	}, 
@@ -389,12 +393,8 @@
 	} catch (exception) {
 	    
 	} finally {
-	    Fuse.init(function() {
-		console.log("Using version: ", Fuse.fuse_version);
-		console.log("Using fleet channel: ", Fuse.fleet_eci);
-		$.mobile.initializePage();
-		$.mobile.loading("hide");
-	    });
+	    $.mobile.initializePage();
+	    $.mobile.loading("hide");
 	}
 
     }

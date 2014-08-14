@@ -364,9 +364,9 @@
 	CloudOS.retrieveSession();
 
 
-	Fuse.init(function() {
+	$.when(Fuse.init()).done(function() {
 	    console.log("Using version: ", Fuse.fuse_version);
-	    console.log("Using fleet channel: ", Fuse.fleet_channel);
+	    console.log("Using fleet channel: ", Fuse.fleet_eci);
 	});
 
 	// only put static stuff here...

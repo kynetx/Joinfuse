@@ -389,7 +389,7 @@
 	} catch (exception) {
 	    
 	} finally {
-	    Fuse.init().done(function() {
+	    Fuse.init(function() {
 		console.log("Using version: ", Fuse.fuse_version);
 		console.log("Using fleet channel: ", Fuse.fleet_eci);
 		$.mobile.initializePage();

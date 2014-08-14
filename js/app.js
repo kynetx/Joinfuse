@@ -364,11 +364,6 @@
 	CloudOS.retrieveSession();
 
 
-	$.when(Fuse.init()).done(function() {
-	    console.log("Using version: ", Fuse.fuse_version);
-	    console.log("Using fleet channel: ", Fuse.fleet_eci);
-	});
-
 	// only put static stuff here...
 	plant_authorize_button();
 
@@ -377,16 +372,20 @@
             CloudOS.removeSession(true); // true for hard reset (log out of login server too)
             $.mobile.changePage('#page-authorize', {
 		transition: 'slide'
-        }); // this will go to the authorization page.
+            }); // this will go to the authorization page.
 
 
-    });
+	});
 
 	try {
 	    var authd = CloudOS.authenticatedSession();
             if(authd) {
 		console.log("Authorized");
-		document.location.hash = "#page-manage-fuse";
+		Fuse.init().done(function() {
+		    console.log("Using version: ", Fuse.fuse_version);
+		    console.log("Using fleet channel: ", Fuse.fleet_eci);
+		    document.location.hash = "#page-manage-fuse";
+		});
             } else {	
 		console.log("Asking for authorization");
 		document.location.hash = "#page-authorize";

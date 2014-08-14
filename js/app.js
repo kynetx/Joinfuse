@@ -363,6 +363,12 @@
 	console.log("document ready");
 	CloudOS.retrieveSession();
 
+
+	Fuse.init(function() {
+	    console.log("Using version: ", Fuse.fuse_version);
+	    console.log("Using fleet channel: ", Fuse.fleet_channel);
+	});
+
 	// only put static stuff here...
 	plant_authorize_button();
 

@@ -195,6 +195,13 @@ a.sb.circle:after,
 	border-radius: 10em;
 }
 
+ui-listview .ui-li-icon {
+    max-height: 30px;
+    max-width: 30px;
+    top: 50%;
+    margin-top: -15px;
+}
+
 /* video */
 .flex-video {
 position: relative;

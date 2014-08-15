@@ -77,11 +77,15 @@
 		    console.log("Displaying items...", json);
 		    var keys = $.map(json,function(v,k){return k}).sort();
 		    $.each(keys, function(v,k) {
+			var status = (typeof json[k].vehicleId !== "undefined" && 
+				      typeof json[k].lastRunningTimestamp !== "undefined") ? "img/ok_16.png" :
+	                             (typeof json[k].vehicleId !== "undefined")            ? "img/warning_16.png" :
+	                                                                                     "img/stop_sign_16.png";
 			$("#manage-fleet li:nth-child(1)" ).after(
 			    snippets.vehicle_update_item_template(
 				{"name": json[k].profileName,
 				 "id": k,
-				 "status_icon": "img/ok_16.png"
+				 "status_icon": status
 				}));
 		    });
 		    $('#manage-fleet').listview('refresh');

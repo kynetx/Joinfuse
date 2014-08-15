@@ -139,7 +139,7 @@ published: true
 
    <div data-role="content">
      <form id="form-update-vehicle">
-        <ul data-role="listview" data-inset="true"> 
+        <ul id="form-update-vehicle-list" data-role="listview" data-inset="true"> 
  	  <li data-role="list-divider" >Update Vehicle</li>
           <li class="ui-field-contain">
               <label for="text">Name</label>
@@ -171,6 +171,9 @@ published: true
                 <input type="hidden" id="photo" name="photo" value="">
               </div>
            </li>
+
+         
+	   
 
         </ul>
 
@@ -317,12 +320,20 @@ published: true
 </div>
 
 <div id="vehicle-update-item-template" style="display:none;">
-  <li><a data-transition="slide" href="#page-update-vehicle?id={{id}}">
-    {{name}}</a>
+  <li class="ui-field-contain">
+      <a data-transition="slide" href="#page-update-vehicle?id={{id}}"> 
+       <img class="ui-li-icon" src="{{status_icon}}">
+       {{name}}
+      </a>
   </li>
 </div>
 
 
-
+<div id="vehicle-location-template" style="display:none;">
+  <li id="vehicle-status" class="ui-field-contain">{{running}}<br/>{{fuel}}<br/>{{heading}}</li>
+  <li class="ui-field-contain">
+     <a id="vehicle-location-link" data-icon="info" target="_blank" href="http://maps.google.com/maps?q={{lat}},{{long}}">{{current_location}}</a>
+  </li>
+</div>
 
 {% endraw %}

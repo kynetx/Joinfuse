@@ -7,7 +7,7 @@
 
     var router=new $.mobile.Router( [
        {"#page-authorize": {handler: "pageAuthorize",
-				 events: "s", // just do when we create the page
+				 events: "s", // do when we show the page
 				 argsre: true
 				} },
        {"#page-manage-fuse": {handler: "pageManageFuse",
@@ -15,19 +15,19 @@
 			      argsre: true
 			     } },
        {"#page-manage-fuse": {handler: "pageManageFuseUpdate",
-			      events: "s", // just do when we show the page
+			      events: "s",
 			      argsre: true
 			     } },
        {"#page-add-vehicle": {handler: "pageAddVehicle",
-			      events: "s", // just do when we create the page
+			      events: "s", 
 			      argsre: true
 			     } },
        {"#page-update-vehicle": {handler: "pageUpdateVehicle",
-				 events: "s", // just do when we create the page
+				 events: "s", 
 				 argsre: true
 				} },
        {"#page-vehicle-confirm-delete": {handler: "pageVehicleConfirmDelete",
-					 events: "s", // just do when we create the page
+					 events: "s", 
 					 argsre: true
 					} },
        {"#page-update-profile": {handler: "pageUpdateProfile",
@@ -46,19 +46,23 @@
 	},
 	pageManageFuse: function(type, match, ui, page) {
 	    console.log("manage fuse: main page");
-	    Fuse.isAuthorizedWithCarvoyant(function(authd) {
-		console.log("Is Carvoyant auth'd?", authd);
-		if(authd.authorized) {
-		    $('#carvoyant_item').html("Carvoyant is Linked");
-		    $('#carvoyant_item').parent().listview().listview('refresh');
-		} else {
-		    Fuse.carvoyantOauthUrl(function(json) {
-			$('#carvoyant_item').remove();
-			$("#manage-fuse li:nth-child(2)" ).before("<li><a id='carvoyant_url' data-transition='slide' href='#'>Connect Carvoyant Account</a></li>");
-			$('#manage-fuse').listview('refresh');
-			$('#carvoyant_url').attr('href', json.url);
-		    });
-		}
+	    Fuse.init(function() {
+		console.log("Using version: ", Fuse.fuse_version);
+		console.log("Using fleet channel: ", Fuse.fleet_eci);
+		Fuse.isAuthorizedWithCarvoyant(function(authd) {
+		    console.log("Is Carvoyant auth'd?", authd);
+		    if(authd.authorized) {
+			$('#carvoyant_item').html("Carvoyant is Linked");
+			$('#carvoyant_item').parent().listview().listview('refresh');
+		    } else {
+			Fuse.carvoyantOauthUrl(function(json) {
+			    $('#carvoyant_item').remove();
+			    $("#manage-fuse li:nth-child(2)" ).before("<li><a id='carvoyant_url' data-transition='slide' href='#'>Connect Carvoyant Account</a></li>");
+			    $('#manage-fuse').listview('refresh');
+			    $('#carvoyant_url').attr('href', json.url);
+			});
+		    }
+		});
 	    });
 
 	},
@@ -66,18 +70,26 @@
 	    console.log("main page update");
 	    $("#manage-fleet").html(snippets.fleet_template());
 	    $('#manage-fleet').listview('refresh');
-	    Fuse.vehicleSummary(function(json) {
-		// sort so we get a consistent order
+	    Fuse.init(function() {
+		console.log("Updating vehicles");
+		Fuse.vehicleSummary(function(json) {
+		    // sort so we get a consistent order
 		    console.log("Displaying items...", json);
 		    var keys = $.map(json,function(v,k){return k}).sort();
 		    $.each(keys, function(v,k) {
+			var status = (typeof json[k].vehicleId !== "undefined" && 
+				      typeof json[k].lastRunningTimestamp !== "undefined") ? "img/ok_16.png" :
+	                             (typeof json[k].vehicleId !== "undefined")            ? "img/warning_16.png" :
+	                                                                                     "img/stop_sign_16.png";
 			$("#manage-fleet li:nth-child(1)" ).after(
 			    snippets.vehicle_update_item_template(
 				{"name": json[k].profileName,
-				 "id": k
+				 "id": k,
+				 "status_icon": status
 				}));
 		    });
-		$('#manage-fleet').listview('refresh');
+		    $('#manage-fleet').listview('refresh');
+		});
 	    });
 	}, 
 	pageAddVehicle: function(type,  match, ui, page) {
@@ -148,6 +160,39 @@
 		$("#photo", frm).val(vehicle.profilePhoto);
 		$("#id", frm).val(vehicle.picoId);
 		$("#photo-preview", frm).attr("src", vehicle.profilePhoto);
+
+		if(typeof vehicle.vehicleId !== "undefined") {
+		    
+		    var running = "not running";
+
+		    if(typeof vehicle.running !== "undefined" && vehicle.running == "1") {
+			running = "running";
+		    }
+		    var fuel = "";
+		    if(typeof vehicle.fuellevel === "string") {
+			fuel = "Fuel level: " + vehicle.fuellevel + "%";
+		    } 
+
+		    var lat = vehicle.lastWaypoint.latitude;
+		    var long = vehicle.lastWaypoint.longitude;
+		    $("#form-update-vehicle-list").append(
+   			snippets.vehicle_location_template(
+			    {"lat": lat,
+			     "long": long,
+			     "current_location": "Current location: " + vehicle.address,
+			     "running": "Vehicle is " + running,
+			     "fuel": fuel,
+			     "heading": "Heading: " + vehicle.heading + " degrees"
+			    })
+		    );
+		} else {
+		    $("#form-update-vehicle-list").append(
+			'<li class="ui-field-contain">Vehicle is not in Carvoyant</li>'
+		    );
+		}
+
+		$('#form-update-vehicle-list').listview('refresh');
+
 	    });
             // show jQuery mobile's built in loady spinner.
 	    $(".save", frm).off('tap').on('tap', function(event)
@@ -310,8 +355,8 @@
     // templates are in index.html where they should be
     window['snippets'] = {
         vehicle_update_item_template: Handlebars.compile($("#vehicle-update-item-template").html() || ""),
-        fleet_template: Handlebars.compile($("#fleet-template").html() || "")
-
+        fleet_template: Handlebars.compile($("#fleet-template").html() || ""),
+	vehicle_location_template: Handlebars.compile($("#vehicle-location-template").html() || ""),
     };
 
 
@@ -363,6 +408,7 @@
 	console.log("document ready");
 	CloudOS.retrieveSession();
 
+
 	// only put static stuff here...
 	plant_authorize_button();
 
@@ -371,10 +417,10 @@
             CloudOS.removeSession(true); // true for hard reset (log out of login server too)
             $.mobile.changePage('#page-authorize', {
 		transition: 'slide'
-        }); // this will go to the authorization page.
+            }); // this will go to the authorization page.
 
 
-    });
+	});
 
 	try {
 	    var authd = CloudOS.authenticatedSession();
@@ -388,7 +434,7 @@
 	} catch (exception) {
 	    
 	} finally {
-            $.mobile.initializePage();
+	    $.mobile.initializePage();
 	    $.mobile.loading("hide");
 	}
 

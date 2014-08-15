@@ -158,8 +158,8 @@
 
 		lat = vehicle.lastWaypoint.latitude;
 		long = vehicle.lastWaypoint.longitude;
-		$("vehicle-location-link").attr("href", "http://maps.google.com/maps?q="+ lat + "," + long);
-		$("vehicle-location").html("Current location: " + vehicle.address);
+		$("#vehicle-location-link").attr("href", "http://maps.google.com/maps?q="+ lat + "," + long);
+		$("#vehicle-location").html("Current location: " + vehicle.address);
 
 	    });
             // show jQuery mobile's built in loady spinner.

@@ -175,16 +175,21 @@
 
 		    var lat = vehicle.lastWaypoint.latitude;
 		    var long = vehicle.lastWaypoint.longitude;
-		    $("#form-update-vehicle-list").append(
-   			snippets.vehicle_location_template(
-			    {"lat": lat,
-			     "long": long,
-			     "current_location": "Current location: " + vehicle.address,
-			     "running": "Vehicle is " + running,
-			     "fuel": fuel,
-			     "heading": "Heading: " + vehicle.heading + " degrees"
-			    })
-		    );
+		    var snip = snippets.vehicle_location_template(
+			{"lat": lat,
+			 "long": long,
+			 "current_location": "Current location: " + vehicle.address,
+			 "running": "Vehicle is " + running,
+			 "fuel": fuel,
+			 "heading": "Heading: " + vehicle.heading + " degrees"
+			});
+
+		    if ($("li#vehicle-status").length) {
+			// we add two, get rid of two
+			$("#form-update-vehicle-list li:last-child").remove();
+			$("#form-update-vehicle-list li:last-child").remove();
+		    }
+		    $("#form-update-vehicle-list").append(snip);
 		} else {
 		    $("#form-update-vehicle-list").append(
 			'<li class="ui-field-contain">Vehicle is not in Carvoyant</li>'

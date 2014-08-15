@@ -182,7 +182,7 @@
 			     "current_location": "Current location: " + vehicle.address,
 			     "running": "Vehicle is " + running,
 			     "fuel": fuel,
-			     "heading": vehicle.heading + "degrees"
+			     "heading": "Heading: " + vehicle.heading + " degrees"
 			    })
 		    );
 		} else {

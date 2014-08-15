@@ -321,13 +321,15 @@ published: true
 
 <div id="vehicle-update-item-template" style="display:none;">
   <li><a data-transition="slide" href="#page-update-vehicle?id={{id}}">
-    {{name}}</a>
+    {{name}}
+      </a>
+      <img src="img_traffic_light_green_20.png" style="float:right">
   </li>
 </div>
 
 
 <div id="vehicle-location-template" style="display:none;">
-  <li id="vehicle-status" class="ui-field-contain">{{running}}<br/>{{fuel}}</li>
+  <li id="vehicle-status" class="ui-field-contain">{{running}}<br/>{{fuel}}<br/>{{heading}}</li>
   <li class="ui-field-contain">
      <a id="vehicle-location-link" data-icon="info" target="_blank" href="http://maps.google.com/maps?q={{lat}},{{long}}">{{current_location}}</a>
   </li>

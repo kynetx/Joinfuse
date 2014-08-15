@@ -176,7 +176,8 @@
 			     "long": long,
 			     "current_location": "Current location: " + vehicle.address,
 			     "running": "Vehicle is " + running,
-			     "fuel": fuel 
+			     "fuel": fuel,
+			     "heading": vehicle.heading + "degrees"
 			    })
 		    );
 		} else {

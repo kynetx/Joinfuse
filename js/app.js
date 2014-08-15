@@ -80,7 +80,8 @@
 			$("#manage-fleet li:nth-child(1)" ).after(
 			    snippets.vehicle_update_item_template(
 				{"name": json[k].profileName,
-				 "id": k
+				 "id": k,
+				 "status_icon": "img/ok_16.png"
 				}));
 		    });
 		    $('#manage-fleet').listview('refresh');

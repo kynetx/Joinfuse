@@ -156,17 +156,34 @@
 		$("#id", frm).val(vehicle.picoId);
 		$("#photo-preview", frm).attr("src", vehicle.profilePhoto);
 
-		lat = vehicle.lastWaypoint.latitude;
-		long = vehicle.lastWaypoint.longitude;
+		if(typeof vehicle.vehicleId !== "undefined") {
+		    
+		    var running = "not running";
 
+		    if(typeof vehicle.running !== "undefined" && vehicle.running == "1") {
+			running = "running";
+		    }
+		    var fuel = "";
+		    if(typeof vehicle.fuellevel === "string") {
+			fuel = "Fuel level: " + vehicle.fuellevel + "%";
+		    } 
 
-		$("#form-update-vehicle-list").append(
-   	            snippets.vehicle_location_template(
-			{"lat": lat,
-			 "long": long,
-			 "current_locaiton": "Current location: " + vehicle.address
-			})
-		);
+		    lat = vehicle.lastWaypoint.latitude;
+		    long = vehicle.lastWaypoint.longitude;
+		    $("#form-update-vehicle-list").append(
+   			snippets.vehicle_location_template(
+			    {"lat": lat,
+			     "long": long,
+			     "current_location": "Current location: " + vehicle.address,
+			     "status": "Vehicle is " + running + "<br/>" + fuel_level 
+			    })
+		    );
+		} else {
+		    $("#form-update-vehicle-list").append(
+			'<li class="ui-field-contain">Vehicle is not in Carvoyant</li>'
+		    );
+		}
+
 		$('#form-update-vehicle-list').listview('refresh');
 
 	    });

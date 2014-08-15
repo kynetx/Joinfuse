@@ -175,7 +175,8 @@
 			    {"lat": lat,
 			     "long": long,
 			     "current_location": "Current location: " + vehicle.address,
-			     "status": "Vehicle is " + running + "<br/>" + fuel 
+			     "running": "Vehicle is " + running,
+			     "fuel": fuel 
 			    })
 		    );
 		} else {

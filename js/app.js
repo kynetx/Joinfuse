@@ -184,7 +184,7 @@
 			 "heading": "Heading: " + vehicle.heading + " degrees"
 			});
 
-		    if ($("li#vehicle-status").length) {
+		    if ($("li#vehicle-status").length > 1) { // there's one in the template, so two if present
 			// we add two, get rid of two
 			$("#form-update-vehicle-list li:last-child").remove();
 			$("#form-update-vehicle-list li:last-child").remove();

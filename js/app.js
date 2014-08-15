@@ -7,7 +7,7 @@
 
     var router=new $.mobile.Router( [
        {"#page-authorize": {handler: "pageAuthorize",
-				 events: "s", // just do when we create the page
+				 events: "s", // do when we show the page
 				 argsre: true
 				} },
        {"#page-manage-fuse": {handler: "pageManageFuse",
@@ -15,19 +15,19 @@
 			      argsre: true
 			     } },
        {"#page-manage-fuse": {handler: "pageManageFuseUpdate",
-			      events: "s", // just do when we show the page
+			      events: "s",
 			      argsre: true
 			     } },
        {"#page-add-vehicle": {handler: "pageAddVehicle",
-			      events: "s", // just do when we create the page
+			      events: "s", 
 			      argsre: true
 			     } },
        {"#page-update-vehicle": {handler: "pageUpdateVehicle",
-				 events: "s", // just do when we create the page
+				 events: "s", 
 				 argsre: true
 				} },
        {"#page-vehicle-confirm-delete": {handler: "pageVehicleConfirmDelete",
-					 events: "s", // just do when we create the page
+					 events: "s", 
 					 argsre: true
 					} },
        {"#page-update-profile": {handler: "pageUpdateProfile",
@@ -155,6 +155,12 @@
 		$("#photo", frm).val(vehicle.profilePhoto);
 		$("#id", frm).val(vehicle.picoId);
 		$("#photo-preview", frm).attr("src", vehicle.profilePhoto);
+
+		lat = vehicle.lastWaypoint.latitude;
+		long = vehicle.lastWaypoint.longitude;
+		$("vehicle-location-link").attr("href", "http://maps.google.com/maps?q="+ lat + "," + long);
+		$("vehicle-location").html("Current location: " + vehicle.address);
+
 	    });
             // show jQuery mobile's built in loady spinner.
 	    $(".save", frm).off('tap').on('tap', function(event)

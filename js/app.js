@@ -168,14 +168,14 @@
 			fuel = "Fuel level: " + vehicle.fuellevel + "%";
 		    } 
 
-		    lat = vehicle.lastWaypoint.latitude;
-		    long = vehicle.lastWaypoint.longitude;
+		    var lat = vehicle.lastWaypoint.latitude;
+		    var long = vehicle.lastWaypoint.longitude;
 		    $("#form-update-vehicle-list").append(
    			snippets.vehicle_location_template(
 			    {"lat": lat,
 			     "long": long,
 			     "current_location": "Current location: " + vehicle.address,
-			     "status": "Vehicle is " + running + "<br/>" + fuel_level 
+			     "status": "Vehicle is " + running + "<br/>" + fuel 
 			    })
 		    );
 		} else {

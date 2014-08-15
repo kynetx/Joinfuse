@@ -158,8 +158,15 @@
 
 		lat = vehicle.lastWaypoint.latitude;
 		long = vehicle.lastWaypoint.longitude;
-		$("#vehicle-location-link").attr("href", "http://maps.google.com/maps?q="+ lat + "," + long);
-		$("#vehicle-location").html("Current location: " + vehicle.address);
+
+
+		$("#form-update-vehicle-list").append(
+   	            snippets.vehicle_update_item_template(
+			{"lat": lat,
+			 "long": long,
+			 "current_locaiton": "Current location: " + vehicle.address
+			})
+		);
 
 	    });
             // show jQuery mobile's built in loady spinner.
@@ -323,8 +330,8 @@
     // templates are in index.html where they should be
     window['snippets'] = {
         vehicle_update_item_template: Handlebars.compile($("#vehicle-update-item-template").html() || ""),
-        fleet_template: Handlebars.compile($("#fleet-template").html() || "")
-
+        fleet_template: Handlebars.compile($("#fleet-template").html() || ""),
+	vehicle_location_template: Handlebars.compile($("#vehicle-location-template").html() || ""),
     };
 
 

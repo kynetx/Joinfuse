@@ -139,7 +139,7 @@ published: true
 
    <div data-role="content">
      <form id="form-update-vehicle">
-        <ul data-role="listview" data-inset="true"> 
+        <ul id="form-update-vehicle-list" data-role="listview" data-inset="true"> 
  	  <li data-role="list-divider" >Update Vehicle</li>
           <li class="ui-field-contain">
               <label for="text">Name</label>
@@ -172,11 +172,7 @@ published: true
               </div>
            </li>
 
-           <li class="ui-field-contain">
-	     <span id="vehicle-location"></span>
-	     <a id="vehicle-location-link" target="_blank" href="">
-<img style="margin-top: 10px" src="img/orange_map_pin.png" border="0" hspace="3" vspace="3" align="right" title="map pin"alt="map pin" /></a>
-           </li>
+         
 	   
 
         </ul>
@@ -330,6 +326,12 @@ published: true
 </div>
 
 
-
+<div id="vehicle-location-template" style="display:none;">
+  <li class="ui-field-contain">
+     {{current_location}}
+     <a id="vehicle-location-link" target="_blank" href="http://maps.google.com/maps?q={{lat}},{{long}}">
+<img style="margin-top: 10px" src="img/orange_map_pin.png" border="0" hspace="3" vspace="3" align="right" title="map pin"alt="map pin" /></a>
+  </li>
+</div>
 
 {% endraw %}

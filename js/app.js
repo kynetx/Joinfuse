@@ -161,12 +161,13 @@
 
 
 		$("#form-update-vehicle-list").append(
-   	            snippets.vehicle_update_item_template(
+   	            snippets.vehicle_location_template(
 			{"lat": lat,
 			 "long": long,
 			 "current_locaiton": "Current location: " + vehicle.address
 			})
 		);
+		$('#form-update-vehicle-list').listview('refresh');
 
 	    });
             // show jQuery mobile's built in loady spinner.

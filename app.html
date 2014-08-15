@@ -328,9 +328,7 @@ published: true
 
 <div id="vehicle-location-template" style="display:none;">
   <li class="ui-field-contain">
-     {{current_location}}
-     <a id="vehicle-location-link" target="_blank" href="http://maps.google.com/maps?q={{lat}},{{long}}">
-<img style="margin-top: 10px" src="img/orange_map_pin.png" border="0" hspace="3" vspace="3" align="right" title="map pin"alt="map pin" /></a>
+     <a id="vehicle-location-link" data-icon="info" target="_blank" href="http://maps.google.com/maps?q={{lat}},{{long}}">{{current_location}}</a>
   </li>
 </div>
 

@@ -77,16 +77,45 @@
 		    console.log("Displaying items...", json);
 		    var keys = $.map(json,function(v,k){return k}).sort();
 		    $.each(keys, function(v,k) {
-			var status = (typeof json[k].vehicleId !== "undefined" && 
-				      typeof json[k].lastRunningTimestamp !== "undefined") ? "img/ok_16.png" :
-	                             (typeof json[k].vehicleId !== "undefined")            ? "img/warning_16.png" :
+
+			var vehicle = json[k];
+			var status = (typeof vehicle.vehicleId !== "undefined" && 
+				      typeof vehicle.lastRunningTimestamp !== "undefined") ? "img/ok_16.png" :
+	                             (typeof vehicle.vehicleId !== "undefined")            ? "img/warning_16.png" :
 	                                                                                     "img/stop_sign_16.png";
-			$("#manage-fleet li:nth-child(1)" ).after(
-			    snippets.vehicle_update_item_template(
-				{"name": json[k].profileName,
-				 "id": k,
-				 "status_icon": status
-				}));
+
+			if(typeof vehicle.vehicleId !== "undefined") {
+		    
+			    var running = "not running";
+
+			    if(typeof vehicle.running !== "undefined" && vehicle.running == "1") {
+				running = "running";
+			    }
+			    var fuel = "";
+			    if(typeof vehicle.fuellevel === "string") {
+				fuel = "Fuel level: " + vehicle.fuellevel + "%";
+			    } 
+
+			    var lat = vehicle.lastWaypoint.latitude;
+			    var long = vehicle.lastWaypoint.longitude;
+			    var snip = snippets.vehicle_location_template(
+				{"lat": lat,
+				 "long": long,
+				 "current_location": "Current location: " + vehicle.address,
+				 "running": "Vehicle is " + running,
+				 "fuel": fuel,
+				 "heading": "Heading: " + vehicle.heading + " degrees"
+				});
+			    $("#manage-fleet li:nth-child(1)" ).after(
+				snippets.vehicle_update_item_template(
+				    {"name": json[k].profileName,
+				     "id": k,
+				     "status_icon": status,
+				     "running": "Vehicle is " + running,
+				     "fuel": fuel,
+				     "heading": "Heading: " + vehicle.heading + " degrees"
+				    }));
+			}
 		    });
 		    $('#manage-fleet').listview('refresh');
 		});

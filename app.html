@@ -322,8 +322,11 @@ published: true
 <div id="vehicle-update-item-template" style="display:none;">
   <li class="ui-field-contain">
       <a data-transition="slide" href="#page-update-vehicle?id={{id}}"> 
-       <p><img class="ui-li-icon" src="{{status_icon}}"><b>{{name}}</b></p>
-       <p>{{running}}<br/>{{fuel}}<br/>{{heading}}</p>
+       <img class="ui-li-icon ui-li-aside" src="{{status_icon}}"><b>
+       <p class="ui-li-heading">{{name}}</b></p>
+       <p class="ui-li-desc">{{running}}</p>
+       <p class="ui-li-desc">{{fuel}}</p>
+       <p class="ui-li-desc">{{heading}}</p>
       </a>
   </li>
 </div>

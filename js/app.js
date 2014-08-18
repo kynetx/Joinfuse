@@ -96,6 +96,11 @@
 				fuel = "Fuel level: " + vehicle.fuellevel + "%";
 			    } 
 
+			    var last_running = "";
+			    if(typeof vehicle.lastRunningTimestamp === "string") {
+				last_running = "Last update: " + vehicle.lastRunningTimestamp;
+			    }
+
 			    var lat = vehicle.lastWaypoint.latitude;
 			    var long = vehicle.lastWaypoint.longitude;
 			    var snip = snippets.vehicle_location_template(
@@ -113,7 +118,8 @@
 				     "status_icon": status,
 				     "running": "Vehicle is " + running,
 				     "fuel": fuel,
-				     "heading": "Heading: " + vehicle.heading + " degrees"
+				     "heading": "Heading: " + vehicle.heading + " degrees",
+				     "last_running" : last_running
 				    }));
 			}
 		    });

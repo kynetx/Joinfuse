@@ -83,7 +83,7 @@
                                      (typeof vehicle.vehicleId !== "undefined")            ? "img/warning_16.png" :
  	                                                                                     "img/stop_sign_16.png";
 			
-			console.log("Painting " + id);
+			// console.log("Painting " + id);
 			if(typeof vehicle.vehicleId !== "undefined") {
 			    var running = "parked at";
 			    if(typeof vehicle.running !== "undefined" && vehicle.running == "1") {
@@ -129,7 +129,7 @@
 			    $("#manage-fleet li:nth-child(1)" ).after(
 				snippets.vehicle_update_item_template(
 				    {"name": vehicle.profileName,
-				     "id": k,
+				     "id": id,
 				     "status_icon": status,
 				     "last_running" : never_updated
 				    }));

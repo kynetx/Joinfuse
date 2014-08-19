@@ -103,11 +103,18 @@
 
 			    var last_running = "";
 			    if(typeof vehicle.lastRunningTimestamp === "string") {
-				last_running = "Last update: " + vehicle.lastRunningTimestamp;
+				last_running_parsed = Date.parse(vehicle.lastRunningTimestamp
+							   .splice(13,0,":")
+							   .splice(11,0,":")
+							   .splice(6,0,"-")
+							   .splice(4,0,"-"));
+				last_running = timeAgo(last_running_parsed);
 			    }
 
 			    var lat = vehicle.lastWaypoint.latitude;
 			    var long = vehicle.lastWaypoint.longitude;
+
+
 
 			    $("#manage-fleet li:nth-child(1)" ).after(
 				snippets.vehicle_update_item_template(
@@ -211,6 +218,7 @@
 		    var snip = snippets.vehicle_location_template(
 			{"lat": lat,
 			 "long": long,
+			 "address": vehicle.address,
 			 "current_location": "Current location: " + vehicle.address,
 			 "running": "Vehicle is " + running,
 			 "fuel": fuel,
@@ -550,6 +558,10 @@ function previewPhoto(input, frm)
         //console.debug("input: ", input);
     };
 
+
+String.prototype.splice = function( idx, rem, s ) {
+    return (this.slice(0,idx) + s + this.slice(idx + Math.abs(rem)));
+};
 
 /*
  * Binary Ajax 0.1.10

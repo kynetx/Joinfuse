@@ -82,7 +82,8 @@
 				      typeof vehicle.lastRunningTimestamp !== "undefined") ? "img/ok_16.png" :
                                      (typeof vehicle.vehicleId !== "undefined")            ? "img/warning_16.png" :
  	                                                                                     "img/stop_sign_16.png";
-
+			
+			console.log("Painting " + id);
 			if(typeof vehicle.vehicleId !== "undefined") {
 				
 			    var running = "parked at";

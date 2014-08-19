@@ -108,15 +108,7 @@
 
 			    var lat = vehicle.lastWaypoint.latitude;
 			    var long = vehicle.lastWaypoint.longitude;
-			    var snip = snippets.vehicle_location_template(
-				{"lat": lat,
-				 "long": long,
-				 "current_location": "Current location: " + vehicle.address,
-				 "running": "Vehicle is " + running,
-				 "fuel": fuel,
-				 "heading": "Heading: " + vehicle.heading + " degrees",
-				 "speed": speed
-				});
+
 			    $("#manage-fleet li:nth-child(1)" ).after(
 				snippets.vehicle_update_item_template(
 				    {"name": json[k].profileName,
@@ -225,7 +217,7 @@
 			 "heading": "Heading: " + vehicle.heading + " degrees"
 			});
 
-		    if ($("li#vehicle-status").length > 1) { // there's one in the template, so two if present
+		    if ($("a#vehicle-location-link").length > 1) { // there's one in the template, so two if present in form
 			// we add two, get rid of two
 			$("#form-update-vehicle-list li:last-child").remove();
 			$("#form-update-vehicle-list li:last-child").remove();

@@ -86,11 +86,16 @@
 
 			if(typeof vehicle.vehicleId !== "undefined") {
 		    
-			    var running = "not running";
-
+			    var running = "parked at";
 			    if(typeof vehicle.running !== "undefined" && vehicle.running == "1") {
-				running = "running";
+				running = "driving at";
 			    }
+
+			    var speed = "";
+			    if(typeof vehicle.speed === "string" && vehicle.speed != "0") {
+				speed = "(" + vehicle.speed + " mph)";
+			    } 
+
 			    var fuel = "";
 			    if(typeof vehicle.fuellevel === "string") {
 				fuel = "Fuel level: " + vehicle.fuellevel + "%";
@@ -109,14 +114,15 @@
 				 "current_location": "Current location: " + vehicle.address,
 				 "running": "Vehicle is " + running,
 				 "fuel": fuel,
-				 "heading": "Heading: " + vehicle.heading + " degrees"
+				 "heading": "Heading: " + vehicle.heading + " degrees",
+				 "speed": speed
 				});
 			    $("#manage-fleet li:nth-child(1)" ).after(
 				snippets.vehicle_update_item_template(
 				    {"name": json[k].profileName,
 				     "id": k,
 				     "status_icon": status,
-				     "running": "Vehicle is " + running,
+				     "running": "Vehicle is " + running + " " + vehicle.address,,
 				     "fuel": fuel,
 				     "heading": "Heading: " + vehicle.heading + " degrees",
 				     "last_running" : last_running

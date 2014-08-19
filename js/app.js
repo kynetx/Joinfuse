@@ -108,7 +108,7 @@
 							   .splice(11,0,":")
 							   .splice(6,0,"-")
 							   .splice(4,0,"-"));
-				last_running = timeAgo(last_running_parsed);
+				last_running = timeAgo(new Date(last_running_parsed));
 			    }
 
 			    var lat = vehicle.lastWaypoint.latitude;

@@ -118,7 +118,7 @@
 			    $("#manage-fleet li:nth-child(1)" ).after(
 				snippets.vehicle_update_item_template(
 				    {"name": vehicle.profileName,
-				     "id": k,
+				     "id": id,
 				     "status_icon": status,
 				     "running": "Vehicle is " + running + " " + vehicle.address,
 				     "fuel": fuel,

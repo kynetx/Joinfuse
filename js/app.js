@@ -85,7 +85,6 @@
 			
 			console.log("Painting " + id);
 			if(typeof vehicle.vehicleId !== "undefined") {
-				
 			    var running = "parked at";
 			    if(typeof vehicle.running !== "undefined" && vehicle.running == "1") {
 				running = "driving at";

@@ -247,8 +247,11 @@
 		    }
 		    $("#form-update-vehicle-list").append(snip);
 		} else {
-		    $("#form-update-vehicle-list").append(
-			'<li class="ui-field-contain">Vehicle is not in Carvoyant</li>'
+		    if ($("li#vehicle_missing").length > 0) { // there's one in the template, so two if present in form
+			// we add two, get rid of two
+			$("#form-update-vehicle-list li:last-child").remove();
+		    }$("#form-update-vehicle-list").append(
+			'<li id="vehicle_missing" class="ui-field-contain">Vehicle is not in Carvoyant</li>'
 		    );
 		}
 

@@ -77,7 +77,7 @@
 		    console.log("Displaying items...", json);
 
 		    function paint_item(id, vehicle) {
-			var never_updated = "<a href='http://joinfuse.com/appfaq.html#after_installation'>Never updated</a>";
+			var never_updated = "Never updated";
 			var status = (typeof vehicle.vehicleId !== "undefined" && 
 				      typeof vehicle.lastRunningTimestamp !== "undefined") ? "img/ok_16.png" :
                                      (typeof vehicle.vehicleId !== "undefined")            ? "img/warning_16.png" :

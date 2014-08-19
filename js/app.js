@@ -196,6 +196,7 @@
 		$("#name", frm).val(vehicle.profileName);
 		$("#vin", frm).val(vehicle.vin);
 		$("#deviceId", frm).val(vehicle.deviceId);
+		$("#license", frm).val(vehicle.license);
 		$("#mileage", frm).val(vehicle.mileage);
 		$("#photo", frm).val(vehicle.profilePhoto);
 		$("#id", frm).val(vehicle.picoId);

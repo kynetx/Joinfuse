@@ -75,54 +75,73 @@
 		Fuse.vehicleSummary(function(json) {
 		    // sort so we get a consistent order
 		    console.log("Displaying items...", json);
-		    var keys = $.map(json,function(v,k){return k}).sort();
-		    $.each(keys, function(v,k) {
 
-			var vehicle = json[k];
+		    function paint_item(id, vehicle) {
+			var never_updated = "<a href='http://joinfuse.com/appfaq.html#after_installation'>Never updated</a>";
 			var status = (typeof vehicle.vehicleId !== "undefined" && 
 				      typeof vehicle.lastRunningTimestamp !== "undefined") ? "img/ok_16.png" :
-	                             (typeof vehicle.vehicleId !== "undefined")            ? "img/warning_16.png" :
-	                                                                                     "img/stop_sign_16.png";
+                                     (typeof vehicle.vehicleId !== "undefined")            ? "img/warning_16.png" :
+ 	                                                                                     "img/stop_sign_16.png";
 
 			if(typeof vehicle.vehicleId !== "undefined") {
-		    
-			    var running = "not running";
-
+				
+			    var running = "parked at";
 			    if(typeof vehicle.running !== "undefined" && vehicle.running == "1") {
-				running = "running";
+				running = "driving at";
 			    }
+
+			    var speed = "";
+			    if(typeof vehicle.speed === "string" && vehicle.speed != "0") {
+				speed = "(" + vehicle.speed + " mph)";
+			    } 
+
 			    var fuel = "";
 			    if(typeof vehicle.fuellevel === "string") {
 				fuel = "Fuel level: " + vehicle.fuellevel + "%";
 			    } 
 
-			    var last_running = "";
+			    var last_running = never_updated;
 			    if(typeof vehicle.lastRunningTimestamp === "string") {
-				last_running = "Last update: " + vehicle.lastRunningTimestamp;
+				var last_running_parsed = Date.parse(vehicle.lastRunningTimestamp
+								     .splice(13,0,":")
+								     .splice(11,0,":")
+								     .splice(6,0,"-")
+								     .splice(4,0,"-"));
+				last_running = timeAgo(new Date(last_running_parsed));
 			    }
 
 			    var lat = vehicle.lastWaypoint.latitude;
 			    var long = vehicle.lastWaypoint.longitude;
-			    var snip = snippets.vehicle_location_template(
-				{"lat": lat,
-				 "long": long,
-				 "current_location": "Current location: " + vehicle.address,
-				 "running": "Vehicle is " + running,
-				 "fuel": fuel,
-				 "heading": "Heading: " + vehicle.heading + " degrees"
-				});
+
+
+
 			    $("#manage-fleet li:nth-child(1)" ).after(
 				snippets.vehicle_update_item_template(
-				    {"name": json[k].profileName,
+				    {"name": vehicle.profileName,
 				     "id": k,
 				     "status_icon": status,
-				     "running": "Vehicle is " + running,
+				     "running": "Vehicle is " + running + " " + vehicle.address,
 				     "fuel": fuel,
 				     "heading": "Heading: " + vehicle.heading + " degrees",
-				     "last_running" : last_running
+				     "last_running" : "Updated " + last_running
 				    }));
+			} else {
+			    $("#manage-fleet li:nth-child(1)" ).after(
+				snippets.vehicle_update_item_template(
+				    {"name": vehicle.profileName,
+				     "id": k,
+				     "status_icon": status,
+				     "last_running" : never_updated
+				    }));
+
 			}
+		    }
+
+		    var keys = $.map(json,function(v,k){return k}).sort();
+		    $.each(keys, function(v,k) {
+			paint_item(k, json[k]);
 		    });
+
 		    $('#manage-fleet').listview('refresh');
 		});
 	    });
@@ -191,6 +210,7 @@
 		$("#name", frm).val(vehicle.profileName);
 		$("#vin", frm).val(vehicle.vin);
 		$("#deviceId", frm).val(vehicle.deviceId);
+		$("#license", frm).val(vehicle.license);
 		$("#mileage", frm).val(vehicle.mileage);
 		$("#photo", frm).val(vehicle.profilePhoto);
 		$("#id", frm).val(vehicle.picoId);
@@ -213,13 +233,14 @@
 		    var snip = snippets.vehicle_location_template(
 			{"lat": lat,
 			 "long": long,
+			 "address": vehicle.address,
 			 "current_location": "Current location: " + vehicle.address,
 			 "running": "Vehicle is " + running,
 			 "fuel": fuel,
 			 "heading": "Heading: " + vehicle.heading + " degrees"
 			});
 
-		    if ($("li#vehicle-status").length > 1) { // there's one in the template, so two if present
+		    if ($("a#vehicle-location-link").length > 1) { // there's one in the template, so two if present in form
 			// we add two, get rid of two
 			$("#form-update-vehicle-list li:last-child").remove();
 			$("#form-update-vehicle-list li:last-child").remove();
@@ -552,6 +573,10 @@ function previewPhoto(input, frm)
         //console.debug("input: ", input);
     };
 
+
+String.prototype.splice = function( idx, rem, s ) {
+    return (this.slice(0,idx) + s + this.slice(idx + Math.abs(rem)));
+};
 
 /*
  * Binary Ajax 0.1.10

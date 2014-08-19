@@ -101,6 +101,11 @@ published: true
               <input type="text" data-clear-btn="true" name="mileage" id="mileage" value="">
            </li>
 
+           <li class="ui-field-contain">
+              <label for="text">Vehicle License</label>
+              <input type="text" data-clear-btn="true" name="license" id="license" value="">
+           </li>
+
            <li class="ui-field-contain" style="padding: .7em 1em;">
               <label for="location-image">Image</label>
 	      <div> 
@@ -159,6 +164,11 @@ published: true
            <li class="ui-field-contain">
               <label for="text">Vehicle Mileage</label>
               <input type="text" data-clear-btn="true" name="mileage" id="mileage" value="">
+           </li>
+
+           <li class="ui-field-contain">
+              <label for="text">Vehicle License</label>
+              <input type="text" data-clear-btn="true" name="license" id="license" value="">
            </li>
 
            <li class="ui-field-contain" style="padding: .7em 1em;">
@@ -321,23 +331,21 @@ published: true
 
 <div id="vehicle-update-item-template" style="display:none;">
   <li class="ui-field-contain">
-   <div class="ui-btn-inner ui-li">
-    <div class="ui-btn-text">
       <a data-transition="slide" href="#page-update-vehicle?id={{id}}"> 
-       <p class="ui-li-aside ui-li-desc">{{last_running}}<img class="ui-li-icon" src="{{status_icon}}"></p>
-       <p class="ui-li-heading"><b>{{name}}</b></p>
-       <p class="ui-li-desc">{{running}}</p>
-       <p class="ui-li-desc">{{fuel}}</p>
-       <p class="ui-li-desc">{{heading}}</p>
+       <p class="ui-li-aside">{{last_running}} <img class="ui-li-icon" src="{{status_icon}}"></p>
+       <h3><b>{{name}}</b></h3>
+       <p>{{running}} {{speed}}<br/>
+          {{fuel}}
+       </p>
       </a>
-    </div>
-   </div>
   </li>
 </div>
 
 
 <div id="vehicle-location-template" style="display:none;">
-  <li id="vehicle-status" class="ui-field-contain">{{running}}<br/>{{fuel}}<br/>{{heading}}</li>
+  <li class="ui-field-contain">
+     <iframe width="100%" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q={{lat}}%2C{{long}}&key=AIzaSyC0DHHCdS98AtIR3PYwq0IWQYE7lpHxdRU"></iframe>
+  </li>
   <li class="ui-field-contain">
      <a id="vehicle-location-link" data-icon="info" target="_blank" href="http://maps.google.com/maps?q={{lat}},{{long}}">{{current_location}}</a>
   </li>

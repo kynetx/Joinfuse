@@ -1,3 +1,9 @@
+// see http://stackoverflow.com/questions/11479170/javascript-fuzzy-time-e-g-10-minutes-ago-thats-in-exact-seconds
+// console.log(timeAgo(new Date(Date.parse('Jun 12 2006 11:52:33'))));
+// console.log(timeAgo(new Date(new Date().getTime() - 3600000)));
+// console.log(timeAgo(new Date()));
+// console.log(timeAgo(new Date(-92709631247000)));
+
 function timeAgo(comparisonDate) {
 
    var timeparts = [

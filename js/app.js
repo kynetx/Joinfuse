@@ -124,7 +124,7 @@
 				     "running": "Vehicle is " + running + " " + vehicle.address,
 				     "fuel": fuel,
 				     "heading": "Heading: " + vehicle.heading + " degrees",
-				     "last_running" : last_running
+				     "last_running" : "Updated " + last_running
 				    }));
 			}
 		    });

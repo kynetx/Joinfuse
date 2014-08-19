@@ -324,11 +324,12 @@ published: true
    <div class="ui-btn-inner ui-li">
     <div class="ui-btn-text">
       <a data-transition="slide" href="#page-update-vehicle?id={{id}}"> 
-       <p class="ui-li-aside ui-li-desc">{{last_running}}<img class="ui-li-icon" src="{{status_icon}}"></p>
-       <p class="ui-li-heading"><b>{{name}}</b></p>
-       <p class="ui-li-desc">{{running}}</p>
-       <p class="ui-li-desc">{{fuel}}</p>
-       <p class="ui-li-desc">{{heading}}</p>
+       <p class="ui-li-aside">{{last_running}} <img class="ui-li-icon" src="{{status_icon}}"></p>
+       <h3><b>{{name}}</b></h3>
+       <p>{{running}}<br/>
+          {{fuel}}<br/>
+          {{heading}}
+       </p>
       </a>
     </div>
    </div>

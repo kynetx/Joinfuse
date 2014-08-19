@@ -122,7 +122,7 @@
 				    {"name": json[k].profileName,
 				     "id": k,
 				     "status_icon": status,
-				     "running": "Vehicle is " + running + " " + vehicle.address,,
+				     "running": "Vehicle is " + running + " " + vehicle.address,
 				     "fuel": fuel,
 				     "heading": "Heading: " + vehicle.heading + " degrees",
 				     "last_running" : last_running

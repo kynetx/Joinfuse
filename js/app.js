@@ -144,7 +144,7 @@
 			}
 		    }
 
-		    var keys = $.map(json,function(v,k){return k}).sort();
+		    var keys = $.map(json,function(v,k){return json[k].profileName;}).sort();
 		    console.log("Display order: ", keys);
 		    $.each(keys, function(v,k) {
 			paint_item(k, json[k]);

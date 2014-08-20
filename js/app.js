@@ -196,7 +196,9 @@
 				       $.mobile.changePage("#page-manage-fuse", {
 					   transition: 'slide'
 				       });
-				   });
+				   },
+				   {license: vehicle_data.license}
+				  );
             });
 	    $(".cancel", frm).off('tap').on('tap', function(event)
             {
@@ -284,7 +286,8 @@
 			vin: vehicle_data.vin,
 			mileage: vehicle_data.mileage,
 			myProfileName: vehicle_data.name,
-			myProfilePhoto: vehicle_data.photo
+			myProfilePhoto: vehicle_data.photo,
+			license: vehicle_data.license
 		    };
 		    Fuse.invalidateVehicleSummary();
 		    // Fuse.updateVehicleSummary(id, profile);

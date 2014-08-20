@@ -109,12 +109,16 @@
 
 			    var last_running = never_updated;
 			    if(typeof vehicle.lastRunningTimestamp === "string") {
-				var last_running_parsed = Date.parse(vehicle.lastRunningTimestamp
+				// can't use Date.parse() cause of Safari
+				var splitable_string = Date.parse(vehicle.lastRunningTimestamp
 								     .splice(13,0,":")
 								     .splice(11,0,":")
 								     .splice(6,0,"-")
 								     .splice(4,0,"-"));
-				last_running = timeAgo(new Date(last_running_parsed), 2); // two most significant fuzzy times
+				var a = splitable_string.split(/[^0-9]/);
+				var d=new Date (a[0],a[1]-1,a[2],a[3],a[4],a[5] );
+
+				last_running = timeAgo(new Date(d), 2); // two most significant fuzzy times
 			    }
 
 			    var lat = vehicle.lastWaypoint.latitude;

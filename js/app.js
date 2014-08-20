@@ -145,6 +145,7 @@
 		    }
 
 		    var keys = $.map(json,function(v,k){return k}).sort();
+		    console.log("Display order: ", keys);
 		    $.each(keys, function(v,k) {
 			paint_item(k, json[k]);
 		    });
@@ -214,7 +215,7 @@
             var frm = "#form-update-vehicle";
             $(frm)[0].reset();
 	    var params = router.getParams(match[1]);
-	    console.log("ID: ", params.id)
+	    console.log("ID: ", params.id);
 	    Fuse.vehicleSummary(function(json){
 		console.log("Update json ", json, params.id);
 		var vehicle = json[params.id];

@@ -155,9 +155,9 @@
 			};
 		    };
 
-		    var keys = json.sort(sortBy("profileName"));
-		    console.log("Display order: ", keys);
-		    $.each(keys.reverse(), paint_item);
+		    var keys = json.sort(sortBy("profileName")).reverse();
+		    console.log("Display order (reverse): ", keys);
+		    $.each(keys, paint_item);
 
 		    $('#manage-fleet').listview('refresh');
 		});

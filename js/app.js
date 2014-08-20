@@ -114,7 +114,7 @@
 								     .splice(11,0,":")
 								     .splice(6,0,"-")
 								     .splice(4,0,"-"));
-				last_running = timeAgo(new Date(last_running_parsed));
+				last_running = timeAgo(new Date(last_running_parsed), 2); // two most significant fuzzy times
 			    }
 
 			    var lat = vehicle.lastWaypoint.latitude;
@@ -156,7 +156,6 @@
 		    };
 
 		    var keys = json.sort(sortBy("profileName"));
-		    console.log("Display order (not reverse): ", keys);
 		    $.each(keys, paint_item);
 
 		    $('#manage-fleet').listview('refresh');

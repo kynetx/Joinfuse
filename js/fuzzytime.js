@@ -4,7 +4,7 @@
 // console.log(timeAgo(new Date()));
 // console.log(timeAgo(new Date(-92709631247000)));
 
-function timeAgo(comparisonDate) {
+function timeAgo(comparisonDate, n) {
 
    var timeparts = [
        {name: 'millenni', div: 31556736000, p: 'a', s: 'um'},
@@ -29,5 +29,8 @@ function timeAgo(comparisonDate) {
 	}
     }
     if (parts.length === 0) { return 'now'; }
+    if (typeof n === "number" && n < parts.length) {
+	parts = parts.slice(0,n);
+    }
     return parts.join(', ') + ' ago';
 }

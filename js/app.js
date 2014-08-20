@@ -157,10 +157,7 @@
 
 		    var keys = json.sort(sortBy("profileName"));
 		    console.log("Display order: ", keys);
-		    $.each(keys, function(v,k) {
-			console.log("Displaying ", k);
-			paint_item(k, v);
-		    });
+		    $.each(keys, paint_item);
 
 		    $('#manage-fleet').listview('refresh');
 		});

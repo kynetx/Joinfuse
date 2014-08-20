@@ -77,7 +77,14 @@
 		    console.log("Displaying items...", json);
 
 		    function paint_item(id, vehicle) {
+
+			if (typeof vehicle === "undefined") {
+			    return 
+			}
+
 			var never_updated = "Never updated";
+
+
 			var status = (typeof vehicle.vehicleId !== "undefined" && 
 				      typeof vehicle.lastRunningTimestamp !== "undefined") ? "img/ok_16.png" :
                                      (typeof vehicle.vehicleId !== "undefined")            ? "img/warning_16.png" :
@@ -306,12 +313,19 @@
                     text: "Deleting vehicle...",
                     textVisible: true
 		});
-                Fuse.deleteVehicle(id, function(directives) {
-		    console.log("Delete ", id, directives);
-		    $.mobile.loading("hide");
-		    $.mobile.changePage("#page-manage-fuse", {
-			transition: 'slide'
-		    });
+		Fuse.vehicleSummary(function(json){
+		    var vehicle = json[id] || {};
+		    var pid = vehicle.picoId;
+		    console.log("Deleting vehicle with ID ", pid);
+		    if(typeof id !== "undefined") {
+			Fuse.deleteVehicle(id, function(directives) {
+			    console.log("Deleted ", pid, directives);
+			    $.mobile.loading("hide");
+			    $.mobile.changePage("#page-manage-fuse", {
+				transition: 'slide'
+			    });
+			});
+		    }
                 });
             });
 	},

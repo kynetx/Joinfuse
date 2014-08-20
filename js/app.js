@@ -75,19 +75,89 @@
 		Fuse.vehicleSummary(function(json) {
 		    // sort so we get a consistent order
 		    console.log("Displaying items...", json);
-		    var keys = $.map(json,function(v,k){return k}).sort();
-		    $.each(keys, function(v,k) {
-			var status = (typeof json[k].vehicleId !== "undefined" && 
-				      typeof json[k].lastRunningTimestamp !== "undefined") ? "img/ok_16.png" :
-	                             (typeof json[k].vehicleId !== "undefined")            ? "img/warning_16.png" :
-	                                                                                     "img/stop_sign_16.png";
-			$("#manage-fleet li:nth-child(1)" ).after(
-			    snippets.vehicle_update_item_template(
-				{"name": json[k].profileName,
-				 "id": k,
-				 "status_icon": status
-				}));
-		    });
+
+		    function paint_item(id, vehicle) {
+
+			if (typeof vehicle === "undefined") {
+			    return 
+			}
+
+			var never_updated = "Never updated";
+
+
+			var status = (typeof vehicle.vehicleId !== "undefined" && 
+				      typeof vehicle.lastRunningTimestamp !== "undefined") ? "img/ok_16.png" :
+                                     (typeof vehicle.vehicleId !== "undefined")            ? "img/warning_16.png" :
+ 	                                                                                     "img/stop_sign_16.png";
+			
+			// console.log("Painting " + id);
+			if(typeof vehicle.vehicleId !== "undefined") {
+			    var running = "parked at";
+			    if(typeof vehicle.running !== "undefined" && vehicle.running == "1") {
+				running = "driving at";
+			    }
+
+			    var speed = "";
+			    if(typeof vehicle.speed === "string" && vehicle.speed != "0") {
+				speed = "(" + vehicle.speed + " mph)";
+			    } 
+
+			    var fuel = "";
+			    if(typeof vehicle.fuellevel === "string") {
+				fuel = "Fuel level: " + vehicle.fuellevel + "%";
+			    } 
+
+			    var last_running = never_updated;
+			    if(typeof vehicle.lastRunningTimestamp === "string") {
+				var last_running_parsed = Date.parse(vehicle.lastRunningTimestamp
+								     .splice(13,0,":")
+								     .splice(11,0,":")
+								     .splice(6,0,"-")
+								     .splice(4,0,"-"));
+				last_running = timeAgo(new Date(last_running_parsed), 2); // two most significant fuzzy times
+			    }
+
+			    var lat = vehicle.lastWaypoint.latitude;
+			    var long = vehicle.lastWaypoint.longitude;
+
+
+
+			    $("#manage-fleet li:nth-child(1)" ).after(
+				snippets.vehicle_update_item_template(
+				    {"name": vehicle.profileName,
+				     "id": id,
+				     "status_icon": status,
+				     "running": "Vehicle is " + running + " " + vehicle.address,
+				     "fuel": fuel,
+				     "heading": "Heading: " + vehicle.heading + " degrees",
+				     "last_running" : "Updated " + last_running
+				    }));
+			} else {
+			    $("#manage-fleet li:nth-child(1)" ).after(
+				snippets.vehicle_update_item_template(
+				    {"name": vehicle.profileName,
+				     "id": id,
+				     "status_icon": status,
+				     "last_running" : never_updated
+				    }));
+
+			}
+		    }
+
+		    function sortBy(prop){
+			return function(a,b){
+			    if( a[prop] < b[prop]){
+				return 1;
+			    }else if( a[prop] > b[prop] ){
+				return -1;
+			    }
+			    return 0;
+			};
+		    };
+
+		    var keys = json.sort(sortBy("profileName"));
+		    $.each(keys, paint_item);
+
 		    $('#manage-fleet').listview('refresh');
 		});
 	    });
@@ -121,9 +191,11 @@
 					   deviceId: vehicle_data.deviceId,
 					   vin: vehicle_data.vin,
 					   mileage: vehicle_data.mileage,
+					   license: vehicle_data.license,
 					   myProfileName: vehicle_data.name,
 					   myProfilePhoto: vehicle_data.photo
 				       };
+				       console.log("Created profile ", profile);
 				       var id = $.grep(directives.directives, 
 						       function(obj, i){
 							   return obj["name"] === "vehicle_created";
@@ -134,7 +206,9 @@
 				       $.mobile.changePage("#page-manage-fuse", {
 					   transition: 'slide'
 				       });
-				   });
+				   },
+				   {license: vehicle_data.license}
+				  );
             });
 	    $(".cancel", frm).off('tap').on('tap', function(event)
             {
@@ -149,13 +223,14 @@
             var frm = "#form-update-vehicle";
             $(frm)[0].reset();
 	    var params = router.getParams(match[1]);
-	    console.log("ID: ", params.id)
+	    console.log("ID: ", params.id);
 	    Fuse.vehicleSummary(function(json){
 		console.log("Update json ", json, params.id);
 		var vehicle = json[params.id];
 		$("#name", frm).val(vehicle.profileName);
 		$("#vin", frm).val(vehicle.vin);
 		$("#deviceId", frm).val(vehicle.deviceId);
+		$("#license", frm).val(vehicle.license);
 		$("#mileage", frm).val(vehicle.mileage);
 		$("#photo", frm).val(vehicle.profilePhoto);
 		$("#id", frm).val(vehicle.picoId);
@@ -178,21 +253,25 @@
 		    var snip = snippets.vehicle_location_template(
 			{"lat": lat,
 			 "long": long,
+			 "address": vehicle.address,
 			 "current_location": "Current location: " + vehicle.address,
 			 "running": "Vehicle is " + running,
 			 "fuel": fuel,
 			 "heading": "Heading: " + vehicle.heading + " degrees"
 			});
 
-		    if ($("li#vehicle-status").length > 1) { // there's one in the template, so two if present
+		    if ($("a#vehicle-location-link").length > 1) { // there's one in the template, so two if present in form
 			// we add two, get rid of two
 			$("#form-update-vehicle-list li:last-child").remove();
 			$("#form-update-vehicle-list li:last-child").remove();
 		    }
 		    $("#form-update-vehicle-list").append(snip);
 		} else {
-		    $("#form-update-vehicle-list").append(
-			'<li class="ui-field-contain">Vehicle is not in Carvoyant</li>'
+		    if ($("li#vehicle_missing").length > 0) { // there's one in the template, so two if present in form
+			// we add two, get rid of two
+			$("#form-update-vehicle-list li:last-child").remove();
+		    }$("#form-update-vehicle-list").append(
+			'<li id="vehicle_missing" class="ui-field-contain">Vehicle is not in Carvoyant</li>'
 		    );
 		}
 
@@ -217,7 +296,8 @@
 			vin: vehicle_data.vin,
 			mileage: vehicle_data.mileage,
 			myProfileName: vehicle_data.name,
-			myProfilePhoto: vehicle_data.photo
+			myProfilePhoto: vehicle_data.photo,
+			license: vehicle_data.license
 		    };
 		    Fuse.updateVehicleSummary(id, profile);
 		    Fuse.saveProfile(channel, profile,
@@ -247,12 +327,21 @@
                     text: "Deleting vehicle...",
                     textVisible: true
 		});
-                Fuse.deleteVehicle(id, function(directives) {
-		    console.log("Delete ", id, directives);
-		    $.mobile.loading("hide");
-		    $.mobile.changePage("#page-manage-fuse", {
-			transition: 'slide'
-		    });
+		Fuse.vehicleSummary(function(json){
+		    var vehicle = json[id] || {};
+		    var pid = vehicle.picoId;
+		    console.log("Deleting vehicle with ID ", pid);
+		    if(typeof id !== "undefined") {
+			Fuse.deleteVehicle(pid, function(directives) {
+			    // deletion is simple, so the return indicates completion; thus invalidation works
+			    Fuse.invalidateVehicleSummary();
+			    console.log("Deleted ", pid, directives);
+			    $.mobile.loading("hide");
+			    $.mobile.changePage("#page-manage-fuse", {
+				transition: 'slide'
+			    });
+			});
+		    }
                 });
             });
 	},
@@ -517,6 +606,10 @@ function previewPhoto(input, frm)
         //console.debug("input: ", input);
     };
 
+
+String.prototype.splice = function( idx, rem, s ) {
+    return (this.slice(0,idx) + s + this.slice(idx + Math.abs(rem)));
+};
 
 /*
  * Binary Ajax 0.1.10

@@ -186,6 +186,7 @@
 					   myProfileName: vehicle_data.name,
 					   myProfilePhoto: vehicle_data.photo
 				       };
+				       console.log("Created profile ", profile);
 				       var id = $.grep(directives.directives, 
 						       function(obj, i){
 							   return obj["name"] === "vehicle_created";

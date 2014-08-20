@@ -318,7 +318,7 @@
 		    var pid = vehicle.picoId;
 		    console.log("Deleting vehicle with ID ", pid);
 		    if(typeof id !== "undefined") {
-			Fuse.deleteVehicle(id, function(directives) {
+			Fuse.deleteVehicle(pid, function(directives) {
 			    console.log("Deleted ", pid, directives);
 			    $.mobile.loading("hide");
 			    $.mobile.changePage("#page-manage-fuse", {

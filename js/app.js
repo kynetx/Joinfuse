@@ -189,7 +189,8 @@
 						       function(obj, i){
 							   return obj["name"] === "vehicle_created";
 						       })[0].options.id;
-				       Fuse.updateVehicleSummary(id, profile);
+				       //Fuse.updateVehicleSummary(id, profile);
+				       Fuse.invalidateVehicleSummary();
 
 
 				       $.mobile.changePage("#page-manage-fuse", {
@@ -285,7 +286,8 @@
 			myProfileName: vehicle_data.name,
 			myProfilePhoto: vehicle_data.photo
 		    };
-		    Fuse.updateVehicleSummary(id, profile);
+		    Fuse.invalidateVehicleSummary();
+		    // Fuse.updateVehicleSummary(id, profile);
 		    Fuse.saveProfile(channel, profile,
 				     function(directives) {
 					 $.mobile.loading("hide");
@@ -319,6 +321,7 @@
 		    console.log("Deleting vehicle with ID ", pid);
 		    if(typeof id !== "undefined") {
 			Fuse.deleteVehicle(pid, function(directives) {
+			    Fuse.invalidateVehicleSummary();
 			    console.log("Deleted ", pid, directives);
 			    $.mobile.loading("hide");
 			    $.mobile.changePage("#page-manage-fuse", {

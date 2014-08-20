@@ -146,9 +146,9 @@
 
 		    function sortBy(prop){
 			return function(a,b){
-			    if( a[prop] > b[prop]){
+			    if( a[prop] < b[prop]){
 				return 1;
-			    }else if( a[prop] < b[prop] ){
+			    }else if( a[prop] > b[prop] ){
 				return -1;
 			    }
 			    return 0;
@@ -157,7 +157,7 @@
 
 		    var keys = json.sort(sortBy("profileName"));
 		    console.log("Display order: ", keys);
-		    $.each(keys, paint_item);
+		    $.each(keys.reverse(), paint_item);
 
 		    $('#manage-fleet').listview('refresh');
 		});

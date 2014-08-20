@@ -182,6 +182,7 @@
 					   deviceId: vehicle_data.deviceId,
 					   vin: vehicle_data.vin,
 					   mileage: vehicle_data.mileage,
+					   license: vehicle_data.license,
 					   myProfileName: vehicle_data.name,
 					   myProfilePhoto: vehicle_data.photo
 				       };

@@ -13,9 +13,9 @@ function timeAgo(comparisonDate, n) {
        {name: 'year', div: 31556736},
        {name: 'month', div: 2629728},
        {name: 'day', div: 86400},
-       {name: 'hour', div: 3600},
-       {name: 'minute', div: 60},
-       {name: 'second', div: 1}
+       {name: 'hr', div: 3600},
+       {name: 'min', div: 60},
+       {name: 'sec', div: 1}
    ];
 
     var i = 0,

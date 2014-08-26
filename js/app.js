@@ -125,10 +125,10 @@
 				last_running = timeAgo(parse_date(vehicle.lastRunningTimestamp), 2); // two most significant fuzzy times
 			    }
 
-			    var lat = isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.latitude 
-			                                            : 40.7500;
-			    var long = isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.longitude
-                                                                     : -111.8833;
+			    var lat = ! isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.latitude 
+			                                              : 40.7500;
+			    var long = ! isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.longitude
+                                                                       : -111.8833;
 
 
 
@@ -258,10 +258,10 @@
 			fuel = "Fuel level: " + vehicle.fuellevel + "%";
 		    } 
 
-		    var lat = isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.latitude 
-			                                    : 40.7500;
-		    var long = isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.longitude
-                                                             : -111.8833;
+		    var lat = ! isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.latitude 
+			                                      : 40.7500;
+		    var long = ! isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.longitude
+                                                               : -111.8833;
 		    var snip = snippets.vehicle_location_template(
 			{"lat": lat,
 			 "long": long,

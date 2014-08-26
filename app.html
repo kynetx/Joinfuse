@@ -7,12 +7,14 @@ published: true
 ---
 
 <!-- ---------- authorize ---------- -->
-<div data-role="dialog" id="page-authorize">
+<div data-role="dialog" id="page-authorize" data-title="Authorize Fuse" data-close-btn="none">
 
    <div data-role="header" style="text-align:center;">
      <div class="header-image">
         <img class="fuse-logo" src="https://s3.amazonaws.com/Fuse_assets/img/fuse_logo-40.png">
      </div>
+      <a href="http://windley.github.io/Joinfuse/app_help.html" target="_blank" class="ui-btn-right" data-icon="info" data-theme="c">Help</a>
+
 <!-- <a href="http://kibdev.kobj.net/login/logout" data-icon="minus" data-theme="a" class="ui-btn-right ui-btn ui-btn-up-b ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"><span class="ui-btn-inner"><span class="ui-btn-text">logout</span><span class="ui-icon ui-icon-check ui-icon-shadow">&nbsp;</span></span></a> -->
    </div><!-- /header -->
 
@@ -36,7 +38,7 @@ published: true
 
 
 <!-- ---------- fuse account settings ---------- -->
-<div data-role="page" id="page-manage-fuse">
+<div data-role="page" id="page-manage-fuse" data-title="Fuse Management Console">
 
    <div data-role="header">
      <div class="header-image">
@@ -47,6 +49,20 @@ published: true
 
    <div data-role="content">
       <h3></h3>
+
+        <ul id="manage-fuse" class="settings-list" data-role="listview" data-inset="true">
+	  <li data-role="list-divider" >Announcements</li>
+	  <li>
+<h3>App Status</h3>
+
+<p class="wrap">
+The Fuse app is not complete yet, but will be soon. In the meantime you can set up your account and add vehicles here. You will see current status information for your vehicles, including location. Once a week you should receive a report in email of the trips your vehicle has made. 
+</p>
+
+	  </li>
+        </ul><!-- /listview -->
+
+
         <ul id="manage-fuse" class="settings-list" data-role="listview" data-inset="true">
 	  <li data-role="list-divider" >Fuse Account Settings</li>
 	  <li id="carvoyant_item">Carvoyant</li>
@@ -69,7 +85,7 @@ published: true
 
 
 <!-- ---------- fuse add vehicle ---------- -->
-<div data-role="page" id="page-add-vehicle">
+<div data-role="page" id="page-add-vehicle" data-title="Fuse Add Vehicle">
 
    <div data-role="header">
      <div class="header-image">
@@ -134,7 +150,7 @@ published: true
 
 
 <!-- ---------- fuse update vehicle ---------- -->
-<div data-role="page" id="page-update-vehicle">
+<div data-role="page" id="page-update-vehicle" data-title="Fuse Update Vehicle">
 
    <div data-role="header">
      <div class="header-image">
@@ -204,7 +220,7 @@ published: true
 
 
 <!-- ---------- fuse delete vehicle confirmation ---------- -->
-<div data-role="dialog" id="page-vehicle-confirm-delete">
+<div data-role="dialog" id="page-vehicle-confirm-delete" data-title="Fuse Delete Vehicle">
    <div data-role="header">
       <h3>Delete Vehicle?</h3>
    </div><!-- /header -->
@@ -220,7 +236,7 @@ published: true
 
 
 <!-- ---------- fuse update profile ---------- -->
-<div data-role="page" id="page-update-profile">
+<div data-role="page" id="page-update-profile" data-title="Fuse Update Profile">
 
    <div data-role="header">
      <div class="header-image">
@@ -283,7 +299,7 @@ published: true
 </div><!-- /page -->
 
 <!-- ---------- fuse update preferences ---------- -->
-<div data-role="page" id="page-update-preferences">
+<div data-role="page" id="page-update-preferences" data-title="Fuse Preferences">
 
    <div data-role="header">
      <div class="header-image">

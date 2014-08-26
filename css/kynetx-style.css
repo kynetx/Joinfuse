@@ -20,6 +20,10 @@ color: #8a9299;
   color: #BBB;
 }
 
+.wrap {
+    white-space: normal !important;
+}
+
 .navbar-brand-fuse {
   float: left;
   padding: 15px 15px;

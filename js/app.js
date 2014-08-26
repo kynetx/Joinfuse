@@ -85,15 +85,15 @@
 			var never_updated = "Never updated";
 
 
-			var status = (typeof vehicle.vehicleId !== "undefined" && 
-				      typeof vehicle.lastRunningTimestamp !== "undefined") ? "img/ok_16.png" :
-                                     (typeof vehicle.vehicleId !== "undefined")            ? "img/warning_16.png" :
- 	                                                                                     "img/stop_sign_16.png";
+			var status = (! isEmpty(vehicle.vehicleId) && 
+				      ! isEmpty(vehicle.lastRunningTimestamp)) ? "img/ok_16.png" :
+                                     (! isEmpty(vehicle.vehicleId))            ? "img/warning_16.png" :
+ 	                                                                         "img/stop_sign_16.png";
 			
 			// console.log("Painting " + id);
-			if(typeof vehicle.vehicleId !== "undefined") {
+			if(! isEmpty(vehicle.vehicleId)) {
 			    var running = "parked at";
-			    if(typeof vehicle.running !== "undefined" && vehicle.running == "1") {
+			    if(! isEmpty(vehicle.running) && vehicle.running == "1") {
 				running = "driving at";
 			    }
 
@@ -109,16 +109,26 @@
 
 			    var last_running = never_updated;
 			    if(typeof vehicle.lastRunningTimestamp === "string") {
-				var last_running_parsed = Date.parse(vehicle.lastRunningTimestamp
-								     .splice(13,0,":")
-								     .splice(11,0,":")
-								     .splice(6,0,"-")
-								     .splice(4,0,"-"));
-				last_running = timeAgo(new Date(last_running_parsed), 2); // two most significant fuzzy times
+				// can't use Date.parse() cause of Safari
+				function parse_date(date_string) {
+				    var splitable_string = date_string
+							    .splice(13,0,":")
+							    .splice(11,0,":")
+							    .splice(6,0,"-")
+							    .splice(4,0,"-");
+				    var a = splitable_string.split(/[^0-9]/);
+				    // warning, this just assumes incoming date is UTC!!!
+				    var u=Date.UTC (a[0],a[1]-1,a[2],a[3],a[4],a[5]);
+				    return new Date(u);
+				};
+
+				last_running = timeAgo(parse_date(vehicle.lastRunningTimestamp), 2); // two most significant fuzzy times
 			    }
 
-			    var lat = vehicle.lastWaypoint.latitude;
-			    var long = vehicle.lastWaypoint.longitude;
+			    var lat = ! isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.latitude 
+			                                              : 40.7500;
+			    var long = ! isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.longitude
+                                                                       : -111.8833;
 
 
 
@@ -236,11 +246,11 @@
 		$("#id", frm).val(vehicle.picoId);
 		$("#photo-preview", frm).attr("src", vehicle.profilePhoto);
 
-		if(typeof vehicle.vehicleId !== "undefined") {
+		if(! isEmpty(vehicle.vehicleId)) {
 		    
 		    var running = "not running";
 
-		    if(typeof vehicle.running !== "undefined" && vehicle.running == "1") {
+		    if(! isEmpty(vehicle.running) && vehicle.running == "1") {
 			running = "running";
 		    }
 		    var fuel = "";
@@ -248,8 +258,10 @@
 			fuel = "Fuel level: " + vehicle.fuellevel + "%";
 		    } 
 
-		    var lat = vehicle.lastWaypoint.latitude;
-		    var long = vehicle.lastWaypoint.longitude;
+		    var lat = ! isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.latitude 
+			                                      : 40.7500;
+		    var long = ! isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.longitude
+                                                               : -111.8833;
 		    var snip = snippets.vehicle_location_template(
 			{"lat": lat,
 			 "long": long,
@@ -610,6 +622,30 @@ function previewPhoto(input, frm)
 String.prototype.splice = function( idx, rem, s ) {
     return (this.slice(0,idx) + s + this.slice(idx + Math.abs(rem)));
 };
+
+function isEmpty(obj) {
+
+    // null and undefined are "empty"
+    if (obj == null) return true;
+    if (typeof obj === "undefined") return true;
+
+    // Assume if it has a length property with a non-zero value
+    // that that property is correct.
+    if (obj.length > 0)    return false;
+    if (obj.length === 0)  return true;
+
+    // Otherwise, does it have any properties of its own?
+    // Note that this doesn't handle
+    // toString and valueOf enumeration bugs in IE < 9
+    for (var key in obj) {
+        if (hasOwnProperty.call(obj, key)) return false;
+    }
+
+    return true;
+
+
+};
+
 
 /*
  * Binary Ajax 0.1.10

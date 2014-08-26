@@ -85,15 +85,15 @@
 			var never_updated = "Never updated";
 
 
-			var status = (typeof vehicle.vehicleId !== "undefined" && 
-				      typeof vehicle.lastRunningTimestamp !== "undefined") ? "img/ok_16.png" :
-                                     (typeof vehicle.vehicleId !== "undefined")            ? "img/warning_16.png" :
- 	                                                                                     "img/stop_sign_16.png";
+			var status = (! isEmpty(vehicle.vehicleId) && 
+				      ! isEmpty(vehicle.lastRunningTimestamp)) ? "img/ok_16.png" :
+                                     (! isEmpty(vehicle.vehicleId))            ? "img/warning_16.png" :
+ 	                                                                         "img/stop_sign_16.png";
 			
 			// console.log("Painting " + id);
-			if(typeof vehicle.vehicleId !== "undefined") {
+			if(! isEmpty(vehicle.vehicleId)) {
 			    var running = "parked at";
-			    if(typeof vehicle.running !== "undefined" && vehicle.running == "1") {
+			    if(! isEmpty(vehicle.running) && vehicle.running == "1") {
 				running = "driving at";
 			    }
 
@@ -246,11 +246,11 @@
 		$("#id", frm).val(vehicle.picoId);
 		$("#photo-preview", frm).attr("src", vehicle.profilePhoto);
 
-		if(typeof vehicle.vehicleId !== "undefined") {
+		if(! isEmpty(vehicle.vehicleId)) {
 		    
 		    var running = "not running";
 
-		    if(typeof vehicle.running !== "undefined" && vehicle.running == "1") {
+		    if(! isEmpty(vehicle.running) && vehicle.running == "1") {
 			running = "running";
 		    }
 		    var fuel = "";

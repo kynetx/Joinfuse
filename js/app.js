@@ -438,7 +438,8 @@
                 console.log(">>>>>>>>> Updating preferences ", preference_data);
 
 		var settings = { 
-		    reportPreference: preference_data.report
+		    reportPreference: preference_data.report,
+		    debugPreference: preference_data.debug
 		};
 		
 		Fuse.savePreferences(owner_eci, settings,

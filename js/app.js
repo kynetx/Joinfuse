@@ -427,7 +427,6 @@
 			$(this).removeAttr("selected");
 		    }
 		});
-		Fuse.set_host(json.debugPreference);
 		$( "#debug", frm ).slider().slider("refresh");
 	    });
             // show jQuery mobile's built in loady spinner.
@@ -444,6 +443,8 @@
 		    reportPreference: preference_data.report,
 		    debugPreference: preference_data.debug
 		};
+
+		Fuse.set_host(preference_data.debug);
 		
 		Fuse.savePreferences(owner_eci, settings,
 				 function(directives) {

@@ -63,7 +63,9 @@
 			});
 		    }
 		});
-	    });
+	    },
+            {force:true} // force update when we paint the page
+           );
 
 	},
 	pageManageFuseUpdate: function(type,  match, ui, page) {
@@ -424,7 +426,7 @@
 		    } else {
 			$(this).removeAttr("selected");
 		    }
-		    Fuse.set_host($(this).val())
+		    Fuse.set_host($(this).val());
 		});
 		$( "#debug", frm ).slider().slider("refresh");
 	    });

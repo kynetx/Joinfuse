@@ -418,6 +418,14 @@
 		    }
 		});
 		$( "#report", frm ).slider().slider("refresh");
+		$("#debug option", frm).each(function(){
+		    if($(this).val() == json.debugPreference) {
+			$(this).attr("selected", "selected");
+		    } else {
+			$(this).removeAttr("selected");
+		    }
+		});
+		$( "#report", frm ).slider().slider("refresh");
 	    });
             // show jQuery mobile's built in loady spinner.
 	    $(".save", frm).off('tap').on('tap', function(event)

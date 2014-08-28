@@ -425,7 +425,7 @@
 			$(this).removeAttr("selected");
 		    }
 		});
-		$( "#report", frm ).slider().slider("refresh");
+		$( "#debug", frm ).slider().slider("refresh");
 	    });
             // show jQuery mobile's built in loady spinner.
 	    $(".save", frm).off('tap').on('tap', function(event)

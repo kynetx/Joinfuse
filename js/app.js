@@ -426,7 +426,7 @@
 		    } else {
 			$(this).removeAttr("selected");
 		    }
-		    Fuse.set_host($(this).val());
+		    Fuse.set_host(json.debugPreference);
 		});
 		$( "#debug", frm ).slider().slider("refresh");
 	    });

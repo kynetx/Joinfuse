@@ -426,8 +426,8 @@
 		    } else {
 			$(this).removeAttr("selected");
 		    }
-		    Fuse.set_host(json.debugPreference);
 		});
+		Fuse.set_host(json.debugPreference);
 		$( "#debug", frm ).slider().slider("refresh");
 	    });
             // show jQuery mobile's built in loady spinner.

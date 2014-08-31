@@ -63,7 +63,9 @@
 			});
 		    }
 		});
-	    });
+	    },
+            {force:true} // force update when we paint the page
+           );
 
 	},
 	pageManageFuseUpdate: function(type,  match, ui, page) {
@@ -418,6 +420,14 @@
 		    }
 		});
 		$( "#report", frm ).slider().slider("refresh");
+		$("#debug option", frm).each(function(){
+		    if($(this).val() == json.debugPreference) {
+			$(this).attr("selected", "selected");
+		    } else {
+			$(this).removeAttr("selected");
+		    }
+		});
+		$( "#debug", frm ).slider().slider("refresh");
 	    });
             // show jQuery mobile's built in loady spinner.
 	    $(".save", frm).off('tap').on('tap', function(event)
@@ -430,8 +440,11 @@
                 console.log(">>>>>>>>> Updating preferences ", preference_data);
 
 		var settings = { 
-		    reportPreference: preference_data.report
+		    reportPreference: preference_data.report,
+		    debugPreference: preference_data.debug
 		};
+
+		Fuse.set_host(preference_data.debug);
 		
 		Fuse.savePreferences(owner_eci, settings,
 				 function(directives) {

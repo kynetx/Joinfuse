@@ -50,7 +50,7 @@ published: true
    <div data-role="content">
       <h3></h3>
 
-        <ul id="manage-fuse" class="settings-list" data-role="listview" data-inset="true">
+        <ul id="manage-fuse-announcement" class="settings-list" data-role="listview" data-inset="true">
 	  <li data-role="list-divider" >Announcements</li>
 	  <li>
 <h3>App Status</h3>
@@ -317,7 +317,14 @@ The Fuse app is not complete yet, but will be soon. In the meantime you can set 
 	      	<option value="off">Off</option>
 		<option value="on">On</option>
 	      </select> 
-           </li>
+          </li>
+          <li class="ui-field-contain">
+              <label for="debug">Debug Mode</label>
+	      <select style="float:right" name="debug" id="debug" data-role="slider"  >
+	      	<option value="off">Off</option>
+		<option value="on">On</option>
+	      </select> 
+          </li>
 
 
         </ul>

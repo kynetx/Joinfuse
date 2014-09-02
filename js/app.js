@@ -248,6 +248,17 @@
 		$("#id", frm).val(vehicle.picoId);
 		$("#photo-preview", frm).attr("src", vehicle.profilePhoto);
 
+		// reset status area
+		if ($("li#vehicle_missing").length > 0) { 
+		    // we add two, get rid of two
+		    $("#form-update-vehicle-list li:last-child").remove();
+		}
+		if ($("a#vehicle-location-link").length > 1) { // there's one in the template, so two if present in form
+		    // we add two, get rid of two
+		    $("#form-update-vehicle-list li:last-child").remove();
+		    $("#form-update-vehicle-list li:last-child").remove();
+		}
+
 		if(! isEmpty(vehicle.vehicleId)) {
 		    
 		    var running = "not running";
@@ -274,17 +285,9 @@
 			 "heading": "Heading: " + vehicle.heading + " degrees"
 			});
 
-		    if ($("a#vehicle-location-link").length > 1) { // there's one in the template, so two if present in form
-			// we add two, get rid of two
-			$("#form-update-vehicle-list li:last-child").remove();
-			$("#form-update-vehicle-list li:last-child").remove();
-		    }
 		    $("#form-update-vehicle-list").append(snip);
 		} else {
-		    if ($("li#vehicle_missing").length > 0) { // there's one in the template, so two if present in form
-			// we add two, get rid of two
-			$("#form-update-vehicle-list li:last-child").remove();
-		    }$("#form-update-vehicle-list").append(
+		    $("#form-update-vehicle-list").append(
 			'<li id="vehicle_missing" class="ui-field-contain">Vehicle is not in Carvoyant</li>'
 		    );
 		}

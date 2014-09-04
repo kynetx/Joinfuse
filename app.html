@@ -163,7 +163,6 @@ The Fuse app is not complete yet, but will be soon. In the meantime you can set 
      <form id="form-update-vehicle">
         <ul id="form-update-vehicle-list" data-role="listview" data-inset="true"> 
  	  <li data-role="list-divider" >Update Vehicle</li>
-	  <li id="error-msg" class="alert alert-error" style="display:none"></li>
           <li class="ui-field-contain">
               <label for="text">Name</label>
               <input type="text" data-clear-btn="true" name="name" id="name" value="">
@@ -206,6 +205,8 @@ The Fuse app is not complete yet, but will be soon. In the meantime you can set 
         </ul>
 
 	<input type="hidden" id="id" name="id" value="">
+
+        <div id="error-msg" class="alert alert-error" style="display:none"></div>
 
         <a class="save" href="#" data-icon="check" data-role="button" data-inline="true" data-theme="b">Save</a>
         <a class="cancel" href="#page-manage-fuse" data-icon="delete" data-role="button" data-inline="true">Cancel</a>

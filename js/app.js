@@ -300,10 +300,22 @@
 		
                 var vehicle_data = process_form(frm);
 
-		if( vehicle_data.vin.length > 0 && vehicle_data.vin.length !== 17 ) {
-		    var error_message = "<li style='color:red;background:#FCC' class='ui-field-contain'>VIN must be 17 characters long</li>";
-		    $("#error-msg").append(error_message).show('slow');
-		    $('#error-msg').listview('refresh');
+		function format_error_item(msg) {
+		    return  "<li style='color:red;background:#FCC' class='ui-field-contain'>"+msg+"</li>"
+		};
+
+		function check_vin(vin, frm) {
+		    if( vin.length > 0 && vin.length !== 17 ) {
+			var error_message = format_error_item("VIN must be 17 characters long");
+			$("#error-msg", frm).append(error_message).show('slow');
+			$('#error-msg', frm).listview('refresh');
+			return 1;
+		    } else {
+			return 0;
+		    }
+		};
+
+		if( check_vin(vehicle_data.vin, frm) ) {
 		    return;
 		} else {
 		    $("#error-msg").html("").hide('slow');

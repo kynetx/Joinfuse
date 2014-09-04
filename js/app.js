@@ -84,13 +84,6 @@
 			    return 
 			}
 
-			var never_updated = "Never updated";
-
-
-			var status = (! isEmpty(vehicle.vehicleId) && 
-				      ! isEmpty(vehicle.lastRunningTimestamp)) ? "img/ok_16.png" :
-                                     (! isEmpty(vehicle.vehicleId))            ? "img/warning_16.png" :
- 	                                                                         "img/stop_sign_16.png";
 			
 			// console.log("Painting " + id);
 			if(! isEmpty(vehicle.vehicleId)) {
@@ -109,7 +102,9 @@
 				fuel = "Fuel level: " + vehicle.fuellevel + "%";
 			    } 
 
-			    var last_running = never_updated;
+			    var status = (! isEmpty(vehicle.lastRunningTimestamp)) ? "img/ok_16.png" 
+                                                                                   : "img/warning_16.png";
+			    var last_running = "Start the vehicle";
 			    if(typeof vehicle.lastRunningTimestamp === "string") {
 				// can't use Date.parse() cause of Safari
 				function parse_date(date_string) {
@@ -124,7 +119,7 @@
 				    return new Date(u);
 				};
 
-				last_running = timeAgo(parse_date(vehicle.lastRunningTimestamp), 2); // two most significant fuzzy times
+				last_running = "Updated " + timeAgo(parse_date(vehicle.lastRunningTimestamp), 2); // two most significant fuzzy times
 			    }
 
 			    var lat = ! isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.latitude 
@@ -142,15 +137,18 @@
 				     "running": "Vehicle is " + running + " " + vehicle.address,
 				     "fuel": fuel,
 				     "heading": "Heading: " + vehicle.heading + " degrees",
-				     "last_running" : "Updated " + last_running
+				     "last_running": last_running
 				    }));
 			} else {
+
+			    
+
 			    $("#manage-fleet li:nth-child(1)" ).after(
 				snippets.vehicle_update_item_template(
 				    {"name": vehicle.profileName,
 				     "id": id,
-				     "status_icon": status,
-				     "last_running" : never_updated
+				     "status_icon": "img/stop_sign_16.png",
+				     "last_running" : "Start the vehicle"
 				    }));
 
 			}
@@ -303,6 +301,16 @@
                     textVisible: true
 		});
                 var vehicle_data = process_form(frm);
+
+		if( vehicle_data.vin.length > 0 && vehicle_data.vin.length !== 17 ) {
+		    var error_message = "VIN must be 17 characters long";
+		    $("#error-msg").html(error_message).show('slow');
+		    return;
+		} else {
+		    $("#error-msg").html("").hide('slow');
+		}
+
+
                 console.log(">>>>>>>>> Updating vehicle ", vehicle_data);
 		var id = vehicle_data.id;
 

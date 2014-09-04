@@ -158,10 +158,12 @@ The Fuse app is not complete yet, but will be soon. In the meantime you can set 
      </div>
    </div><!-- /header -->
 
+
    <div data-role="content">
      <form id="form-update-vehicle">
         <ul id="form-update-vehicle-list" data-role="listview" data-inset="true"> 
  	  <li data-role="list-divider" >Update Vehicle</li>
+	  <li id="error-msg" class="alert alert-error" style="display:none"></li>
           <li class="ui-field-contain">
               <label for="text">Name</label>
               <input type="text" data-clear-btn="true" name="name" id="name" value="">

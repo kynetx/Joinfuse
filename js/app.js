@@ -306,6 +306,7 @@
 
 		function check_vin(vin, frm) {
 		    if( vin.length > 0 && vin.length !== 17 ) {
+			console.log("Bad VIN");
 			var error_message = format_error_item("VIN must be 17 characters long");
 			$("#error-msg", frm).append(error_message).show('slow');
 			$('#error-msg', frm).listview('refresh');

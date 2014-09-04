@@ -340,7 +340,12 @@
             {
 		console.log("Cancelling update vehicle");
 		$(frm)[0].reset();
+		$("#error-msg").html("").hide('slow');
 		$('#photo-preview').attr('src', dummy_image);
+		$.mobile.loading("hide");
+		$.mobile.changePage("#page-manage-fuse", {
+		    transition: 'slide'
+		});
 	    });
 	    $(".delete", frm).attr("href","#page-vehicle-confirm-delete?id=" + params.id);
 	},

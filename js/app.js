@@ -232,6 +232,7 @@
 	    console.log("update vehicle");
             var frm = "#form-update-vehicle";
             $(frm)[0].reset();
+	    $("#error-msg").html("").hide();
 	    var params = router.getParams(match[1]);
 	    console.log("ID: ", params.id);
 	    Fuse.vehicleSummary(function(json){
@@ -296,10 +297,7 @@
             // show jQuery mobile's built in loady spinner.
 	    $(".save", frm).off('tap').on('tap', function(event)
             {
-		$.mobile.loading("show", {
-                    text: "Updating vehicle data...",
-                    textVisible: true
-		});
+		
                 var vehicle_data = process_form(frm);
 
 		if( vehicle_data.vin.length > 0 && vehicle_data.vin.length !== 17 ) {
@@ -310,6 +308,10 @@
 		    $("#error-msg").html("").hide('slow');
 		}
 
+		$.mobile.loading("show", {
+                    text: "Updating vehicle data...",
+                    textVisible: true
+		});
 
                 console.log(">>>>>>>>> Updating vehicle ", vehicle_data);
 		var id = vehicle_data.id;

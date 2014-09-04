@@ -301,8 +301,9 @@
                 var vehicle_data = process_form(frm);
 
 		if( vehicle_data.vin.length > 0 && vehicle_data.vin.length !== 17 ) {
-		    var error_message = "<li>VIN must be 17 characters long</li>";
+		    var error_message = "<li class='ui-field-contain'>VIN must be 17 characters long</li>";
 		    $("#error-msg").append(error_message).show('slow');
+		    $('#error-msg').listview('refresh');
 		    return;
 		} else {
 		    $("#error-msg").html("").hide('slow');

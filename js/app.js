@@ -84,13 +84,6 @@
 			    return 
 			}
 
-			var never_updated = "Never updated";
-
-
-			var status = (! isEmpty(vehicle.vehicleId) && 
-				      ! isEmpty(vehicle.lastRunningTimestamp)) ? "img/ok_16.png" :
-                                     (! isEmpty(vehicle.vehicleId))            ? "img/warning_16.png" :
- 	                                                                         "img/stop_sign_16.png";
 			
 			// console.log("Painting " + id);
 			if(! isEmpty(vehicle.vehicleId)) {
@@ -109,7 +102,9 @@
 				fuel = "Fuel level: " + vehicle.fuellevel + "%";
 			    } 
 
-			    var last_running = never_updated;
+			    var status = (! isEmpty(vehicle.lastRunningTimestamp)) ? "img/ok_16.png" 
+                                                                                   : "img/warning_16.png";
+			    var last_running = "Start the vehicle";
 			    if(typeof vehicle.lastRunningTimestamp === "string") {
 				// can't use Date.parse() cause of Safari
 				function parse_date(date_string) {
@@ -124,7 +119,7 @@
 				    return new Date(u);
 				};
 
-				last_running = timeAgo(parse_date(vehicle.lastRunningTimestamp), 2); // two most significant fuzzy times
+				last_running = "Updated " + timeAgo(parse_date(vehicle.lastRunningTimestamp), 2); // two most significant fuzzy times
 			    }
 
 			    var lat = ! isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.latitude 
@@ -142,15 +137,18 @@
 				     "running": "Vehicle is " + running + " " + vehicle.address,
 				     "fuel": fuel,
 				     "heading": "Heading: " + vehicle.heading + " degrees",
-				     "last_running" : "Updated " + last_running
+				     "last_running": last_running
 				    }));
 			} else {
+
+			    
+
 			    $("#manage-fleet li:nth-child(1)" ).after(
 				snippets.vehicle_update_item_template(
 				    {"name": vehicle.profileName,
 				     "id": id,
-				     "status_icon": status,
-				     "last_running" : never_updated
+				     "status_icon": "img/stop_sign_16.png",
+				     "last_running" : "Start the vehicle"
 				    }));
 
 			}
@@ -185,6 +183,13 @@
 	    $(".save", frm).off('tap').on('tap', function(event)
             {
                 var vehicle_data = process_form(frm);
+
+		if( check_vin(vehicle_data.vin, frm) ) {
+		    return;
+		} else {
+		    $("#error-msg").html("").hide('slow');
+		}
+
                 console.log(">>>>>>>>> Saving new vehicle ", vehicle_data);
 		$.mobile.loading("show", {
                     text: "Saving vehicle data...",
@@ -234,6 +239,7 @@
 	    console.log("update vehicle");
             var frm = "#form-update-vehicle";
             $(frm)[0].reset();
+	    $("#error-msg").html("").hide();
 	    var params = router.getParams(match[1]);
 	    console.log("ID: ", params.id);
 	    Fuse.vehicleSummary(function(json){
@@ -247,6 +253,17 @@
 		$("#photo", frm).val(vehicle.profilePhoto);
 		$("#id", frm).val(vehicle.picoId);
 		$("#photo-preview", frm).attr("src", vehicle.profilePhoto);
+
+		// reset status area
+		if ($("li#vehicle_missing").length > 0) { 
+		    // we add two, get rid of two
+		    $("#form-update-vehicle-list li:last-child").remove();
+		}
+		if ($("a#vehicle-location-link").length > 1) { // there's one in the template, so two if present in form
+		    // we add two, get rid of two
+		    $("#form-update-vehicle-list li:last-child").remove();
+		    $("#form-update-vehicle-list li:last-child").remove();
+		}
 
 		if(! isEmpty(vehicle.vehicleId)) {
 		    
@@ -274,17 +291,9 @@
 			 "heading": "Heading: " + vehicle.heading + " degrees"
 			});
 
-		    if ($("a#vehicle-location-link").length > 1) { // there's one in the template, so two if present in form
-			// we add two, get rid of two
-			$("#form-update-vehicle-list li:last-child").remove();
-			$("#form-update-vehicle-list li:last-child").remove();
-		    }
 		    $("#form-update-vehicle-list").append(snip);
 		} else {
-		    if ($("li#vehicle_missing").length > 0) { // there's one in the template, so two if present in form
-			// we add two, get rid of two
-			$("#form-update-vehicle-list li:last-child").remove();
-		    }$("#form-update-vehicle-list").append(
+		    $("#form-update-vehicle-list").append(
 			'<li id="vehicle_missing" class="ui-field-contain">Vehicle is not in Carvoyant</li>'
 		    );
 		}
@@ -295,11 +304,20 @@
             // show jQuery mobile's built in loady spinner.
 	    $(".save", frm).off('tap').on('tap', function(event)
             {
+		
+                var vehicle_data = process_form(frm);
+
+		if( check_vin(vehicle_data.vin, frm) ) {
+		    return;
+		} else {
+		    $("#error-msg").html("").hide('slow');
+		}
+
 		$.mobile.loading("show", {
                     text: "Updating vehicle data...",
                     textVisible: true
 		});
-                var vehicle_data = process_form(frm);
+
                 console.log(">>>>>>>>> Updating vehicle ", vehicle_data);
 		var id = vehicle_data.id;
 
@@ -327,7 +345,12 @@
             {
 		console.log("Cancelling update vehicle");
 		$(frm)[0].reset();
+		$("#error-msg").html("").hide('slow');
 		$('#photo-preview').attr('src', dummy_image);
+		$.mobile.loading("hide");
+		$.mobile.changePage("#page-manage-fuse", {
+		    transition: 'slide'
+		});
 	    });
 	    $(".delete", frm).attr("href","#page-vehicle-confirm-delete?id=" + params.id);
 	},
@@ -477,6 +500,31 @@
         fleet_template: Handlebars.compile($("#fleet-template").html() || ""),
 	vehicle_location_template: Handlebars.compile($("#vehicle-location-template").html() || ""),
     };
+
+    function show_error_msg(msg_key, frm) {
+	var error_msgs = {
+	    "vin_length": "VIN must be 17 characters long"
+	};
+
+	function format_error_item(msg) {
+	    return  "<li style='color:red;background:#FCC' class='ui-field-contain'>"+msg+"</li>";
+	};
+
+	var error_message = format_error_item(error_msgs[msg_key]);
+	$("#error-msg", frm).append(error_message).show('slow');
+	$('#error-msg', frm).listview('refresh');
+    };
+
+    function check_vin(vin, frm) {
+	if( vin.length > 0 && vin.length !== 17 ) {
+	    console.log("Bad VIN length");
+	    show_error_msg("vin_length", frm);
+	    return 1;
+	} else {
+	    return 0;
+	}
+    };
+
 
 
     // process an array of objects from a form to be a proper object

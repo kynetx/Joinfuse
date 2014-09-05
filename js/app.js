@@ -300,22 +300,6 @@
 		
                 var vehicle_data = process_form(frm);
 
-		function format_error_item(msg) {
-		    return  "<li style='color:red;background:#FCC' class='ui-field-contain'>"+msg+"</li>"
-		};
-
-		function check_vin(vin, frm) {
-		    if( vin.length > 0 && vin.length !== 17 ) {
-			console.log("Bad VIN");
-			var error_message = format_error_item("VIN must be 17 characters long");
-			$("#error-msg", frm).append(error_message).show('slow');
-			$('#error-msg', frm).listview('refresh');
-			return 1;
-		    } else {
-			return 0;
-		    }
-		};
-
 		if( check_vin(vehicle_data.vin, frm) ) {
 		    return;
 		} else {
@@ -509,6 +493,31 @@
         fleet_template: Handlebars.compile($("#fleet-template").html() || ""),
 	vehicle_location_template: Handlebars.compile($("#vehicle-location-template").html() || ""),
     };
+
+    function show_error_msg(msg_key) {
+	var error_msgs = {
+	    "vin_length": "VIN must be 17 characters long"
+	};
+
+	function format_error_item(msg) {
+	    return  "<li style='color:red;background:#FCC' class='ui-field-contain'>"+msg+"</li>";
+	};
+
+	var error_message = format_error_item(error_msgs[msg_key]);
+	$("#error-msg", frm).append(error_message).show('slow');
+	$('#error-msg', frm).listview('refresh');
+    };
+
+    function check_vin(vin, frm) {
+	if( vin.length > 0 && vin.length !== 17 ) {
+	    console.log("Bad VIN length");
+	    show_error_msg("vin_length");
+	    return 1;
+	} else {
+	    return 0;
+	}
+    };
+
 
 
     // process an array of objects from a form to be a proper object

@@ -176,7 +176,8 @@
 	    console.log("add vehicle");
             var frm = "#form-add-vehicle";
             $(frm)[0].reset();
-            $("#photo", frm).val("");
+            $("#error-msg", frm).html("").hide();
+	    $("#photo", frm).val("");
             $("#photo-preview", frm).attr("src", dummy_image);
 
             // show jQuery mobile's built in loady spinner.
@@ -231,6 +232,7 @@
             {
 		console.log("Cancelling add vehicle");
 		$(frm)[0].reset();
+		$("#error-msg", frm).html("").hide();
 		$('#photo-preview').attr('src', dummy_image);
 	    });
 
@@ -239,7 +241,7 @@
 	    console.log("update vehicle");
             var frm = "#form-update-vehicle";
             $(frm)[0].reset();
-	    $("#error-msg").html("").hide();
+	    $("#error-msg", frm).html("").hide();
 	    var params = router.getParams(match[1]);
 	    console.log("ID: ", params.id);
 	    Fuse.vehicleSummary(function(json){

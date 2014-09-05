@@ -183,6 +183,13 @@
 	    $(".save", frm).off('tap').on('tap', function(event)
             {
                 var vehicle_data = process_form(frm);
+
+		if( check_vin(vehicle_data.vin, frm) ) {
+		    return;
+		} else {
+		    $("#error-msg").html("").hide('slow');
+		}
+
                 console.log(">>>>>>>>> Saving new vehicle ", vehicle_data);
 		$.mobile.loading("show", {
                     text: "Saving vehicle data...",

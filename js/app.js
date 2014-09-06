@@ -87,9 +87,14 @@
 			
 			// console.log("Painting " + id);
 			if(! isEmpty(vehicle.vehicleId)) {
-			    var running = "parked at";
-			    if(! isEmpty(vehicle.running) && vehicle.running == "1") {
-				running = "driving at";
+			    var running = "Vehicle is ";
+			    if (! isEmpty(vehicle.running) && vehicle.running == "1") {
+				running += "driving";
+			    } else {
+				running += "parked";
+			    }
+	    		    if( ! isEmpty(vehicle.address) ) {
+				running += " at " + vehicle.address;
 			    }
 
 			    var speed = "";
@@ -128,13 +133,14 @@
                                                                        : -111.8833;
 
 
+			    running = ! isEmpty(vehicle.address) ? "Vehicle is " + running + " " + vehicle.address : 0;
 
 			    $("#manage-fleet li:nth-child(1)" ).after(
 				snippets.vehicle_update_item_template(
 				    {"name": vehicle.profileName,
 				     "id": id,
 				     "status_icon": status,
-				     "running": "Vehicle is " + running + " " + vehicle.address,
+				     "running": running,
 				     "fuel": fuel,
 				     "heading": "Heading: " + vehicle.heading + " degrees",
 				     "last_running": last_running
@@ -296,7 +302,7 @@
 		    $("#form-update-vehicle-list").append(snip);
 		} else {
 		    $("#form-update-vehicle-list").append(
-			'<li id="vehicle_missing" class="ui-field-contain">Vehicle is not in Carvoyant</li>'
+			'<li id="vehicle_missing" class="ui-field-contain">No vehicle data yet.</li>'
 		    );
 		}
 

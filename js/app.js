@@ -133,8 +133,6 @@
                                                                        : -111.8833;
 
 
-			    running = ! isEmpty(vehicle.address) ? "Vehicle is " + running + " " + vehicle.address : 0;
-
 			    $("#manage-fleet li:nth-child(1)" ).after(
 				snippets.vehicle_update_item_template(
 				    {"name": vehicle.profileName,

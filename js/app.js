@@ -241,11 +241,13 @@
 							       return obj["name"] === "vehicle_created";
 							   })[0].options.id;
 					   Fuse.updateVehicleSummary(id, profile);
+					   
+					   $.mobile.changePage("#page-manage-fuse", {
+					       transition: 'slide'
+					   });
+
 				       }
 
-				       $.mobile.changePage("#page-manage-fuse", {
-					   transition: 'slide'
-				       });
 				   },
 				   {license: vehicle_data.license}
 				  );

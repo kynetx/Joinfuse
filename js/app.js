@@ -207,23 +207,41 @@
 				   vehicle_data.mileage,
 				   function(directives) {
 				       $.mobile.loading("hide");
-				       console.log("Vehicle saved ", directives);
 
-				       var profile = {
-					   deviceId: vehicle_data.deviceId,
-					   vin: vehicle_data.vin,
-					   mileage: vehicle_data.mileage,
-					   license: vehicle_data.license,
-					   myProfileName: vehicle_data.name,
-					   myProfilePhoto: vehicle_data.photo
-				       };
-				       console.log("Created profile ", profile);
-				       var id = $.grep(directives.directives, 
+				       var error_directive = $.grep(directives.directives, 
 						       function(obj, i){
-							   return obj["name"] === "vehicle_created";
-						       })[0].options.id;
-				       Fuse.updateVehicleSummary(id, profile);
+							   return obj["name"] === "vehicle_error";
+						       });
 
+				       if(error_directive.length > 0) {
+
+					   console.log("Vehicle not saved ", directives);
+
+					   show_error_msg(error_directive.options.error.error_type, 
+							  frm, 
+							  {"msg": error_directive.options.error.error_msg}
+							 );
+					   
+
+				       } else {
+
+					   console.log("Vehicle saved ", directives);
+
+					   var profile = {
+					       deviceId: vehicle_data.deviceId,
+					       vin: vehicle_data.vin,
+					       mileage: vehicle_data.mileage,
+					       license: vehicle_data.license,
+					       myProfileName: vehicle_data.name,
+					       myProfilePhoto: vehicle_data.photo
+					   };
+					   console.log("Created profile ", profile);
+					   var id = $.grep(directives.directives, 
+							   function(obj, i){
+							       return obj["name"] === "vehicle_created";
+							   })[0].options.id;
+					   Fuse.updateVehicleSummary(id, profile);
+				       }
 
 				       $.mobile.changePage("#page-manage-fuse", {
 					   transition: 'slide'
@@ -507,12 +525,17 @@
 	vehicle_location_template: Handlebars.compile($("#vehicle-location-template").html() || ""),
     };
 
-    function show_error_msg(msg_key, frm) {
+    function show_error_msg(msg_key, frm, options) {
+	options = options || {};
 	var error_msgs = {
-	    "vin_length": "VIN must be 17 characters long"
+	    "vin_length": "VIN must be 17 characters long",
+	    "vehicle_create": "Vehicle cannot be created"
 	};
 
+
 	function format_error_item(msg) {
+	    msg = options.msg ? msg + ":" + options.msg 
+		              : msg;
 	    return  "<li style='color:red;background:#FCC' class='ui-field-contain'>"+msg+"</li>";
 	};
 

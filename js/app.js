@@ -217,9 +217,9 @@
 
 					   console.log("Vehicle not saved ", directives);
 
-					   show_error_msg(error_directive.options.error.error_type, 
+					   show_error_msg(error_directive[0].options.error.error_type, 
 							  frm, 
-							  {"msg": error_directive.options.error.error_msg}
+							  {"msg": error_directive[0].options.error.error_msg}
 							 );
 					   
 

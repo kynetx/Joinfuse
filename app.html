@@ -287,9 +287,17 @@ The Fuse app is not complete yet, but will be soon. In the meantime you can set 
               </div>
            </li>
 
+           <li class="ui-field-contain" style="">
+	      <a id="show-eci" href="#" data-icon="carat-d" data-role="button" data-inline="true" data-theme="b">Show ECI</a>
+	   </li>
+	    <li id="reveal-eci" class="ui-field-contain" style="display:none" >
+	    </li>
+
         </ul>
 
 	<input type="hidden" id="id" name="id" value="">
+
+	<ul id="error-msg" data-role="listview" data-inset="true" class="alert alert-error" style="display:none"></ul>
 
         <a class="save" href="#" data-icon="check" data-role="button" data-inline="true" data-theme="b">Save</a>
         <a class="cancel" href="#page-manage-fuse" data-icon="delete" data-role="button" data-inline="true">Cancel</a>

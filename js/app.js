@@ -411,8 +411,10 @@
 	pageUpdateProfile: function(type,  match, ui, page) {
 	    console.log("update profile");
             var frm = "#form-update-profile";
+            $("#error-msg", frm).html("").hide();
+            $("#eci-eci", frm).html("").hide();
             $(frm)[0].reset();
-	    owner_eci = CloudOS.defaultECI;
+	    var owner_eci = CloudOS.defaultECI;
 	    Fuse.getProfile(owner_eci,function(json){
 		$("#name", frm).val(json.myProfileName);
 		$("#email", frm).val(json.myProfileEmail);
@@ -454,12 +456,19 @@
 	    $(".cancel", frm).off('tap').on('tap', function(event)
             {
 		console.log("Cancelling update profile");
+	    });	
+	    $("#show-eci", frm).off('tap').on('tap', function(event)
+            {
+		var eci_message = owner_eci;
+		$("#show-eci", frm).append(eci_message).show('slow');
+		$('#show-eci', frm).parent().listview('refresh');
+
 	    });
 	},
 	pageUpdatePreferences: function(type,  match, ui, page) {
 	    console.log("update preferences");
             var frm = "#form-update-preferences";
-	    owner_eci = CloudOS.defaultECI;
+	    var owner_eci = CloudOS.defaultECI;
 	    Fuse.getPreferences(owner_eci,function(json){
 		$("#report option", frm).each(function(){
 		    if($(this).val() == json.reportPreference) {

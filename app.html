@@ -99,7 +99,7 @@ The Fuse app is not complete yet, but will be soon. In the meantime you can set 
  	  <li data-role="list-divider" >Add New Vehicle</li>
           <li class="ui-field-contain">
               <label for="text">Name</label>
-              <input type="text" data-clear-btn="true" name="name" id="name" placeholder="What you call thie vehicle" value="">
+              <input type="text" data-clear-btn="true" name="name" id="name" placeholder="What you call this vehicle" value="">
            </li>
 
            <li class="ui-field-contain">
@@ -167,7 +167,7 @@ The Fuse app is not complete yet, but will be soon. In the meantime you can set 
  	  <li data-role="list-divider" >Update Vehicle</li>
           <li class="ui-field-contain">
               <label for="text">Name</label>
-              <input type="text" data-clear-btn="true" name="name" id="name" placeholder="What you call thie vehicle" value="">
+              <input type="text" data-clear-btn="true" name="name" id="name" placeholder="What you call this vehicle" value="">
            </li>
 
            <li class="ui-field-contain">
@@ -277,7 +277,7 @@ The Fuse app is not complete yet, but will be soon. In the meantime you can set 
               </select>
            </li>
            <li class="ui-field-contain" style="padding: .7em 1em;">
-              <label for="location-image">Image</label>
+              <label for="photo-preview">Image</label>
 	      <div> 
                 <img id="photo-preview" src="" name style="max-width:200px;">
                 <div id="photo-success" class="alert alert-success" style="display:none;margin-right:20px;margin-bottom:0px;margin-top:8px;"></div>
@@ -287,9 +287,17 @@ The Fuse app is not complete yet, but will be soon. In the meantime you can set 
               </div>
            </li>
 
+           <li class="ui-field-contain">
+	     <a id="show-eci" href="#" data-icon="carat-d" data-theme="a">Show ECI</a>
+	   </li>
+           <li class="ui-field-contain" id="reveal-eci" style="display:none">
+	   </li>
+
         </ul>
 
 	<input type="hidden" id="id" name="id" value="">
+
+	<ul id="error-msg" data-role="listview" data-inset="true" class="alert alert-error" style="display:none"></ul>
 
         <a class="save" href="#" data-icon="check" data-role="button" data-inline="true" data-theme="b">Save</a>
         <a class="cancel" href="#page-manage-fuse" data-icon="delete" data-role="button" data-inline="true">Cancel</a>

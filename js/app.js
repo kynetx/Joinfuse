@@ -87,9 +87,14 @@
 			
 			// console.log("Painting " + id);
 			if(! isEmpty(vehicle.vehicleId)) {
-			    var running = "parked at";
-			    if(! isEmpty(vehicle.running) && vehicle.running == "1") {
-				running = "driving at";
+			    var running = "Vehicle is ";
+			    if (! isEmpty(vehicle.running) && vehicle.running == "1") {
+				running += "driving";
+			    } else {
+				running += "parked";
+			    }
+	    		    if( ! isEmpty(vehicle.address) ) {
+				running += " at " + vehicle.address;
 			    }
 
 			    var speed = "";
@@ -128,13 +133,12 @@
                                                                        : -111.8833;
 
 
-
 			    $("#manage-fleet li:nth-child(1)" ).after(
 				snippets.vehicle_update_item_template(
 				    {"name": vehicle.profileName,
 				     "id": id,
 				     "status_icon": status,
-				     "running": "Vehicle is " + running + " " + vehicle.address,
+				     "running": running,
 				     "fuel": fuel,
 				     "heading": "Heading: " + vehicle.heading + " degrees",
 				     "last_running": last_running
@@ -203,27 +207,47 @@
 				   vehicle_data.mileage,
 				   function(directives) {
 				       $.mobile.loading("hide");
-				       console.log("Vehicle saved ", directives);
 
-				       var profile = {
-					   deviceId: vehicle_data.deviceId,
-					   vin: vehicle_data.vin,
-					   mileage: vehicle_data.mileage,
-					   license: vehicle_data.license,
-					   myProfileName: vehicle_data.name,
-					   myProfilePhoto: vehicle_data.photo
-				       };
-				       console.log("Created profile ", profile);
-				       var id = $.grep(directives.directives, 
+				       var error_directive = $.grep(directives.directives, 
 						       function(obj, i){
-							   return obj["name"] === "vehicle_created";
-						       })[0].options.id;
-				       Fuse.updateVehicleSummary(id, profile);
+							   return obj["name"] === "vehicle_error";
+						       });
 
+				       if(error_directive.length > 0) {
 
-				       $.mobile.changePage("#page-manage-fuse", {
-					   transition: 'slide'
-				       });
+					   console.log("Vehicle not saved ", directives);
+
+					   show_error_msg(error_directive[0].options.error.error_type, 
+							  frm, 
+							  {"msg": error_directive[0].options.error.error_msg}
+							 );
+					   
+
+				       } else {
+
+					   console.log("Vehicle saved ", directives);
+
+					   var profile = {
+					       deviceId: vehicle_data.deviceId,
+					       vin: vehicle_data.vin,
+					       mileage: vehicle_data.mileage,
+					       license: vehicle_data.license,
+					       myProfileName: vehicle_data.name,
+					       myProfilePhoto: vehicle_data.photo
+					   };
+					   console.log("Created profile ", profile);
+					   var id = $.grep(directives.directives, 
+							   function(obj, i){
+							       return obj["name"] === "vehicle_created";
+							   })[0].options.id;
+					   Fuse.updateVehicleSummary(id, profile);
+					   
+					   $.mobile.changePage("#page-manage-fuse", {
+					       transition: 'slide'
+					   });
+
+				       }
+
 				   },
 				   {license: vehicle_data.license}
 				  );
@@ -296,7 +320,7 @@
 		    $("#form-update-vehicle-list").append(snip);
 		} else {
 		    $("#form-update-vehicle-list").append(
-			'<li id="vehicle_missing" class="ui-field-contain">Vehicle is not in Carvoyant</li>'
+			'<li id="vehicle_missing" class="ui-field-contain">No vehicle data yet.</li>'
 		    );
 		}
 
@@ -387,8 +411,10 @@
 	pageUpdateProfile: function(type,  match, ui, page) {
 	    console.log("update profile");
             var frm = "#form-update-profile";
+            $("#error-msg", frm).html("").hide();
+            $("#eci-eci", frm).html("").hide();
             $(frm)[0].reset();
-	    owner_eci = CloudOS.defaultECI;
+	    var owner_eci = CloudOS.defaultECI;
 	    Fuse.getProfile(owner_eci,function(json){
 		$("#name", frm).val(json.myProfileName);
 		$("#email", frm).val(json.myProfileEmail);
@@ -400,7 +426,9 @@
 		$( "#notify" ).selectmenu( "refresh" );
 		$("#photo", frm).val(json.myProfilePhoto);
 		$("#photo-preview", frm).attr("src", json.myProfilePhoto);
+		$('#show-eci', frm).parent().parent().listview('refresh');
 	    });
+	    
             // show jQuery mobile's built in loady spinner.
 	    $(".save", frm).off('tap').on('tap', function(event)
             {
@@ -430,12 +458,19 @@
 	    $(".cancel", frm).off('tap').on('tap', function(event)
             {
 		console.log("Cancelling update profile");
+	    });	
+	    $("#show-eci", frm).off('tap').on('tap', function(event)
+            {
+		var eci_message = "Fuse ECI (keep secret): " + owner_eci;
+		$("#reveal-eci", frm).html(eci_message).toggle('slow', function(){
+		    $('#show-eci', frm).parent().parent().listview('refresh');
+   	        });
 	    });
 	},
 	pageUpdatePreferences: function(type,  match, ui, page) {
 	    console.log("update preferences");
             var frm = "#form-update-preferences";
-	    owner_eci = CloudOS.defaultECI;
+	    var owner_eci = CloudOS.defaultECI;
 	    Fuse.getPreferences(owner_eci,function(json){
 		$("#report option", frm).each(function(){
 		    if($(this).val() == json.reportPreference) {
@@ -503,12 +538,17 @@
 	vehicle_location_template: Handlebars.compile($("#vehicle-location-template").html() || ""),
     };
 
-    function show_error_msg(msg_key, frm) {
+    function show_error_msg(msg_key, frm, options) {
+	options = options || {};
 	var error_msgs = {
-	    "vin_length": "VIN must be 17 characters long"
+	    "vin_length": "VIN must be 17 characters long",
+	    "vehicle_create": "Vehicle cannot be created"
 	};
 
+
 	function format_error_item(msg) {
+	    msg = options.msg ? msg + ":" + options.msg 
+		              : msg;
 	    return  "<li style='color:red;background:#FCC' class='ui-field-contain'>"+msg+"</li>";
 	};
 

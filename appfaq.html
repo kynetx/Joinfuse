@@ -10,7 +10,7 @@ A. ...
 
 Q. Why isn't my favorite gas station listed in the suggested gas stations when I fill up?
 
-A. ...
+A. Fuse uses the Google Places API to get a list of nearby gas stations when the driver records a fuel purchase. Sometimes businesses are not in Google Places or are miscategorized. This <a href="http://www.windley.com/archives/2014/09/suggesting_changes_to_google_places.shtml">blog post</a> explains how you can suggest edits to your favorite gas station so that it's correctly categorized and shows up in Fuse. 
 
 Q. How are trip costs calculated?
 
@@ -23,3 +23,25 @@ A.
 Q. Why don't I see data from Fuse during a trip?
 
 A. 
+
+Q. Why did my GPS report the wrong location?
+
+A. Two answers: off a little and off a lot. 
+
+Off a lot: Possible issues:
+
+- the number and/or position of the GPS Satellites may have been in a
+state that made it difficult to calculate the coordinates correctly
+- the device may have been downloading ephemeris data (the set of
+parameters that can be used to accurately calculate the location of a
+GPS satellite at a particular point in time) during that time period and
+had an issue with the receiver while it was downloading
+- the GPS may have experienced atmospheric effects which could cause it
+to be off
+- the GPS may have experienced multipath issues (where signals reflect
+off of things and cause all sorts of weird issues). Things like tunnels,
+buildings and hills can make GPS data unreliable at times
+- there may have been an issue with one of the satellites, but I didn't
+see any posted outages with GPS satellites during that time.
+
+Any of these things can give incorrect GPS coordinates.

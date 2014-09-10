@@ -277,7 +277,7 @@ The Fuse app is not complete yet, but will be soon. In the meantime you can set 
               </select>
            </li>
            <li class="ui-field-contain" style="padding: .7em 1em;">
-              <label for="location-image">Image</label>
+              <label for="photo-preview">Image</label>
 	      <div> 
                 <img id="photo-preview" src="" name style="max-width:200px;">
                 <div id="photo-success" class="alert alert-success" style="display:none;margin-right:20px;margin-bottom:0px;margin-top:8px;"></div>
@@ -288,8 +288,11 @@ The Fuse app is not complete yet, but will be soon. In the meantime you can set 
            </li>
 
            <li class="ui-field-contain" style="">
-	     <label for="reveal-eci"><a id="show-eci" href="#" data-icon="carat-d" data-role="button" data-inline="true" data-mini="true" data-theme="a" style="font-size:12px;border:none">Show ECI</a></label>
-              <input type="text" data-theme="b" name="reveal-eci" id="reveal-eci"  value="" style="display:none;width=80%">
+	     <label for="reveal-eci"><a id="show-eci" href="#" data-icon="carat-d" data-role="button" data-inline="true" data-mini="true" data-theme="a" style="margin-top:-5px;font-size:12px;border:none">Show ECI</a></label>
+	     <div id=reveal-eci>
+              <input type="text" data-theme="b" name="eci" id="eci"  value="" style="display:none;width=80%">
+	      <span>Fuse support may ask for this number to resolve problems. Otherwise keep it secret.</span>
+	     </div>
 	   </li>
 
         </ul>

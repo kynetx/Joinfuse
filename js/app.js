@@ -461,7 +461,7 @@
             {
 		var eci_message = owner_eci;
 		$("#show-eci", frm).append(eci_message).show('slow');
-		$('#show-eci', frm).parent().listview('refresh');
+//		$('#show-eci', frm).parent().listview('refresh');
 
 	    });
 	},

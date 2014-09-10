@@ -427,6 +427,7 @@
 		$("#photo", frm).val(json.myProfilePhoto);
 		$("#photo-preview", frm).attr("src", json.myProfilePhoto);
 	    });
+	    $('#show-eci', frm).parent().parent().listview('refresh');
             // show jQuery mobile's built in loady spinner.
 	    $(".save", frm).off('tap').on('tap', function(event)
             {
@@ -459,7 +460,6 @@
 	    });	
 	    $("#show-eci", frm).off('tap').on('tap', function(event)
             {
-		console.log("toggling ECI");
 		var eci_message = "Fuse ECI (keep secret): " + owner_eci;
 		$("#reveal-eci", frm).html(eci_message).toggle('slow', function(){
 		    $('#show-eci', frm).parent().parent().listview('refresh');

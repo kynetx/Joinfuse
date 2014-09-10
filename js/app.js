@@ -460,7 +460,7 @@
 	    $("#show-eci", frm).off('tap').on('tap', function(event)
             {
 		var eci_message = owner_eci;
-		$("#show-eci", frm).append(eci_message).show('slow');
+		$("#reveal-eci", frm).html(eci_message).toggle('slow');
 //		$('#show-eci', frm).parent().listview('refresh');
 
 	    });

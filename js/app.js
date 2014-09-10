@@ -459,7 +459,7 @@
 	    });	
 	    $("#show-eci", frm).off('tap').on('tap', function(event)
             {
-		var eci_message = owner_eci;
+		var eci_message = "Fuse ECI (keep secret): " + owner_eci;
 		$("#reveal-eci", frm).html(eci_message).toggle('slow');
 		$('#show-eci', frm).parent().parent().listview('refresh');
 

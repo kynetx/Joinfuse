@@ -461,9 +461,9 @@
             {
 		console.log("toggling ECI");
 		var eci_message = "Fuse ECI (keep secret): " + owner_eci;
-		$("#reveal-eci", frm).html(eci_message).toggle('slow');
-		$('#show-eci', frm).parent().parent().listview('refresh');
-
+		$("#reveal-eci", frm).html(eci_message).toggle('slow', function(){
+		    $('#show-eci', frm).parent().parent().listview('refresh');
+   	        });
 	    });
 	},
 	pageUpdatePreferences: function(type,  match, ui, page) {

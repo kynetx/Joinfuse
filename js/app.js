@@ -426,8 +426,9 @@
 		$( "#notify" ).selectmenu( "refresh" );
 		$("#photo", frm).val(json.myProfilePhoto);
 		$("#photo-preview", frm).attr("src", json.myProfilePhoto);
+		$('#show-eci', frm).parent().parent().listview('refresh');
 	    });
-	    $('#show-eci', frm).parent().parent().listview('refresh');
+	    
             // show jQuery mobile's built in loady spinner.
 	    $(".save", frm).off('tap').on('tap', function(event)
             {

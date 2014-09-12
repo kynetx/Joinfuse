@@ -20,6 +20,10 @@ color: #8a9299;
   color: #BBB;
 }
 
+.wrap {
+    white-space: normal !important;
+}
+
 .navbar-brand-fuse {
   float: left;
   padding: 15px 15px;
@@ -194,6 +198,26 @@ a.sb.circle:after,
 	-moz-border-radius: 10em;
 	border-radius: 10em;
 }
+
+/* faq */
+.question {
+  font-weight: bold
+}
+
+.question:before {
+  content: "Q: ";
+}
+
+.answer {
+}
+
+/* 
+.answer:before { 
+   content: "A: "; 
+} 
+
+*/
+
 
 
 /* video */

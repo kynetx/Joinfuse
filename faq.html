@@ -25,12 +25,12 @@ published: true
 
 <li>
 
-<p>
+<p class="question">
 <b>What cars does Fuse work with?
 </b>
 </p>
 
-<p>
+<p class="answer">
 Every US vehicle sold after January 1996 has an OBD II data port <a href="http://www.carmd.com/70.6/Article/Find-My-Car's-Connector">near the driver's seat</a> that Fuse can plug into. Not all cars support all data. The GPS and cellular connection always work, however and most of Fuse's functionality depends on those.
 </p>
 </li>
@@ -38,23 +38,23 @@ Every US vehicle sold after January 1996 has an OBD II data port <a href="http:/
 
 <li>
 
-<p>
+<p class="question">
 <b>Are there plans to make the Fuse available outside of the US?
 </b>
 </p>
 
-<p>
+<p class="answer">
 We'll soon be offering Fuse to international customers too. <a href="https://confirmsubscription.com/h/d/29833E13872FEA85">Sign up here</a> to be notified when Fuse is available internationally.
 </p>
 
 </li>
 
 <li>
-<p>
+<p class="question">
 <b>How hard is the installation and configuration?</b>
 </p>
 
-<p>
+<p class="answer">
 Fuse simply plugs into the easily accessible OBD II port that is already on your 1996 or later vehicle. There is a simple configuration accessed from a unique QR code or URL on the device that will allow your to set up your account. No tools are required and set up is simple and easy.
 </p>
 
@@ -62,12 +62,12 @@ Fuse simply plugs into the easily accessible OBD II port that is already on your
 
 <li>
 
-<p>
+<p class="question">
 <b>Do I need a data plan?
 </b>
 </p>
 
-<p>
+<p class="answer">
 No, the Fuse data plan is included with the price of the device for 24 months. There is not data plan or monthly fee to use Fuse.
 </p>
 
@@ -75,11 +75,11 @@ No, the Fuse data plan is included with the price of the device for 24 months. T
 
 <li>
 
-<p>
+<p class="question">
 <b>What happens after 24 months?</b>
 </p>
 
-<p>
+<p class="answer">
 Its hard to tell what will happen with cellular data pricing that far out, but we anticipate it will continue to fall. The data may continue to be free after 24 months, but we can't guarantee it. Any charge would be small and easily affordable. 
 </p>
 
@@ -87,12 +87,12 @@ Its hard to tell what will happen with cellular data pricing that far out, but w
 
 <li>
 
-<p>
+<p class="question">
 <b>Why does the device have its own cellular modem? Why not just use my smartphone?
 </b>
 </p>
 
-<p>
+<p class="answer">
 Fuse leverages a sensor plugged into your car, the cloud and a new mobile app to combine your life. The sensor connects using cellular technology to the cloud, constantly sharing the data into your private account. Using a sensor with built-in cellular technology enables you to get a constant stream of data from your car, even when you or your smartphone are not in the car.
 
 Fuse doesn't require any pairing with a phone and works with multiple drivers. For example, Fuse works when your teen, with a plain old cell phone, is driving the car. Or when your car is parked. See this <a href="http://kck.st/HGu7Yj">update for more information</a>.
@@ -102,12 +102,12 @@ Fuse doesn't require any pairing with a phone and works with multiple drivers. F
 
 <li>
 
-<p>
+<p class="question">
 <b>Where is my OBD II Port?
 </b>
 </p>
 
-<p>
+<p class="answer">
 The port must be within 3 feet of the driver and accessible without using any tools. Check in your car under the dashboard or under the steering wheel. This <a href="https://www.carmd.com/70.6/Article/Find-My-Car's-Connector">article on CarMD can tell you for any given make and model where the port is located.</a>
 </p>
 
@@ -115,12 +115,12 @@ The port must be within 3 feet of the driver and accessible without using any to
 
 <li>
 
-<p>
+<p class="question">
 <b>Will I be able to use my existing OBD II device with your software?
 </b>
 </p>
 
-<p>
+<p class="answer">
 You can use any CalAmp LMU-3000 (GSM) or Xirgo XT-2000 (GSM) with the Fuse network and mobile app. To do so, your device will need to be reflashed to load a new script. Your device will also need a new SIM card to put it onto the network we use for device connectivity.  Note: your device can only work with one network at a time, so making your device compatible with Fuse will mean that it no longer works with the system it is currently on. 
 </p>
 
@@ -128,12 +128,12 @@ You can use any CalAmp LMU-3000 (GSM) or Xirgo XT-2000 (GSM) with the Fuse netwo
 
 <li>
 
-<p>
+<p class="question">
 <b>Can I switch cars after installing Fuse?
 </b>
 </p>
 
-<p>
+<p class="answer">
 You can move it between vehicles, but you'll have to update the profile to indicate the new vehicle. Switching is designed for moving it to a new car, not moving it back and forth between two cars.
 </p>
 
@@ -141,12 +141,12 @@ You can move it between vehicles, but you'll have to update the profile to indic
 
 <li>
 
-<p>
+<p class="question">
 <b>Will there be an API?
 </b>
 </p>
 
-<p>
+<p class="answer">
 Yes, the iPhone and Android apps will be using an API to access the logic behind all this and we will publish that interface. It's controlled by OAuth, so anyone will be able to use an app you build on the API to connect to their car on Fuse.
 </p>
 
@@ -155,12 +155,10 @@ Yes, the iPhone and Android apps will be using an API to access the logic behind
 <!-- 
 <li>
 
-<p>
-<b></b>
+<p class="question">
 </p>
 
-<p>
-
+<p class="answer">
 </p>
 
 </li>
@@ -169,43 +167,129 @@ Yes, the iPhone and Android apps will be using an API to access the logic behind
  -->
 </ol>
 
+<a name="using"></a>
 <h2>Using Fuse</h2>
+
 
 <ol>
 
 <li>
+<p class="question">
+When I click on "Authorize with Kynetx" in the <a href="https://joinfuse.com/app.html">Fuse Management Console</a>, nothing happens.
+</p>
+<p class="answer">
+On an iOS device, you must disable "Private Browsing" for the app to work. You must also allow third party cookies.
+</p>
+</li>
 
-<p>
-<b>Fuse shows my trip costs as $0</b>
+<li>
+
+<p class="question">
+On an iOS device, you must disable "Private Browsing" for the app to work. You must also allow third party cookies.
 </p>
 
+<p class="answer">
+You can move the device from one vehicle to another, but you cannot have the same device associated with two vehicles in the Fuse system at the same time. So, you can either create two vehicles in Fuse and manually update them to reflect which vehicle the device is currently in or you can have one vehicle which is a mix of data from both vehicles. 
+</p>
+
+</li>
+
+
+<li>
+<p class="question">Why isn't my favorite gas station listed in the suggested gas stations when I fill up?</p>
+
+<p class="answer"> Fuse uses the Google Places API to get a list of nearby gas stations when the driver records a fuel purchase. Sometimes businesses are not in Google Places or are miscategorized. This <a href="http://www.windley.com/archives/2014/09/suggesting_changes_to_google_places.shtml">blog post</a> explains how you can suggest edits to your favorite gas station so that it's correctly categorized and shows up in Fuse. 
+</p>
+</li>
+
+<li>
+<p class="question">How are trip costs calculated?</p>
+
+<p class="answer"> If you have made at least two fuel purchases and recorded them, then the last cost per gallon and computed MPG are used to determine trip costs. If not, we use data from manufacturer to determine the MPG of your vehicle and the Dept. of Transportation to determine average gas price in the US for the past week. 
+</p>
+</li>
+
+<li>
+<p class="question">The MPG in my vehicle doesn't seem right even though I've recorded fuel purchases. </p>
+
+<p class="answer"> MPG is based on the miles you drive between fuel purchases and the number of gallons you purchase. Several things could affect the inaccuracy of the calculation such as not recording consecutive fuel purchases (make the miles drive higher than the really are and this inflate the calculated MPG) or not completely filling the tank when you fill up (making the number of gallons seem lower and thus inflate the calculated MPG). 
+</p>
+</li>
+
+<li>
+<p class="question">My fuel level isn't showing or is off</p>
+
+<p class="answer"> Some manufacturers do not report fuel level to devices plugged into the OBD II port. Sometimes this shows up as no value. In this case Fuse simply doesn't show anything about Fuel level. Some vehicles show a value that is wrong, although usually the same wrong value regardless of the actual fuel level. In this case Fuse will show the bad fuel level. 
+</p>
+</li>
+
+<li>
+<p class="question">Why don't I see data from Fuse during a trip?</p>
+
+<p class="answer"> Even thought Fuse is recording data about a trip every five minutes while the vehicle is on, it only reports vehicle status in the app at the start and end of a trip. 
+</p>
+</li>
+
+<li>
+<p class="question">Why did my GPS report the wrong location?</p>
+
+<p class="answer"> Possible issues:
+
+<ul>
+<li>the number and/or position of the GPS Satellites may have been in a state that made it difficult to calculate the coordinates correctly </li>
+
+<li>the device may have been downloading ephemeris data (the set of
+parameters that can be used to accurately calculate the location of a
+GPS satellite at a particular point in time) during that time period and
+had an issue with the receiver while it was downloading
+</li>
+
+<li>the GPS may have experienced atmospheric effects which could cause it
+to be off
+</li>
+
+<li>the GPS may have experienced multipath issues (where signals reflect
+off of things and cause all sorts of weird issues). Things like tunnels,
+buildings and hills can make GPS data unreliable at times
+</li>
+
+<li>there may have been an issue with one of the satellites, but I didn't
+see any posted outages with GPS satellites during that time.
+</li>
+</ul>
+
 <p>
-Until you've entered two fuel purchases, Fuse can't calcualte your fuel cost and therefore shows the cost of a trip as $0. 
+Any of these things can give incorrect GPS coordinates.
+</p>
+
 </p>
 
 </li>
 
 <li>
+<p class="question">Why is the address that Fuse reports for my vehicle is sometimes off a little?</p>
 
-<p>
-<b>My fuel costs and MPG don't seem right</b>
+<p class="answer"> The address that is reported is determined using the specific location coordinates (latitude and longitude) for the vehicle. <a href="http://www.gps.gov/systems/gps/performance/accuracy/">GPS is accurate</a> to about 25 ft <em>with a 95% confidence interval</em>. That means that 5% of the time it may be more inaccurate than that. On top of that the <a href="https://developers.google.com/maps/documentation/geocoding/">address API</a> is using that location to try to determine the address. While the address is generally pretty good, it can be off. For example, if your vehicle is parked on a driveway between your house and your neighbors you might sometimes get your address and sometimes see your neighbor's. 
 </p>
+</li>
 
-<p>
-Fuse relies on you consistently recording fuel purchases. For the calculations to be accurate, you have to fill up your tank each time. If you don't fill up your tank, save that receipt until the next time you do and add them together when you enter them into Fuse to get an accurate reading. 
+
+<li>
+<p class="question">My car's "service" light came on, but I didn't see an alert from Fuse. Why? </p>
+
+<p class="answer"> An indicator light on the dashboard may mean multiple things, and there may be multiple indicator lights.  There are a ton of reasons that manufacturers may turn on an indicator light beyond just the diagnostic codes the Fuse sees.  Unfortunately, none of those will be available through the devices that we use.  Please confirm what the light on the dashboard means from the vehicle owner's manual.  In more recent model years, the "Service Now" and "Check Engine" are usually separate, though even then, it's not guaranteed that just because the engine control unit turns on the indicator light a diagnostic code will be raised.
 </p>
-
 </li>
 
 
 <!-- 
 <li>
 
-<p>
-<b></b>
+<p class="question">
+
 </p>
 
-<p>
+<p class="answer"
 
 </p>
 
@@ -214,7 +298,6 @@ Fuse relies on you consistently recording fuel purchases. For the calculations t
 
  -->
 </ol>
-  
   
   </div>      <!-- /col-lg-12 -->
 </div> <!-- /row -->

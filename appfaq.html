@@ -1,0 +1,58 @@
+
+
+Q. When I click on "Authorize with Kynetx" in the <a href="https://joinfuse.com/app.html">Fuse Management Console</a>, nothing happens.
+
+A. On an iOS device, you must disable "Private Browsing" for the app to work. You must also allow third party cookies. 
+
+Q. Can I move the Fuse device from one car to another? 
+
+A. You can move the device from one vehicle to another, but you cannot have the same device associated with two vehicles in the Fuse system at the same time. So, you can either create two vehicles in Fuse and manually update them to reflect which vehicle the device is currently in or you can have one vehicle which is a mix of data from both vehicles. 
+
+Q. Why isn't my favorite gas station listed in the suggested gas stations when I fill up?
+
+A. Fuse uses the Google Places API to get a list of nearby gas stations when the driver records a fuel purchase. Sometimes businesses are not in Google Places or are miscategorized. This <a href="http://www.windley.com/archives/2014/09/suggesting_changes_to_google_places.shtml">blog post</a> explains how you can suggest edits to your favorite gas station so that it's correctly categorized and shows up in Fuse. 
+
+Q. How are trip costs calculated?
+
+A. If you have made at least two fuel purchases and recorded them, then the last cost per gallon and computed MPG are used to determine trip costs. If not, we use data from manufacturer to determine the MPG of your vehicle and the Dept. of Transportation to determine average gas price in the US for the past week. 
+
+Q. The MPG in my vehicle doesn't seem right even though I've recorded fuel purchases. 
+
+A. MPG is based on the miles you drive between fuel purchases and the number of gallons you purchase. Several things could affect the inaccuracy of the calculation such as not recording consecutive fuel purchases (make the miles drive higher than the really are and this inflate the calculated MPG) or not completely filling the tank when you fill up (making the number of gallons seem lower and thus inflate the calculated MPG). 
+
+Q. My fuel level isn't showing or is off
+
+A. Some manufacturers do not report fuel level to devices plugged into the OBD II port. Sometimes this shows up as no value. In this case Fuse simply doesn't show anything about Fuel level. Some vehicles show a value that is wrong, although usually the same wrong value regardless of the actual fuel level. In this case Fuse will show the bad fuel level. 
+
+Q. Why don't I see data from Fuse during a trip?
+
+A. Even thought Fuse is recording data about a trip every five minutes while the vehicle is on, it only reports vehicle status in the app at the start and end of a trip. 
+
+Q. Why did my GPS report the wrong location?
+
+A. Possible issues:
+
+- the number and/or position of the GPS Satellites may have been in a
+state that made it difficult to calculate the coordinates correctly
+- the device may have been downloading ephemeris data (the set of
+parameters that can be used to accurately calculate the location of a
+GPS satellite at a particular point in time) during that time period and
+had an issue with the receiver while it was downloading
+- the GPS may have experienced atmospheric effects which could cause it
+to be off
+- the GPS may have experienced multipath issues (where signals reflect
+off of things and cause all sorts of weird issues). Things like tunnels,
+buildings and hills can make GPS data unreliable at times
+- there may have been an issue with one of the satellites, but I didn't
+see any posted outages with GPS satellites during that time.
+
+Any of these things can give incorrect GPS coordinates.
+
+Q. Why is the address that Fuse reports for my vehicle is sometimes off a little?
+
+A. The address that is reported is determined using the specific location coordinates (latitude and longitude) for the vehicle. <a href="http://www.gps.gov/systems/gps/performance/accuracy/">GPS is accurate</a> to about 25 ft <em>with a 95% confidence interval</em>. That means that 5% of the time it may be more inaccurate than that. On top of that the <a href="https://developers.google.com/maps/documentation/geocoding/">address API</a> is using that location to try to determine the address. While the address is generally pretty good, it can be off. For example, if your vehicle is parked on a driveway between your house and your neighbors you might sometimes get your address and sometimes see your neighbor's. 
+
+
+Q. My car's "service" light came on, but I didn't see an alert from Fuse. Why? 
+
+A. An indicator light on the dashboard may mean multiple things, and there may be multiple indicator lights.  There are a ton of reasons that manufacturers may turn on an indicator light beyond just the diagnostic codes the Fuse sees.  Unfortunately, none of those will be available through the devices that we use.  Please confirm what the light on the dashboard means from the vehicle owner's manual.  In more recent model years, the "Service Now" and "Check Engine" are usually separate, though even then, it's not guaranteed that just because the engine control unit turns on the indicator light a diagnostic code will be raised.

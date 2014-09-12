@@ -13,6 +13,7 @@ published: true
      <div class="header-image">
         <img class="fuse-logo" src="https://s3.amazonaws.com/Fuse_assets/img/fuse_logo-40.png">
      </div>
+
       <a href="/app_help.html" target="_blank" class="ui-btn-right" data-icon="info" data-theme="c">Help</a>
 
 <!-- <a href="http://kibdev.kobj.net/login/logout" data-icon="minus" data-theme="a" class="ui-btn-right ui-btn ui-btn-up-b ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"><span class="ui-btn-inner"><span class="ui-btn-text">logout</span><span class="ui-icon ui-icon-check ui-icon-shadow">&nbsp;</span></span></a> -->
@@ -37,14 +38,25 @@ published: true
 </div><!-- /page -->
 
 
-<!-- ---------- fuse account settings ---------- -->
+<!-- ---------- fuse manage ---------- -->
 <div data-role="page" id="page-manage-fuse" data-title="Fuse Management Console">
 
    <div data-role="header">
      <div class="header-image">
         <img class="fuse-logo" src="https://s3.amazonaws.com/Fuse_assets/img/fuse_logo-40.png">
      </div>
-      <a href="/app_help.html" target="_blank" class="ui-btn-right" data-icon="info" data-theme="c">Help</a>
+
+<ul class="nav navbar-nav">
+
+   <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Help <b class="menu"></b></a>
+        <ul class="dropdown-menu">
+           <li><a href="/app_help.html" target="_blank" class="ui-btn-right" data-icon="info" data-theme="c">Get Started</a></li>
+           <li><a href="/faq.html#using" target=_blank>FAQ</a></li>
+         </ul>
+    </li>
+</ul>
+      
    </div><!-- /header -->
 
    <div data-role="content">
@@ -59,7 +71,7 @@ published: true
 The Fuse app is not complete yet, but will be soon. In the meantime you can set up your account and add vehicles here. You will see current status information for your vehicles, including location. Once a week you should receive a report in email of the trips your vehicle has made. 
 </p>
 
-	  </li>
+     </li>
         </ul><!-- /listview -->
 
 

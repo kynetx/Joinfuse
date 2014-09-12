@@ -204,7 +204,15 @@ a.sb.circle:after,
   font-weight: bold
 }
 
+.question:before {
+  content: "<strong>Q:</strong> ";
+}
+
 .answer {
+}
+
+.answer:before {
+  content: "<strong>A:</strong> ";
 }
 
 

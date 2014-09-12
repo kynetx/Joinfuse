@@ -35,7 +35,7 @@ Every US vehicle sold after January 1996 has an OBD II data port <a href="http:/
 </p>
 </li>
 
-
+1
 <li>
 
 <p class="question">
@@ -121,23 +121,11 @@ The port must be within 3 feet of the driver and accessible without using any to
 </p>
 
 <p class="answer">
-You can use any CalAmp LMU-3000 (GSM) or Xirgo XT-2000 (GSM) with the Fuse network and mobile app. To do so, your device will need to be reflashed to load a new script. Your device will also need a new SIM card to put it onto the network we use for device connectivity.  Note: your device can only work with one network at a time, so making your device compatible with Fuse will mean that it no longer works with the system it is currently on. 
+You can use any CalAmp LMU-3000 (GSM), CapAmp LMU-3030 (GSM), or Xirgo XT-2000 (GSM) with the Fuse network and mobile app. To do so, your device will need to be reflashed to load a new script. Your device will also need a new SIM card to put it onto the network we use for device connectivity.  Note: your device can only work with one network at a time, so making your device compatible with Fuse will mean that it no longer works with the system it is currently on. 
 </p>
 
 </li>
 
-<li>
-
-<p class="question">
-<b>Can I switch cars after installing Fuse?
-</b>
-</p>
-
-<p class="answer">
-You can move it between vehicles, but you'll have to update the profile to indicate the new vehicle. Switching is designed for moving it to a new car, not moving it back and forth between two cars.
-</p>
-
-</li>
 
 <li>
 
@@ -147,7 +135,7 @@ You can move it between vehicles, but you'll have to update the profile to indic
 </p>
 
 <p class="answer">
-Yes, the iPhone and Android apps will be using an API to access the logic behind all this and we will publish that interface. It's controlled by OAuth, so anyone will be able to use an app you build on the API to connect to their car on Fuse.
+Yes, there is an API. The Fuse Management Console is an <a href="https://github.com/kynetx/Joinfuse">open source project and can be view on Github</a>. 
 </p>
 
 </li>
@@ -172,6 +160,18 @@ Yes, the iPhone and Android apps will be using an API to access the logic behind
 
 
 <ol>
+
+
+<li>
+<p class="question">
+Why is my vehicle showing a red stop sign?
+</p>
+<p class="answer">
+The red stop sign is an indication that Fuse hasn't received any data from your vehicle yet. Make sure you have <a href="/app_help.html#linking_to_carvoyant">linked you Fuse account with Carvoyant</a> and then edit and resave the vehicle (just click on the vehicle name and then click "Save"). Finally turn the car on and off.
+</p>
+</li>
+
+
 
 <li>
 <p class="question">

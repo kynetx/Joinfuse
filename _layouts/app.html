@@ -17,6 +17,19 @@
         margin-top: 4px;
         text-align: center;
       }
+
+      .rightMenu {
+         position: absolute;
+         top:-5%;   
+         right:2%;
+         width: 100px !important;
+         z-index: 1;
+      }
+
+      .rightMenu .ui-collapsible-content .ui-listview {
+          margin: -11px -22px -12px -16px !important
+      }
+
       .alert {
         color: red
       }
@@ -33,11 +46,32 @@
       .center-wrapper * {
         margin: 0 auto;
       }
+
+      .wrap {
+         white-space: normal !important;
+      }
+
+
+ui-listview .ui-li-icon {
+    max-height: 35px;
+    max-width: 35px;
+    top: 50%;
+    margin-top: -15px;
+}
+
    </style>
     <!-- Themes -->
     <link rel="stylesheet" href="https://s3.amazonaws.com/Fuse_assets/themes/Fuse.css" />
     <link rel="stylesheet" href="https://s3.amazonaws.com/Fuse_assets/themes/jquery.mobile.icons.min.css" />
 
+    <link rel="apple-touch-icon" href="https://s3.amazonaws.com/Fuse_assets/img/fuse_logo-40.png">
+    <link rel="apple-touch-icon" href=" href="https://s3.amazonaws.com/Fuse_assets/img/fuse_logo-60.png">
+    <link rel="apple-touch-icon" sizes="76x76" href=" href="https://s3.amazonaws.com/Fuse_assets/img/fuse_logo-76.png">
+    <link rel="apple-touch-icon" sizes="120x120" href=" href="https://s3.amazonaws.com/Fuse_assets/img/fuse_logo-120.png">
+    <link rel="apple-touch-icon" sizes="152x152" href=" href="https://s3.amazonaws.com/Fuse_assets/img/fuse_logo-152.png">
+    <!-- OAuth pops you to Safari in app mode and then you're hosed; so don't do this -->
+    <!-- <meta name="apple-mobile-web-app-capable" content="yes"> -->
+    <!-- <meta name="apple-mobile-web-app-status-bar-style" content="black"> -->
 
   </head>
 
@@ -59,6 +93,7 @@
     <script src="https://rawgit.com/kynetx/Fuse-API/master/js/fuse-api.js"></script>
     <!-- <script src="https://s3.amazonaws.com/Fuse_assets/js/fuse-api-1.0.0.js"></script>  -->
     <script src="js/fuse-api-config.js"></script>
+    <script src="js/fuzzytime.js"></script>
     <script src="js/app.js"></script>
   </body>
 </html>

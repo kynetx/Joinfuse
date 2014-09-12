@@ -7,26 +7,48 @@ published: true
 ---
 
 <!-- ---------- authorize ---------- -->
-<div data-role="dialog" id="page-authorize">
+<div data-role="page" id="page-authorize" data-title="Authorize Fuse" data-close-btn="none">
 
    <div data-role="header" style="text-align:center;">
      <div class="header-image">
         <img class="fuse-logo" src="https://s3.amazonaws.com/Fuse_assets/img/fuse_logo-40.png">
      </div>
-<!-- <a href="http://kibdev.kobj.net/login/logout" data-icon="minus" data-theme="a" class="ui-btn-right ui-btn ui-btn-up-b ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"><span class="ui-btn-inner"><span class="ui-btn-text">logout</span><span class="ui-icon ui-icon-check ui-icon-shadow">&nbsp;</span></span></a> -->
+
+     <div data-role="collapsible" id="help-menu" data-mini="true" class="rightMenu" data-collapsed-icon="info" data-expanded-icon="info">
+       <h3>Fuse Help</h3>
+       <ul data-role="listview" >
+            <li data-icon="false"><a href="/app_help.html" target="_blank">Get Started</a></li>
+            <li data-icon="false"><a href="/faq.html#using" target="_blank">FAQ</a></li>
+       </ul>
+     </div>
+
+
    </div><!-- /header -->
 
    <div data-role="content" >
-      <h3 style="text-align:center;">Welcome to Fuse</h3>
-      <p>Fuse is a connected-car application that is designed to give your car a voice and connect it to the rest of your online life.</p>
+<ul data-role="listview" data-inset="true">
+<li data-role="list-divider" >
+      <h2 style="text-align:center; font-size: 150%">Welcome to Fuse</h2>
+</li>
+<li  style="background:white; font-size: 150%">
+      <p class="wrap">Fuse is a connected-car application that is designed to give your car a voice and connect it to the rest of your online life.</p>
 
-      <p>Fuse data is stored in a personal cloud from Kynetx that is designed to protect the privacy of your data and put it under your control. You can use the "Authorize" button to link to an existing Kynetx account or use the "Create" button to create a new account.</p>
+      <p class="wrap">Fuse data is stored in a personal cloud from Kynetx that is designed to protect the privacy of your data and put it under your control. You can use the "Authorize" button to link to an existing Kynetx account or use the "Create" button to create a new account.</p>
 
 
-      <p><b>Note:</b> please don't sign in with a SquareTag account. Rather, we recommend you create a new account.</p>
+      <p class="wrap"><b>Note:</b> please don't sign in with a SquareTag account. Rather, we recommend you create a new account.</p>
 
-      <a id="authorize-link" href="#" data-transition="slide" class="ui-btn ui-corner-all ui-btn-b ui-shadow ui-btn-inline">Authorize with Kynetx</a>
-      <a id="create-link" href="#" data-transition="slide" class="ui-btn ui-corner-all ui-btn-a ui-shadow ui-btn-inline">Create Kynetx Account</a>
+      <p class="wrap"><strong>Read "Getting Started" under Help</strong></p>
+
+</li>
+
+</ul>
+
+
+<a id="authorize-link" href="#" data-transition="slide" class="ui-btn ui-corner-all ui-btn-b ui-shadow ui-btn-inline">Authorize with Kynetx</a>
+
+<a id="create-link" href="#" data-transition="slide" class="ui-btn ui-corner-all ui-btn-a ui-shadow ui-btn-inline">Create Kynetx Account</a>
+
    </div><!-- /content -->
 
    <div data-role="footer" data-position="fixed">
@@ -35,18 +57,40 @@ published: true
 </div><!-- /page -->
 
 
-<!-- ---------- fuse account settings ---------- -->
-<div data-role="page" id="page-manage-fuse">
+<!-- ---------- fuse manage ---------- -->
+<div data-role="page" id="page-manage-fuse" data-title="Fuse Management Console">
 
-   <div data-role="header">
+  <div data-role="header" style="text-align:center;">
+
      <div class="header-image">
         <img class="fuse-logo" src="https://s3.amazonaws.com/Fuse_assets/img/fuse_logo-40.png">
      </div>
-      <a href="http://windley.github.io/Joinfuse/app_help.html" target="_blank" class="ui-btn-right" data-icon="info" data-theme="c">Help</a>
+
+     <div data-role="collapsible" id="help-menu" data-mini="true" class="rightMenu" data-collapsed-icon="info" data-expanded-icon="info">
+       <h3>Fuse Help</h3>
+       <ul data-role="listview" >
+            <li data-icon="false"><a href="/app_help.html" target="_blank">Get Started</a></li>
+            <li data-icon="false"><a href="/faq.html#using" target="_blank">FAQ</a></li>
+       </ul>
+     </div>
    </div><!-- /header -->
 
    <div data-role="content">
       <h3></h3>
+
+        <ul id="manage-fuse-announcement" class="settings-list" data-role="listview" data-inset="true">
+	  <li data-role="list-divider" >Announcements</li>
+	  <li>
+<h3>App Status</h3>
+
+<p class="wrap">
+The Fuse app is not complete yet, but will be soon. In the meantime you can set up your account and add vehicles here. You will see current status information for your vehicles, including location. Once a week you should receive a report in email of the trips your vehicle has made. 
+</p>
+
+     </li>
+        </ul><!-- /listview -->
+
+
         <ul id="manage-fuse" class="settings-list" data-role="listview" data-inset="true">
 	  <li data-role="list-divider" >Fuse Account Settings</li>
 	  <li id="carvoyant_item">Carvoyant</li>
@@ -69,7 +113,7 @@ published: true
 
 
 <!-- ---------- fuse add vehicle ---------- -->
-<div data-role="page" id="page-add-vehicle">
+<div data-role="page" id="page-add-vehicle" data-title="Fuse Add Vehicle">
 
    <div data-role="header">
      <div class="header-image">
@@ -83,22 +127,27 @@ published: true
  	  <li data-role="list-divider" >Add New Vehicle</li>
           <li class="ui-field-contain">
               <label for="text">Name</label>
-              <input type="text" data-clear-btn="true" name="name" id="name" value="">
+              <input type="text" data-clear-btn="true" name="name" id="name" placeholder="What you call this vehicle" value="">
            </li>
 
            <li class="ui-field-contain">
               <label for="text">VIN</label>
-              <input type="text" data-clear-btn="true" name="vin" id="vin" value="">
+              <input type="text" data-clear-btn="true" name="vin" id="vin" placeholder="17 digit vehicle identification number" value="">
            </li>
 
            <li class="ui-field-contain">
               <label for="text">Fuse Device ID</label>
-              <input type="text" data-clear-btn="true" name="deviceId" id="deviceId" value="">
+              <input type="text" data-clear-btn="true" name="deviceId" id="deviceId" placeholder="FSXXXXX (case sensitive)" value="">
            </li>
 
            <li class="ui-field-contain">
               <label for="text">Vehicle Mileage</label>
-              <input type="text" data-clear-btn="true" name="mileage" id="mileage" value="">
+              <input type="text" data-clear-btn="true" name="mileage" id="mileage" placeholder="Current odometer reading" value="">
+           </li>
+
+           <li class="ui-field-contain">
+              <label for="text">Vehicle License</label>
+              <input type="text" data-clear-btn="true" name="license" id="license" placeholder="Registration plate number" value="">
            </li>
 
            <li class="ui-field-contain" style="padding: .7em 1em;">
@@ -113,6 +162,8 @@ published: true
            </li>
 
         </ul>
+
+	<ul id="error-msg" data-role="listview" data-inset="true" class="alert alert-error" style="display:none"></ul>
 
 
         <a class="save" href="#" data-icon="check" data-role="button" data-inline="true" data-theme="b">Save</a>
@@ -129,7 +180,7 @@ published: true
 
 
 <!-- ---------- fuse update vehicle ---------- -->
-<div data-role="page" id="page-update-vehicle">
+<div data-role="page" id="page-update-vehicle" data-title="Fuse Update Vehicle">
 
    <div data-role="header">
      <div class="header-image">
@@ -137,28 +188,34 @@ published: true
      </div>
    </div><!-- /header -->
 
+
    <div data-role="content">
      <form id="form-update-vehicle">
-        <ul data-role="listview" data-inset="true"> 
+        <ul id="form-update-vehicle-list" data-role="listview" data-inset="true"> 
  	  <li data-role="list-divider" >Update Vehicle</li>
           <li class="ui-field-contain">
               <label for="text">Name</label>
-              <input type="text" data-clear-btn="true" name="name" id="name" value="">
+              <input type="text" data-clear-btn="true" name="name" id="name" placeholder="What you call this vehicle" value="">
            </li>
 
            <li class="ui-field-contain">
               <label for="text">VIN</label>
-              <input type="text" data-clear-btn="true" name="vin" id="vin" value="">
+              <input type="text" data-clear-btn="true" name="vin" id="vin" placeholder="17 digit vehicle identification number" value="">
            </li>
 
            <li class="ui-field-contain">
               <label for="text">Fuse Device ID</label>
-              <input type="text" data-clear-btn="true" name="deviceId" id="deviceId" value="">
+              <input type="text" data-clear-btn="true" name="deviceId" id="deviceId" placeholder="FSXXXXX (case sensitive)" value="">
            </li>
 
            <li class="ui-field-contain">
               <label for="text">Vehicle Mileage</label>
-              <input type="text" data-clear-btn="true" name="mileage" id="mileage" value="">
+              <input type="text" data-clear-btn="true" name="mileage" id="mileage" placeholder="Current odometer reading"  value="">
+           </li>
+
+           <li class="ui-field-contain">
+              <label for="text">Vehicle License</label>
+              <input type="text" data-clear-btn="true" name="license" id="license" placeholder="Registration plate number" value="">
            </li>
 
            <li class="ui-field-contain" style="padding: .7em 1em;">
@@ -172,9 +229,14 @@ published: true
               </div>
            </li>
 
+         
+	   
+
         </ul>
 
 	<input type="hidden" id="id" name="id" value="">
+
+	<ul id="error-msg" data-role="listview" data-inset="true" class="alert alert-error" style="display:none"></ul>
 
         <a class="save" href="#" data-icon="check" data-role="button" data-inline="true" data-theme="b">Save</a>
         <a class="cancel" href="#page-manage-fuse" data-icon="delete" data-role="button" data-inline="true">Cancel</a>
@@ -191,7 +253,7 @@ published: true
 
 
 <!-- ---------- fuse delete vehicle confirmation ---------- -->
-<div data-role="dialog" id="page-vehicle-confirm-delete">
+<div data-role="dialog" id="page-vehicle-confirm-delete" data-title="Fuse Delete Vehicle">
    <div data-role="header">
       <h3>Delete Vehicle?</h3>
    </div><!-- /header -->
@@ -207,7 +269,7 @@ published: true
 
 
 <!-- ---------- fuse update profile ---------- -->
-<div data-role="page" id="page-update-profile">
+<div data-role="page" id="page-update-profile" data-title="Fuse Update Profile">
 
    <div data-role="header">
      <div class="header-image">
@@ -243,7 +305,7 @@ published: true
               </select>
            </li>
            <li class="ui-field-contain" style="padding: .7em 1em;">
-              <label for="location-image">Image</label>
+              <label for="photo-preview">Image</label>
 	      <div> 
                 <img id="photo-preview" src="" name style="max-width:200px;">
                 <div id="photo-success" class="alert alert-success" style="display:none;margin-right:20px;margin-bottom:0px;margin-top:8px;"></div>
@@ -253,9 +315,17 @@ published: true
               </div>
            </li>
 
+           <li class="ui-field-contain">
+	     <a id="show-eci" href="#" data-icon="carat-d" data-theme="a">Show ECI</a>
+	   </li>
+           <li class="ui-field-contain" id="reveal-eci" style="display:none">
+	   </li>
+
         </ul>
 
 	<input type="hidden" id="id" name="id" value="">
+
+	<ul id="error-msg" data-role="listview" data-inset="true" class="alert alert-error" style="display:none"></ul>
 
         <a class="save" href="#" data-icon="check" data-role="button" data-inline="true" data-theme="b">Save</a>
         <a class="cancel" href="#page-manage-fuse" data-icon="delete" data-role="button" data-inline="true">Cancel</a>
@@ -270,7 +340,7 @@ published: true
 </div><!-- /page -->
 
 <!-- ---------- fuse update preferences ---------- -->
-<div data-role="page" id="page-update-preferences">
+<div data-role="page" id="page-update-preferences" data-title="Fuse Preferences">
 
    <div data-role="header">
      <div class="header-image">
@@ -288,7 +358,14 @@ published: true
 	      	<option value="off">Off</option>
 		<option value="on">On</option>
 	      </select> 
-           </li>
+          </li>
+          <li class="ui-field-contain">
+              <label for="debug">Debug Mode</label>
+	      <select style="float:right" name="debug" id="debug" data-role="slider"  >
+	      	<option value="off">Off</option>
+		<option value="on">On</option>
+	      </select> 
+          </li>
 
 
         </ul>
@@ -317,12 +394,27 @@ published: true
 </div>
 
 <div id="vehicle-update-item-template" style="display:none;">
-  <li><a data-transition="slide" href="#page-update-vehicle?id={{id}}">
-    {{name}}</a>
+  <li class="ui-field-contain">
+      <a data-transition="slide" href="#page-update-vehicle?id={{id}}"> 
+       <p class="ui-li-aside"><img style="vertical-align: middle" class="ui-li-icon" src="{{status_icon}}">  {{last_running}}</p>
+       <h3><b>{{name}}</b></h3>
+       {{#if running}}
+       <p>{{running}} {{speed}}<br/>
+          {{fuel}}
+       </p>
+       {{/if}}
+      </a>
   </li>
 </div>
 
 
-
+<div id="vehicle-location-template" style="display:none;">
+  <li class="ui-field-contain">
+     <iframe width="100%" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q={{lat}}%2C{{long}}&key=AIzaSyC0DHHCdS98AtIR3PYwq0IWQYE7lpHxdRU"></iframe>
+  </li>
+  <li class="ui-field-contain">
+     <a id="vehicle-location-link" data-icon="info" target="_blank" href="http://maps.google.com/maps?q={{lat}},{{long}}">{{current_location}}</a>
+  </li>
+</div>
 
 {% endraw %}

@@ -211,9 +211,12 @@ a.sb.circle:after,
 .answer {
 }
 
-.answer:before {
-  content: "A: ";
-}
+/* 
+.answer:before { 
+   content: "A: "; 
+} 
+
+*/
 
 
 

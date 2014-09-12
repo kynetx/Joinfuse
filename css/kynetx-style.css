@@ -205,14 +205,14 @@ a.sb.circle:after,
 }
 
 .question:before {
-  content: "<strong>Q:</strong> ";
+  content: "Q: ";
 }
 
 .answer {
 }
 
 .answer:before {
-  content: "<strong>A:</strong> ";
+  content: "A: ";
 }
 
 

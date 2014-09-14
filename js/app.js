@@ -85,6 +85,10 @@
 			    return 
 			}
 
+			var last_running = not Fuse.carvoyant        ? "Link Carvoyant" 
+			                 : isEmpty(vehicle.deviceId) ? "Add Device Id"
+                                         :                             "Start Vehicle"
+                                         ;
 			
 			// console.log("Painting " + id);
 			if(! isEmpty(vehicle.vehicleId)) {
@@ -110,7 +114,6 @@
 
 			    var status = (! isEmpty(vehicle.lastRunningTimestamp)) ? "img/ok_16.png" 
                                                                                    : "img/warning_16.png";
-			    var last_running = Fuse.carvoyant ? "Start the vehicle" : "Link Carvoyant";
 			    if(typeof vehicle.lastRunningTimestamp === "string") {
 				// can't use Date.parse() cause of Safari
 				function parse_date(date_string) {
@@ -153,7 +156,7 @@
 				    {"name": vehicle.profileName,
 				     "id": id,
 				     "status_icon": "img/stop_sign_16.png",
-				     "last_running" : Fuse.carvoyant ? "Start the vehicle" : "Link Carvoyant"
+				     "last_running" : last_running
 				    }));
 
 			}

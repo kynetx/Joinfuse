@@ -85,7 +85,7 @@
 			    return 
 			}
 
-			var last_running = not Fuse.carvoyant        ? "Link Carvoyant" 
+			var last_running = ! Fuse.carvoyant          ? "Link Carvoyant" 
 			                 : isEmpty(vehicle.deviceId) ? "Add Device Id"
                                          :                             "Start Vehicle"
                                          ;

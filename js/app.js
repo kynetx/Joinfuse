@@ -153,7 +153,7 @@
 				    {"name": vehicle.profileName,
 				     "id": id,
 				     "status_icon": "img/stop_sign_16.png",
-				     "last_running" : "Start the vehicle"
+				     "last_running" : Fuse.carvoyant ? "Start the vehicle" : "Link Carvoyant"
 				    }));
 
 			}

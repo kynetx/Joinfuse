@@ -54,6 +54,7 @@
 		    if(authd.authorized) {
 			$('#carvoyant_item').html("Carvoyant is Linked");
 			$('#carvoyant_item').parent().listview().listview('refresh');
+			Fuse.carvoyant = true;
 		    } else {
 			Fuse.carvoyantOauthUrl(function(json) {
 			    $('#carvoyant_item').remove();
@@ -109,7 +110,7 @@
 
 			    var status = (! isEmpty(vehicle.lastRunningTimestamp)) ? "img/ok_16.png" 
                                                                                    : "img/warning_16.png";
-			    var last_running = "Start the vehicle";
+			    var last_running = Fuse.carvoyant ? "Start the vehicle" : "Link Carvoyant";
 			    if(typeof vehicle.lastRunningTimestamp === "string") {
 				// can't use Date.parse() cause of Safari
 				function parse_date(date_string) {

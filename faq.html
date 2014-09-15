@@ -35,7 +35,6 @@ Every US vehicle sold after January 1996 has an OBD II data port <a href="http:/
 </p>
 </li>
 
-1
 <li>
 
 <p class="question">
@@ -191,6 +190,18 @@ On an iOS device, you must disable "Private Browsing" for the app to work. You m
 
 <p class="answer">
 You can move the device from one vehicle to another, but you cannot have the same device associated with two vehicles in the Fuse system at the same time. So, you can either create two vehicles in Fuse and manually update them to reflect which vehicle the device is currently in or you can have one vehicle which is a mix of data from both vehicles. 
+</p>
+
+</li>
+
+<li>
+
+<p class="question">
+Why does my hybrid report multiple trips for each trip I take in the car?
+</p>
+
+<p class="answer"
+The devices currently track trips based on engine state, <code>IGNITION_OFF</code> or <code>IGNITION_OFF</code>. This does not properly account for hybrids, electrics, and vehicles where the gasoline engine is not actually running at all times. We are working with Carvoyant to improve this feature so that these vehicle report trips more accurately. This is a high priority. 
 </p>
 
 </li>

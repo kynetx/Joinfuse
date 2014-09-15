@@ -81,7 +81,7 @@
 			Fuse.carvoyantOauthUrl(function(json) {
 //			    $('#carvoyant_item').remove();
 //			    $("#manage-fuse li:nth-child(2)" ).before("<li id='carvoyant_item'><a id='carvoyant_url' data-transition='slide' href='#'>Connect Carvoyant Account</a></li>");
-			    $('#carvoyant_item').html("<a id='carvoyant_url' data-transition='slide' href='#'>Connect Carvoyant Account</a> <img style='vertical-align: middle' class='ui-li-icon' src='img/ok_16.png'> ");
+			    $('#carvoyant_item').html("<a id='carvoyant_url' data-transition='slide' href='#'>Connect Carvoyant Account <img style='vertical-align: middle' src='img/stop_sign_16.png'></a>  ");
 			    $('#manage-fuse').listview('refresh');
 			    $('#carvoyant_url').attr('href', json.url);
 			});

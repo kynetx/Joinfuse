@@ -79,8 +79,6 @@
 		    console.log("Is Carvoyant auth'd?", authd);
 		    if(! authd.authorized) {
 			Fuse.carvoyantOauthUrl(function(json) {
-//			    $('#carvoyant_item').remove();
-//			    $("#manage-fuse li:nth-child(2)" ).before("<li id='carvoyant_item'><a id='carvoyant_url' data-transition='slide' href='#'>Connect Carvoyant Account</a></li>");
 			    $('#carvoyant_item').html("<a id='carvoyant_url' data-transition='slide' href='#'>Connect Carvoyant Account <img class='ui-li-icon' src='img/stop_sign_16.png'></a>  ");
 			    $("#carvoyant_item").removeClass("ui-li-static");  
 			    $('#manage-fuse').listview('refresh');
@@ -88,8 +86,9 @@
 			});
 		    } else {
 
-			$('#carvoyant_item').html("Carvoyant is Linked");
-			$('#carvoyant_item').parent().listview().listview('refresh');
+			$('#carvoyant_item').html("<img class='ui-li-icon' src='img/ok_16.png'/> Carvoyant is Linked");
+			$('#manage-fuse').listview('refresh');
+
 		    }
 			
 		    Fuse.vehicleSummary(function(json) {

@@ -82,6 +82,7 @@
 //			    $('#carvoyant_item').remove();
 //			    $("#manage-fuse li:nth-child(2)" ).before("<li id='carvoyant_item'><a id='carvoyant_url' data-transition='slide' href='#'>Connect Carvoyant Account</a></li>");
 			    $('#carvoyant_item').html("<a id='carvoyant_url' data-transition='slide' href='#'>Connect Carvoyant Account <img class='ui-li-icon' src='img/stop_sign_16.png'></a>  ");
+			    $("#carvoyant_item").removeClass("ui-li-static");  
 			    $('#manage-fuse').listview('refresh');
 			    $('#carvoyant_url').attr('href', json.url);
 			});

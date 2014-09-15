@@ -49,21 +49,21 @@
 	    Fuse.init(function() {
 		console.log("Using version: ", Fuse.fuse_version);
 		console.log("Using fleet channel: ", Fuse.fleet_eci);
-		Fuse.isAuthorizedWithCarvoyant(function(authd) {
-		    console.log("Is Carvoyant auth'd?", authd);
-		    if(authd.authorized) {
-			$('#carvoyant_item').html("Carvoyant is Linked");
-			$('#carvoyant_item').parent().listview().listview('refresh');
-			Fuse.carvoyant = true;
-		    } else {
-			Fuse.carvoyantOauthUrl(function(json) {
-			    $('#carvoyant_item').remove();
-			    $("#manage-fuse li:nth-child(2)" ).before("<li><a id='carvoyant_url' data-transition='slide' href='#'>Connect Carvoyant Account</a></li>");
-			    $('#manage-fuse').listview('refresh');
-			    $('#carvoyant_url').attr('href', json.url);
-			});
-		    }
-		});
+		// Fuse.isAuthorizedWithCarvoyant(function(authd) {
+		//     console.log("Is Carvoyant auth'd?", authd);
+		//     if(authd.authorized) {
+		// 	$('#carvoyant_item').html("Carvoyant is Linked");
+		// 	$('#carvoyant_item').parent().listview().listview('refresh');
+		// 	Fuse.carvoyant = true;
+		//     } else {
+		// 	Fuse.carvoyantOauthUrl(function(json) {
+		// 	    $('#carvoyant_item').remove();
+		// 	    $("#manage-fuse li:nth-child(2)" ).before("<li><a id='carvoyant_url' data-transition='slide' href='#'>Connect Carvoyant Account</a></li>");
+		// 	    $('#manage-fuse').listview('refresh');
+		// 	    $('#carvoyant_url').attr('href', json.url);
+		// 	});
+		//     }
+		// });
 	    },
             {force:true} // force update when we paint the page
            );
@@ -75,92 +75,105 @@
 	    $('#manage-fleet').listview('refresh');
 	    Fuse.init(function() {
 		console.log("Updating vehicles");
-		Fuse.vehicleSummary(function(json) {
-		    // sort so we get a consistent order
-		    console.log("Displaying items...", json);
+		Fuse.isAuthorizedWithCarvoyant(function(authd) {
+		    console.log("Is Carvoyant auth'd?", authd);
+		    if(! authd.authorized) {
+			Fuse.carvoyantOauthUrl(function(json) {
+			    $('#carvoyant_item').remove();
+			    $("#manage-fuse li:nth-child(2)" ).before("<li><a id='carvoyant_url' data-transition='slide' href='#'>Connect Carvoyant Account</a></li>");
+			    $('#manage-fuse').listview('refresh');
+			    $('#carvoyant_url').attr('href', json.url);
+			});
+		    } else {
 
-		    function paint_item(id, vehicle) {
-
-			if (typeof vehicle === "undefined") {
-			    return 
-			}
-
-			var last_running = ! Fuse.carvoyant          ? "Link Carvoyant" 
-			                 : isEmpty(vehicle.deviceId) ? "Add Device Id"
-                                         :                             "Start Vehicle"
-                                         ;
-			
-			// console.log("Painting " + id);
-			if(! isEmpty(vehicle.vehicleId)) {
-			    var running = "Vehicle is ";
-			    if (! isEmpty(vehicle.running) && vehicle.running == "1") {
-				running += "driving";
-			    } else {
-				running += "parked";
-			    }
-	    		    if( ! isEmpty(vehicle.address) ) {
-				running += " at " + vehicle.address;
-			    }
-
-			    var speed = "";
-			    if(typeof vehicle.speed === "string" && vehicle.speed != "0") {
-				speed = "(" + vehicle.speed + " mph)";
-			    } 
-
-			    var fuel = "";
-			    if(typeof vehicle.fuellevel === "string") {
-				fuel = "Fuel level: " + vehicle.fuellevel + "%";
-			    } 
-
-			    var status = (! isEmpty(vehicle.lastRunningTimestamp)) ? "img/ok_16.png" 
-                                                                                   : "img/warning_16.png";
-			    if(typeof vehicle.lastRunningTimestamp === "string") {
-				// can't use Date.parse() cause of Safari
-				function parse_date(date_string) {
-				    var splitable_string = date_string
-							    .splice(13,0,":")
-							    .splice(11,0,":")
-							    .splice(6,0,"-")
-							    .splice(4,0,"-");
-				    var a = splitable_string.split(/[^0-9]/);
-				    // warning, this just assumes incoming date is UTC!!!
-				    var u=Date.UTC (a[0],a[1]-1,a[2],a[3],a[4],a[5]);
-				    return new Date(u);
-				};
-
-				last_running = "Updated " + timeAgo(parse_date(vehicle.lastRunningTimestamp), 2); // two most significant fuzzy times
-			    }
-
-			    var lat = ! isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.latitude 
-			                                              : 40.7500;
-			    var long = ! isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.longitude
-                                                                       : -111.8833;
-
-
-			    $("#manage-fleet li:nth-child(1)" ).after(
-				snippets.vehicle_update_item_template(
-				    {"name": vehicle.profileName,
-				     "id": id,
-				     "status_icon": status,
-				     "running": running,
-				     "fuel": fuel,
-				     "heading": "Heading: " + vehicle.heading + " degrees",
-				     "last_running": last_running
-				    }));
-			} else {
-
-			    
-
-			    $("#manage-fleet li:nth-child(1)" ).after(
-				snippets.vehicle_update_item_template(
-				    {"name": vehicle.profileName,
-				     "id": id,
-				     "status_icon": "img/stop_sign_16.png",
-				     "last_running" : last_running
-				    }));
-
-			}
+			$('#carvoyant_item').html("Carvoyant is Linked");
+			$('#carvoyant_item').parent().listview().listview('refresh');
+			Fuse.carvoyant = true;
 		    }
+			
+		    Fuse.vehicleSummary(function(json) {
+			// sort so we get a consistent order
+			console.log("Displaying items...", json);
+
+			function paint_item(id, vehicle) {
+
+			    if (typeof vehicle === "undefined") {
+				return 
+			    }
+
+			    var last_running = ! Fuse.carvoyant          ? "Link Carvoyant" 
+    	                                     : isEmpty(vehicle.deviceId) ? "Add Device Id"
+                                             :                             "Start Vehicle"
+                            ;
+			    
+			    // console.log("Painting " + id);
+			    if(! isEmpty(vehicle.vehicleId)) {
+				var running = "Vehicle is ";
+				if (! isEmpty(vehicle.running) && vehicle.running == "1") {
+				    running += "driving";
+				} else {
+				    running += "parked";
+				}
+	    			if( ! isEmpty(vehicle.address) ) {
+				    running += " at " + vehicle.address;
+				}
+
+				var speed = "";
+				if(typeof vehicle.speed === "string" && vehicle.speed != "0") {
+				    speed = "(" + vehicle.speed + " mph)";
+				} 
+
+				var fuel = "";
+				if(typeof vehicle.fuellevel === "string") {
+				    fuel = "Fuel level: " + vehicle.fuellevel + "%";
+				} 
+
+				var status = (! isEmpty(vehicle.lastRunningTimestamp)) ? "img/ok_16.png" 
+                                           : "img/warning_16.png";
+				if(typeof vehicle.lastRunningTimestamp === "string") {
+				    // can't use Date.parse() cause of Safari
+				    function parse_date(date_string) {
+					var splitable_string = date_string
+      	                                                          .splice(13,0,":")
+	                                                          .splice(11,0,":")
+                                                                  .splice(6,0,"-")
+	                                                          .splice(4,0,"-");
+					
+					var a = splitable_string.split(/[^0-9]/);
+					// warning, this just assumes incoming date is UTC!!!
+					var u=Date.UTC (a[0],a[1]-1,a[2],a[3],a[4],a[5]);
+					return new Date(u);
+				    };
+
+				    last_running = "Updated " + timeAgo(parse_date(vehicle.lastRunningTimestamp), 2); // two most significant fuzzy times
+				}
+
+				var lat = ! isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.latitude 
+	                                :                                   40.7500;
+				var long = ! isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.longitude
+                                         :                                   -111.8833;
+
+				$("#manage-fleet li:nth-child(1)" ).after(
+				    snippets.vehicle_update_item_template(
+					{"name": vehicle.profileName,
+					 "id": id,
+					 "status_icon": status,
+					 "running": running,
+					 "fuel": fuel,
+					 "heading": "Heading: " + vehicle.heading + " degrees",
+					 "last_running": last_running
+					}));
+			    } else {
+				$("#manage-fleet li:nth-child(1)" ).after(
+				    snippets.vehicle_update_item_template(
+					{"name": vehicle.profileName,
+					 "id": id,
+					 "status_icon": "img/stop_sign_16.png",
+					 "last_running" : last_running
+					}));
+			    }
+			}
+		    });
 
 		    function sortBy(prop){
 			return function(a,b){

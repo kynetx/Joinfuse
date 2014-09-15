@@ -79,8 +79,9 @@
 		    console.log("Is Carvoyant auth'd?", authd);
 		    if(! authd.authorized) {
 			Fuse.carvoyantOauthUrl(function(json) {
-			    $('#carvoyant_item').remove();
-			    $("#manage-fuse li:nth-child(2)" ).before("<li id='carvoyant_item'><a id='carvoyant_url' data-transition='slide' href='#'>Connect Carvoyant Account</a></li>");
+//			    $('#carvoyant_item').remove();
+//			    $("#manage-fuse li:nth-child(2)" ).before("<li id='carvoyant_item'><a id='carvoyant_url' data-transition='slide' href='#'>Connect Carvoyant Account</a></li>");
+			    $('#carvoyant_item').html("<a id='carvoyant_url' data-transition='slide' href='#'>Connect Carvoyant Account</a> <img style='vertical-align: middle' class='ui-li-icon' src='img/ok_16.png'> ");
 			    $('#manage-fuse').listview('refresh');
 			    $('#carvoyant_url').attr('href', json.url);
 			});

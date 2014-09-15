@@ -306,15 +306,14 @@
 		    $("#form-update-vehicle-list li:last-child").remove();
 		}
 
-		var lat =  vehicle.lastWaypoint.latitude;
-		var long =  vehicle.lastWaypoint.longitude;
-
-
 		if( ! isEmpty(vehicle.vehicleId) 
-		 && ! isEmpty(lat) 
-		 && ! isEmpty(long) 
+		 && ! isEmpty(vehicle.lastWaypoint.latitude) 
+		 && ! isEmpty(vehicle.lastWaypoint.longitude) 
 		  ) {
-		    
+  	            var lat =  vehicle.lastWaypoint.latitude;
+		    var long =  vehicle.lastWaypoint.longitude;
+
+
 		    var running = "not running";
 
 		    if(! isEmpty(vehicle.running) && vehicle.running == "1") {
@@ -336,7 +335,7 @@
 			});
 
 		    $("#form-update-vehicle-list").append(snip);
-		} else {
+		 } else {
 		    $("#form-update-vehicle-list").append(
 			'<li id="vehicle_missing" class="ui-field-contain">No vehicle data yet.</li>'
 		    );

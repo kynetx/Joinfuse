@@ -88,7 +88,6 @@
 
 			$('#carvoyant_item').html("Carvoyant is Linked");
 			$('#carvoyant_item').parent().listview().listview('refresh');
-			Fuse.carvoyant = true;
 		    }
 			
 		    Fuse.vehicleSummary(function(json) {
@@ -101,9 +100,9 @@
 				return 
 			    }
 
-			    var last_running = ! Fuse.carvoyant          ? "Link Carvoyant" 
-    	                                     : isEmpty(vehicle.deviceId) ? "Add Device Id"
-                                             :                             "Start Vehicle"
+			    var last_running = ! Fuse.carvoyant.authorized          ? "Link Carvoyant" 
+    	                                     : isEmpty(vehicle.deviceId)            ? "Add Device Id"
+                                             :                                        "Start Vehicle"
                             ;
 			    
 			    // console.log("Painting " + id);
@@ -299,7 +298,6 @@
 
 		// reset status area
 		if ($("li#vehicle_missing").length > 0) { 
-		    // we add two, get rid of two
 		    $("#form-update-vehicle-list li:last-child").remove();
 		}
 		if ($("a#vehicle-location-link").length > 1) { // there's one in the template, so two if present in form
@@ -308,7 +306,14 @@
 		    $("#form-update-vehicle-list li:last-child").remove();
 		}
 
-		if(! isEmpty(vehicle.vehicleId)) {
+		var lat =  vehicle.lastWaypoint.latitude;
+		var long =  vehicle.lastWaypoint.longitude;
+
+
+		if( ! isEmpty(vehicle.vehicleId) 
+		 && ! isEmpty(lat) 
+		 && ! isEmpty(long) 
+		  ) {
 		    
 		    var running = "not running";
 
@@ -320,10 +325,6 @@
 			fuel = "Fuel level: " + vehicle.fuellevel + "%";
 		    } 
 
-		    var lat = ! isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.latitude 
-			                                      : 40.7500;
-		    var long = ! isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.longitude
-                                                               : -111.8833;
 		    var snip = snippets.vehicle_location_template(
 			{"lat": lat,
 			 "long": long,

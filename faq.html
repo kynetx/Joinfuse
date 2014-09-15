@@ -35,7 +35,6 @@ Every US vehicle sold after January 1996 has an OBD II data port <a href="http:/
 </p>
 </li>
 
-1
 <li>
 
 <p class="question">
@@ -195,6 +194,18 @@ You can move the device from one vehicle to another, but you cannot have the sam
 
 </li>
 
+<li>
+
+<p class="question">
+Why does my hybrid (or electric) vehicle report multiple trips for each trip I take in the car?
+</p>
+
+<p class="answer">
+The devices currently track trips based on engine state, <code>IGNITION_OFF</code> or <code>IGNITION_OFF</code>. This does not properly account for hybrids, electrics, and vehicles where the gasoline engine is not actually running at all times. We are working with Carvoyant to improve this feature so that these vehicle report trips more accurately. This is a high priority. 
+</p>
+
+</li>
+
 
 <li>
 <p class="question">Why isn't my favorite gas station listed in the suggested gas stations when I fill up?</p>
@@ -290,7 +301,7 @@ Any of these things can give incorrect GPS coordinates.
 
 </p>
 
-<p class="answer"
+<p class="answer">
 
 </p>
 

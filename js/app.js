@@ -80,7 +80,7 @@
 		    if(! authd.authorized) {
 			Fuse.carvoyantOauthUrl(function(json) {
 			    $('#carvoyant_item').remove();
-			    $("#manage-fuse li:nth-child(2)" ).before("<li><a id='carvoyant_url' data-transition='slide' href='#'>Connect Carvoyant Account</a></li>");
+			    $("#manage-fuse li:nth-child(2)" ).before("<li id='carvoyant_item'><a id='carvoyant_url' data-transition='slide' href='#'>Connect Carvoyant Account</a></li>");
 			    $('#manage-fuse').listview('refresh');
 			    $('#carvoyant_url').attr('href', json.url);
 			});

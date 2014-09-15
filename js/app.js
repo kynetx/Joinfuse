@@ -93,96 +93,7 @@
 		    Fuse.vehicleSummary(function(json) {
 			// sort so we get a consistent order
 			console.log("Displaying items...", json);
-
-			function paint_item(id, vehicle) {
-
-			    if (typeof vehicle === "undefined") {
-				return 
-			    }
-
-			    var last_running = ! Fuse.carvoyant.authorized          ? "Link Carvoyant" 
-    	                                     : isEmpty(vehicle.deviceId)            ? "Add Device Id"
-                                             :                                        "Start Vehicle"
-                            ;
-			    
-			    // console.log("Painting " + id);
-			    if(! isEmpty(vehicle.vehicleId)) {
-				var running = "Vehicle is ";
-				if (! isEmpty(vehicle.running) && vehicle.running == "1") {
-				    running += "driving";
-				} else {
-				    running += "parked";
-				}
-	    			if( ! isEmpty(vehicle.address) ) {
-				    running += " at " + vehicle.address;
-				}
-
-				var speed = "";
-				if(typeof vehicle.speed === "string" && vehicle.speed != "0") {
-				    speed = "(" + vehicle.speed + " mph)";
-				} 
-
-				var fuel = "";
-				if(typeof vehicle.fuellevel === "string") {
-				    fuel = "Fuel level: " + vehicle.fuellevel + "%";
-				} 
-
-				var status = (! isEmpty(vehicle.lastRunningTimestamp)) ? "img/ok_16.png" 
-                                           : "img/warning_16.png";
-				if(typeof vehicle.lastRunningTimestamp === "string") {
-				    // can't use Date.parse() cause of Safari
-				    function parse_date(date_string) {
-					var splitable_string = date_string
-      	                                                          .splice(13,0,":")
-	                                                          .splice(11,0,":")
-                                                                  .splice(6,0,"-")
-	                                                          .splice(4,0,"-");
-					
-					var a = splitable_string.split(/[^0-9]/);
-					// warning, this just assumes incoming date is UTC!!!
-					var u=Date.UTC (a[0],a[1]-1,a[2],a[3],a[4],a[5]);
-					return new Date(u);
-				    };
-
-				    last_running = "Updated " + timeAgo(parse_date(vehicle.lastRunningTimestamp), 2); // two most significant fuzzy times
-				}
-
-				var lat = ! isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.latitude 
-	                                :                                   40.7500;
-				var long = ! isEmpty(vehicle.lastWaypoint) ? vehicle.lastWaypoint.longitude
-                                         :                                   -111.8833;
-
-				$("#manage-fleet li:nth-child(1)" ).after(
-				    snippets.vehicle_update_item_template(
-					{"name": vehicle.profileName,
-					 "id": id,
-					 "status_icon": status,
-					 "running": running,
-					 "fuel": fuel,
-					 "heading": "Heading: " + vehicle.heading + " degrees",
-					 "last_running": last_running
-					}));
-			    } else {
-				$("#manage-fleet li:nth-child(1)" ).after(
-				    snippets.vehicle_update_item_template(
-					{"name": vehicle.profileName,
-					 "id": id,
-					 "status_icon": "img/stop_sign_16.png",
-					 "last_running" : last_running
-					}));
-			    }
-			}
-
-			function sortBy(prop){
-			    return function(a,b){
-				if( a[prop] < b[prop]){
-				    return 1;
-				}else if( a[prop] > b[prop] ){
-				    return -1;
-				}
-				return 0;
-			    };
-			};
+			
 
 			var keys = json.sort(sortBy("profileName"));
 			$.each(keys, paint_item);
@@ -200,7 +111,16 @@
 	    $("#photo", frm).val("");
             $("#photo-preview", frm).attr("src", dummy_image);
 
-            // show jQuery mobile's built in loady spinner.
+	    $("#deviceId", frm).on("blur", function(event){
+		$("#deviceId", frm).val(function () {
+		    return this.value.toUpperCase();
+		});
+	    }),
+	    $("#vin", frm).on("blur", function(event){
+		$("#vin", frm).val(function () {
+		    return this.value.toUpperCase();
+		});
+	    }),
 	    $(".save", frm).off('tap').on('tap', function(event)
             {
                 var vehicle_data = process_form(frm);
@@ -340,6 +260,16 @@
 		$('#form-update-vehicle-list').listview('refresh');
 
 	    });
+	    $("#deviceId", frm).on("blur", function(event){
+		$("#deviceId", frm).val(function () {
+		    return this.value.toUpperCase();
+		});
+	    }),
+	    $("#vin", frm).on("blur", function(event){
+		$("#vin", frm).val(function () {
+		    return this.value.toUpperCase();
+		});
+	    }),
             // show jQuery mobile's built in loady spinner.
 	    $(".save", frm).off('tap').on('tap', function(event)
             {
@@ -669,6 +599,94 @@
     $(document).ready(onPageLoad);
 
 })(jQuery);
+
+function paint_item(id, vehicle) {
+
+			    if (typeof vehicle === "undefined") {
+				return;
+			    }
+
+			    var last_running = ! Fuse.carvoyant.authorized          ? "Link Carvoyant" 
+    	                                     : isEmpty(vehicle.deviceId)            ? "Add Device Id"
+                                             :                                        "Start Vehicle"
+                            ;
+			    
+			    // console.log("Painting " + id);
+			    if(! isEmpty(vehicle.vehicleId)) {
+				var running = "Vehicle is ";
+				if (! isEmpty(vehicle.running) && vehicle.running == "1") {
+				    running += "driving";
+				} else {
+				    running += "parked";
+				}
+	    			if( ! isEmpty(vehicle.address) ) {
+				    running += " at " + vehicle.address;
+				}
+
+				var speed = "";
+				if(typeof vehicle.speed === "string" && vehicle.speed != "0") {
+				    speed = "(" + vehicle.speed + " mph)";
+				} 
+
+				var fuel = "";
+				if(typeof vehicle.fuellevel === "string") {
+				    fuel = "Fuel level: " + vehicle.fuellevel + "%";
+				} 
+
+				var status = (! isEmpty(vehicle.lastRunningTimestamp)) ? "img/ok_16.png" 
+                                           : "img/warning_16.png";
+				if(typeof vehicle.lastRunningTimestamp === "string") {
+				    // can't use Date.parse() cause of Safari
+				    function parse_date(date_string) {
+					var splitable_string = date_string
+      	                                                          .splice(13,0,":")
+	                                                          .splice(11,0,":")
+                                                                  .splice(6,0,"-")
+	                                                          .splice(4,0,"-");
+					
+					var a = splitable_string.split(/[^0-9]/);
+					// warning, this just assumes incoming date is UTC!!!
+					var u=Date.UTC (a[0],a[1]-1,a[2],a[3],a[4],a[5]);
+					return new Date(u);
+				    };
+
+				    last_running = "Updated " + timeAgo(parse_date(vehicle.lastRunningTimestamp), 2); // two most significant fuzzy times
+				}
+
+				var lat = vehicle.lastWaypoint.latitude;
+				var long = vehicle.lastWaypoint.longitude;
+
+				$("#manage-fleet li:nth-child(1)" ).after(
+				    snippets.vehicle_update_item_template(
+					{"name": vehicle.profileName,
+					 "id": id,
+					 "status_icon": status,
+					 "running": running,
+					 "fuel": fuel,
+					 "heading": "Heading: " + vehicle.heading + " degrees",
+					 "last_running": last_running
+					}));
+			    } else {
+				$("#manage-fleet li:nth-child(1)" ).after(
+				    snippets.vehicle_update_item_template(
+					{"name": vehicle.profileName,
+					 "id": id,
+					 "status_icon": "img/stop_sign_16.png",
+					 "last_running" : last_running
+					}));
+			    }
+			}
+
+			function sortBy(prop){
+			    return function(a,b){
+				if( a[prop] < b[prop]){
+				    return 1;
+				}else if( a[prop] > b[prop] ){
+				    return -1;
+				}
+				return 0;
+			    };
+			};
 
 // this stuff needs to be in the window...
 function previewPhoto(input, frm)

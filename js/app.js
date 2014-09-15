@@ -307,12 +307,8 @@
 		}
 
 		if( ! isEmpty(vehicle.vehicleId) 
-		 && ! isEmpty(vehicle.lastWaypoint.latitude) 
-		 && ! isEmpty(vehicle.lastWaypoint.longitude) 
+		 && ! isEmpty(vehicle.lastWaypoint) 
 		  ) {
-  	            var lat =  vehicle.lastWaypoint.latitude;
-		    var long =  vehicle.lastWaypoint.longitude;
-
 
 		    var running = "not running";
 
@@ -325,8 +321,8 @@
 		    } 
 
 		    var snip = snippets.vehicle_location_template(
-			{"lat": lat,
-			 "long": long,
+			{"lat": vehicle.lastWaypoint.latitude,
+			 "long": vehicle.lastWaypoint.longitude,
 			 "address": vehicle.address,
 			 "current_location": "Current location: " + vehicle.address,
 			 "running": "Vehicle is " + running,

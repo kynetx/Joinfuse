@@ -654,8 +654,8 @@ function paint_item(id, vehicle) {
 				    last_running = "Updated " + timeAgo(parse_date(vehicle.lastRunningTimestamp), 2); // two most significant fuzzy times
 				}
 
-				var lat = vehicle.lastWaypoint.latitude;
-				var long = vehicle.lastWaypoint.longitude;
+				var lat = vehicle.lastWaypoint && vehicle.lastWaypoint.latitude;
+				var long = vehicle.lastWaypoint && vehicle.lastWaypoint.longitude;
 
 				$("#manage-fleet li:nth-child(1)" ).after(
 				    snippets.vehicle_update_item_template(

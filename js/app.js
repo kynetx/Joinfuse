@@ -486,7 +486,7 @@
     function show_error_msg(msg_key, frm, options) {
 	options = options || {};
 	var error_msgs = {
-	    "vin_length": "Bad VIN; must be 17 characters long, alphanumeric (except I, O, or Q), and last 5 characters must by numbers",
+	    "vin_length": "Bad VIN; must be 17 chars long, alphanumeric (except I, O, or Q), and last 5 chars must by numbers",
 	    "vehicle_create": "Vehicle cannot be created"
 	};
 

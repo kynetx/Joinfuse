@@ -121,6 +121,7 @@
 		$("#vin", frm).val(function () {
 		    return this.value.toUpperCase();
 		});
+		check_vin($("#vin", frm).val(), frm);
 	    }),
 	    $(".save", frm).off('tap').on('tap', function(event)
             {

@@ -494,7 +494,7 @@
 	function format_error_item(key, msg) {
 	    msg = options.msg ? msg + ":" + options.msg 
 		              : msg;
-	    return  "<li id='"+key+"' style='color:red;background:#FCC' class='ui-field-contain'>"+msg+"</li>";
+	    return  "<li id='"+key+"' style='color:red;background:#FCC' class='wrap ui-field-contain'>"+msg+"</li>";
 	};
 
 	var error_message = format_error_item(msg_key, error_msgs[msg_key]);

@@ -491,14 +491,18 @@
 	};
 
 
-	function format_error_item(msg) {
+	function format_error_item(key, msg) {
 	    msg = options.msg ? msg + ":" + options.msg 
 		              : msg;
-	    return  "<li style='color:red;background:#FCC' class='ui-field-contain'>"+msg+"</li>";
+	    return  "<li id='"+key+"' style='color:red;background:#FCC' class='ui-field-contain'>"+msg+"</li>";
 	};
 
-	var error_message = format_error_item(error_msgs[msg_key]);
-	$("#error-msg", frm).append(error_message).show('slow');
+	var error_message = format_error_item(msg_key, error_msgs[msg_key]);
+	if($("#"+msg_key)) {
+	    $("#error-msg", frm).html(error_message).show('slow');
+	} else {
+	    $("#error-msg", frm).append(error_message).show('slow');
+	}
 	$('#error-msg', frm).listview('refresh');
     };
 

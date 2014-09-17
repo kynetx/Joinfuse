@@ -108,7 +108,7 @@
 	    console.log("add vehicle");
             var frm = "#form-add-vehicle";
             $(frm)[0].reset();
-            $("#error-msg", frm).html("").hide();
+	    clear_error_msg(frm);
 	    $("#photo", frm).val("");
             $("#photo-preview", frm).attr("src", dummy_image);
 
@@ -130,7 +130,7 @@
 		if( check_vin(vehicle_data.vin, frm) ) {
 		    return;
 		} else {
-		    $("#error-msg").html("").hide('slow');
+		    clear_error_msg(frm);
 		}
 
                 console.log(">>>>>>>>> Saving new vehicle ", vehicle_data);
@@ -194,7 +194,7 @@
             {
 		console.log("Cancelling add vehicle");
 		$(frm)[0].reset();
-		$("#error-msg", frm).html("").hide();
+		clear_error_msg(frm);
 		$('#photo-preview').attr('src', dummy_image);
 	    });
 
@@ -203,7 +203,7 @@
 	    console.log("update vehicle");
             var frm = "#form-update-vehicle";
             $(frm)[0].reset();
-	    $("#error-msg", frm).html("").hide();
+	    clear_error_msg(frm);
 	    var params = router.getParams(match[1]);
 	    console.log("ID: ", params.id);
 	    Fuse.vehicleSummary(function(json){
@@ -281,7 +281,7 @@
 		if( check_vin(vehicle_data.vin, frm) ) {
 		    return;
 		} else {
-		    $("#error-msg").html("").hide('slow');
+		    clear_error_msg(frm);
 		}
 
 		$.mobile.loading("show", {
@@ -316,7 +316,7 @@
             {
 		console.log("Cancelling update vehicle");
 		$(frm)[0].reset();
-		$("#error-msg").html("").hide('slow');
+		clear_error_msg(frm);
 		$('#photo-preview').attr('src', dummy_image);
 		$.mobile.loading("hide");
 		$.mobile.changePage("#page-manage-fuse", {
@@ -356,7 +356,7 @@
 	pageUpdateProfile: function(type,  match, ui, page) {
 	    console.log("update profile");
             var frm = "#form-update-profile";
-            $("#error-msg", frm).html("").hide();
+	    clear_error_msg(frm);
             $("#eci-eci", frm).html("").hide();
             $(frm)[0].reset();
 	    var owner_eci = CloudOS.defaultECI;
@@ -486,7 +486,7 @@
     function show_error_msg(msg_key, frm, options) {
 	options = options || {};
 	var error_msgs = {
-	    "vin_length": "VIN must be 17 characters long",
+	    "vin_length": "Bad VIN; must be 17 characters long, alphanumeric (except I, O, or Q), and last 5 characters must by numbers",
 	    "vehicle_create": "Vehicle cannot be created"
 	};
 
@@ -502,6 +502,10 @@
 	$('#error-msg', frm).listview('refresh');
     };
 
+    function clear_error_msg(frm) {
+       $("#error-msg", frm).html("").hide();
+    }
+
     function check_vin(vin, frm) {
 	valid_vin = vin.length === 0 // empty is OK
 	         || vin.match(/^[A-HJ-NPR-Za-hj-npr-z0-9]{12}\d{5}$/) // 17 char long, alphanumeric w/o IOQ, last 5 digits
@@ -512,11 +516,10 @@
 	    show_error_msg("vin_length", frm);
 	    return 1;
 	} else {
+	    clear_error_msg(frm);
 	    return 0;
 	}
     };
-
-
 
     // process an array of objects from a form to be a proper object
     var process_form_results = function(raw_results)

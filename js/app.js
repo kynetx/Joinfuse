@@ -502,8 +502,12 @@
     };
 
     function check_vin(vin, frm) {
-	if( vin.length > 0 && vin.length !== 17 ) {
-	    console.log("Bad VIN length");
+	valid_vin = vin.length === 0 // empty is OK
+	         || vin.match(/^[A-HJ-NPR-Za-hj-npr-z0-9]{12}\d{5}$/) // 17 char long, alphanumeric w/o IOQ, last 5 digits
+	          ;
+
+	if( ! valid_vin ) {
+	    console.log("Bad VIN; must be 17 characters long, alphanumeric (except I, O, or Q), and last 5 characters must by numbers");
 	    show_error_msg("vin_length", frm);
 	    return 1;
 	} else {

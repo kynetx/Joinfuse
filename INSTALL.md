@@ -12,4 +12,6 @@ You should point the OAuth Callback URL to the URL for the ```code.html``` file 
 
 In general, a ```BAD REQUEST``` response from Kynetx is an indication that the OAuth configuration is wrong. 
 
+In general, don't pass your site off as Fuse. Specifically, identify your app via the app logo and description as something different from the normal Joinfuse.com site. . 
+
 Send Phil Windley a note if you'd like help getting this set up and working. 

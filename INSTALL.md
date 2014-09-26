@@ -10,3 +10,5 @@ You’ll want to use ```v1_fuse_bootstrap``` as the bootstrap RID.
 
 You should point the OAuth Callback URL to the URL for the ```code.html``` file in your copy of Joinfuse. 
 
+In general, a ```BAD REQUEST``` response from Kynetx is an indication that the OAuth configuration is wrong. 
+

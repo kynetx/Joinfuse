@@ -12,3 +12,4 @@ You should point the OAuth Callback URL to the URL for the ```code.html``` file 
 
 In general, a ```BAD REQUEST``` response from Kynetx is an indication that the OAuth configuration is wrong. 
 
+Send Phil Windley a note if you'd like help getting this set up and working. 

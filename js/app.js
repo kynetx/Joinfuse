@@ -433,6 +433,7 @@
 		    }
 		});
 		$( "#debug", frm ).slider().slider("refresh");
+		$("#timesone").val(jstz.determine().name());
 	    });
             // show jQuery mobile's built in loady spinner.
 	    $(".save", frm).off('tap').on('tap', function(event)
@@ -446,7 +447,8 @@
 
 		var settings = { 
 		    reportPreference: preference_data.report,
-		    debugPreference: preference_data.debug
+		    debugPreference: preference_data.debug,
+		    timezeonePreference: preferent_data.timezone
 		};
 
 		Fuse.set_host(preference_data.debug);

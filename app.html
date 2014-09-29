@@ -360,20 +360,13 @@ The Fuse app is not complete yet, but will be soon. In the meantime you can set 
 	      </select> 
           </li>
           <li class="ui-field-contain">
-              <label for="timezone" class="select">Time Zone</label>
-	      <select style="float:right" name="timezone" id="timezone"  >
-	      	<option value="America/Los_Angeles">Pacific</option>
-	      	<option value="America/Los_Angeles">Arizon</option>
-	      	<option value="America/Denver">Mountain</option>
-	      </select> 
-          </li>
-          <li class="ui-field-contain">
               <label for="debug">Debug Mode</label>
 	      <select style="float:right" name="debug" id="debug" data-role="slider"  >
 	      	<option value="off">Off</option>
 		<option value="on">On</option>
 	      </select> 
           </li>
+	  <input type="hidden" id="timezone" name="timezone" value="">
 
 
         </ul>

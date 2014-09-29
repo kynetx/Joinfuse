@@ -433,7 +433,7 @@
 		    }
 		});
 		$( "#debug", frm ).slider().slider("refresh");
-		$("#timesone").val(jstz.determine().name());
+		$("#timezone").val(jstz.determine().name());
 	    });
             // show jQuery mobile's built in loady spinner.
 	    $(".save", frm).off('tap').on('tap', function(event)

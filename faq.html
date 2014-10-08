@@ -35,7 +35,6 @@ Every US vehicle sold after January 1996 has an OBD II data port <a href="http:/
 </p>
 </li>
 
-
 <li>
 
 <p class="question">
@@ -121,25 +120,27 @@ The port must be within 3 feet of the driver and accessible without using any to
 </p>
 
 <p class="answer">
-You can use any CalAmp LMU-3000 (GSM) or Xirgo XT-2000 (GSM) with the Fuse network and mobile app. To do so, your device will need to be reflashed to load a new script. Your device will also need a new SIM card to put it onto the network we use for device connectivity.  Note: your device can only work with one network at a time, so making your device compatible with Fuse will mean that it no longer works with the system it is currently on. 
+You can use any CalAmp LMU-3000 (GSM), CapAmp LMU-3030 (GSM), or Xirgo XT-2000 (GSM) with the Fuse network and mobile app. To do so, your device will need to be reflashed to load a new script. Your device will also need a new SIM card to put it onto the network we use for device connectivity.  Note: your device can only work with one network at a time, so making your device compatible with Fuse will mean that it no longer works with the system it is currently on. 
 </p>
 
 </li>
 
-<li>
 
+<li>
 <p class="question">
-<b>Can I switch cars after installing Fuse?
+<b>Do you have a privacy policy? 
 </b>
 </p>
 
 <p class="answer">
-You can move it between vehicles, but you'll have to update the profile to indicate the new vehicle. Switching is designed for moving it to a new car, not moving it back and forth between two cars.
+Yes, our <a href="privacy.html">privacy policy</a> is online. 
 </p>
-
 </li>
 
+
 <li>
+
+<a name="using"></a>
 
 <p class="question">
 <b>Will there be an API?
@@ -147,7 +148,7 @@ You can move it between vehicles, but you'll have to update the profile to indic
 </p>
 
 <p class="answer">
-Yes, the iPhone and Android apps will be using an API to access the logic behind all this and we will publish that interface. It's controlled by OAuth, so anyone will be able to use an app you build on the API to connect to their car on Fuse.
+Yes, there is an API. The Fuse Management Console is an <a href="https://github.com/kynetx/Joinfuse">open source project and can be view on Github</a> that shows how to use HTML5/CSS/JavaScript to interface to the existing API.  The backend code that creates the API is also open source and <a href="https://github.com/kynetx/Fuse-API">available on Github</a>. We're happy to help and answer questions if you're interested in working with the API. 
 </p>
 
 </li>
@@ -167,11 +168,22 @@ Yes, the iPhone and Android apps will be using an API to access the logic behind
  -->
 </ol>
 
-<a name="using"></a>
 <h2>Using Fuse</h2>
 
 
 <ol>
+
+
+<li>
+<p class="question">
+Why is my vehicle showing a red stop sign?
+</p>
+<p class="answer">
+The red stop sign is an indication that Fuse hasn't received any data from your vehicle yet. Make sure you have <a href="/app_help.html#linking_to_carvoyant">linked you Fuse account with Carvoyant</a> and then edit and resave the vehicle (just click on the vehicle name and then click "Save"). Finally turn the car on and off.
+</p>
+</li>
+
+
 
 <li>
 <p class="question">
@@ -190,6 +202,31 @@ On an iOS device, you must disable "Private Browsing" for the app to work. You m
 
 <p class="answer">
 You can move the device from one vehicle to another, but you cannot have the same device associated with two vehicles in the Fuse system at the same time. So, you can either create two vehicles in Fuse and manually update them to reflect which vehicle the device is currently in or you can have one vehicle which is a mix of data from both vehicles. 
+</p>
+
+</li>
+
+<li>
+
+<a name="newcar"></a>
+<p class="question">
+I bought a new vehicle, what should I do to put it in Fuse?
+</p>
+
+<p class="answer">
+Ideally, when you get a new vehicle, you should create a new vehicle in Fuse. This ensures that the right vehicle type is associated with your vehicle data.  You can leave the old one (so you have it’s records) or delete it as you see fit. Be sure to remove the device ID from the profile for the old vehicle and put it in the profile for the new vehicle. You can't have the same device ID in two vehicle profiles at the same time. 
+</p>
+
+</li>
+
+<li>
+
+<p class="question">
+Why does my hybrid (or electric) vehicle report multiple trips for each trip I take in the car?
+</p>
+
+<p class="answer">
+The devices currently track trips based on engine state, <code>IGNITION_OFF</code> or <code>IGNITION_OFF</code>. This does not properly account for hybrids, electrics, and vehicles where the gasoline engine is not actually running at all times. We are working with Carvoyant to improve this feature so that these vehicle report trips more accurately. This is a high priority. 
 </p>
 
 </li>
@@ -226,7 +263,7 @@ You can move the device from one vehicle to another, but you cannot have the sam
 <li>
 <p class="question">Why don't I see data from Fuse during a trip?</p>
 
-<p class="answer"> Even thought Fuse is recording data about a trip every five minutes while the vehicle is on, it only reports vehicle status in the app at the start and end of a trip. 
+<p class="answer"> Even though Fuse is recording data about a trip once per minute while the vehicle is on, it only reports vehicle status in the app at the start and end of a trip. 
 </p>
 </li>
 
@@ -289,7 +326,7 @@ Any of these things can give incorrect GPS coordinates.
 
 </p>
 
-<p class="answer"
+<p class="answer">
 
 </p>
 

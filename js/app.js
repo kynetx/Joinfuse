@@ -448,7 +448,7 @@
 		var settings = { 
 		    reportPreference: preference_data.report,
 		    debugPreference: preference_data.debug,
-		    timezeonePreference: preference_data.timezone
+		    timezonePreference: preference_data.timezone
 		};
 
 		Fuse.set_host(preference_data.debug);

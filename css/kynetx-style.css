@@ -37,6 +37,11 @@ color: #8a9299;
   text-decoration: none;
 }
 
+.img-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
 
 /* default hover */
 a.sb:hover:after,

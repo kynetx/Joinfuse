@@ -184,6 +184,61 @@ The <a href="http://forum.joinfuse.com">Fuse Forum</a> is the place for asking q
    </div><!-- /footer -->
 </div><!-- /page -->
 
+<!-- ---------- fuse show vehicle ---------- -->
+<div data-role="page" id="page-show-vehicle" data-title="Fuse Show Vehicle">
+
+   <div data-role="header">
+     <div class="header-image">
+        <img class="fuse-logo" src="https://s3.amazonaws.com/Fuse_assets/img/fuse_logo-40.png">
+     </div>
+   </div><!-- /header -->
+
+
+   <div data-role="content">
+        <ul id="show-vehicle-list" data-role="listview" data-inset="true"> 
+ 	  <li data-role="list-divider" >Show Vehicle</li>
+          <li class="ui-field-contain">
+              <span class="label">Name</span>
+              <span id="name"></span>
+           </li>
+
+           <li class="ui-field-contain">
+              <span class="label">VIN</span>
+              <span id="vin"></span>
+           </li>
+
+           <li class="ui-field-contain">
+              <span class="label">Fuse Device ID</span>
+              <span id="deviceId"></span>
+           </li>
+
+           <li class="ui-field-contain">
+              <span class="label">Vehicle Mileage</span>
+              <span id="mileage"></span>
+           </li>
+
+           <li class="ui-field-contain">
+              <span class="label">Vehicle License</span>
+              <span id="license"></span>
+           </li>
+
+           <li class="ui-field-contain" style="padding: .7em 1em;">
+              <span class="label">Image</span>
+	      <div> 
+                <img id="photo-preview" src="" name style="max-width:200px;">
+              </div>
+           </li>
+
+        </ul>
+       
+   </div><!-- /content -->
+
+   <div data-role="footer" data-position="fixed">
+      <h4>Fuse from Kynetx</h5>
+   </div><!-- /footer -->
+</div><!-- /page -->
+
+
 
 <!-- ---------- fuse update vehicle ---------- -->
 <div data-role="page" id="page-update-vehicle" data-title="Fuse Update Vehicle">

@@ -22,6 +22,10 @@
 			      events: "s", 
 			      argsre: true
 			     } },
+       {"#page-show-vehicle": {handler: "pageShowVehicle",
+			       events: "s", 
+			       argsre: true
+			      } },
        {"#page-update-vehicle": {handler: "pageUpdateVehicle",
 				 events: "s", 
 				 argsre: true
@@ -198,6 +202,68 @@
 		$('#photo-preview').attr('src', dummy_image);
 	    });
 
+	},
+	pageShowVehicle: function(type,  match, ui, page) {
+	    console.log("show vehicle");
+	    var vlist = "#show-vehicle-list";
+	    var params = router.getParams(match[1]);
+	    console.log("ID: ", params.id);
+	    Fuse.vehicleSummary(function(json){
+		console.log("Show json ", json, params.id);
+		var vehicle = json[params.id];
+		$("#name", vlist).html(vehicle.profileName);
+		$("#vin", vlist).html(vehicle.vin);
+		$("#deviceId", vlist).html(vehicle.deviceId);
+		$("#license", vlist).html(vehicle.license);
+		$("#mileage", vlist).html(vehicle.mileage);
+		$("#photo", vlist).html(vehicle.profilePhoto);
+		$("#id", vlist).html(vehicle.picoId);
+		$("#photo-preview", vlist).attr("src", vehicle.profilePhoto);
+
+		// reset status area
+		if ($("li#vehicle_missing").length > 0) { 
+		    $(vlist li:last-child").remove();
+		}
+		if ($("a#vehicle-location-link").length > 1) { // there's one in the template, so two if present in form
+		    // we add two, get rid of two
+		    $(vlist li:last-child").remove();
+		    $(vlist li:last-child").remove();
+		}
+
+		if( ! isEmpty(vehicle.vehicleId) 
+		 && ! isEmpty(vehicle.lastWaypoint) 
+		  ) {
+
+		    var running = "not running";
+
+		    if(! isEmpty(vehicle.running) && vehicle.running == "1") {
+			running = "running";
+		    }
+		    var fuel = "";
+		    if(typeof vehicle.fuellevel === "string") {
+			fuel = "Fuel level: " + vehicle.fuellevel + "%";
+		    } 
+
+		    var snip = snippets.vehicle_location_template(
+			{"lat": vehicle.lastWaypoint.latitude,
+			 "long": vehicle.lastWaypoint.longitude,
+			 "address": vehicle.address,
+			 "current_location": "Current location: " + vehicle.address,
+			 "running": "Vehicle is " + running,
+			 "fuel": fuel,
+			 "heading": "Heading: " + vehicle.heading + " degrees"
+			});
+
+		    $(vlist).append(snip);
+		 } else {
+		    $(vlist).append(
+			'<li id="vehicle_missing" class="ui-field-contain">No vehicle data yet.</li>'
+		    );
+		}
+
+		$(vlist).listview('refresh');
+
+	    });
 	},
 	pageUpdateVehicle: function(type,  match, ui, page) {
 	    console.log("update vehicle");

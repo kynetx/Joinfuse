@@ -210,7 +210,7 @@
 	    console.log("ID: ", params.id);
 
 
-	    $("update_vehicle_link").attr("href", "#page-update-vehicle?id="+params.id);
+	    $("#update_vehicle_link").attr("href", "#page-update-vehicle?id="+params.id);
 	    
 	    Fuse.vehicleSummary(function(json){
 		console.log("Show json ", json, params.id);

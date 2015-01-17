@@ -222,12 +222,12 @@
 
 		// reset status area
 		if ($("li#vehicle_missing").length > 0) { 
-		    $(vlist li:last-child").remove();
+		    $(vlist, "li:last-child").remove();
 		}
 		if ($("a#vehicle-location-link").length > 1) { // there's one in the template, so two if present in form
 		    // we add two, get rid of two
-		    $(vlist li:last-child").remove();
-		    $(vlist li:last-child").remove();
+		    $(vlist, "li:last-child").remove();
+		    $(vlist, "li:last-child").remove();
 		}
 
 		if( ! isEmpty(vehicle.vehicleId) 

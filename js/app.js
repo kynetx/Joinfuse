@@ -208,9 +208,14 @@
 	    var vlist = "#show-vehicle-list";
 	    var params = router.getParams(match[1]);
 	    console.log("ID: ", params.id);
+
+
+	    $("update_vehicle_link").attr("href", "#page-update-vehicle?id="+params.id);
+	    
 	    Fuse.vehicleSummary(function(json){
 		console.log("Show json ", json, params.id);
 		var vehicle = json[params.id];
+
 		$("#name", vlist).html(vehicle.profileName);
 		$("#vin", vlist).html(vehicle.vin);
 		$("#deviceId", vlist).html(vehicle.deviceId);

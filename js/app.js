@@ -451,7 +451,7 @@
 		$("#photo", vlist).html(vehicle.profilePhoto);
 		$("#photo-preview", vlist).attr("src", vehicle.profilePhoto);
 
-		$("#id", frm).value(vehicle.picoId);
+		$("#id", frm).val(vehicle.picoId);
             });
 
 	    $("#export", vlist).off('tap').on('tap', function(event)

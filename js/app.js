@@ -434,6 +434,7 @@
 	pageExportVehicleData: function(type,  match, ui, page) {
 	    console.log("export vehicle data");
 	    var vlist = "#export-vehicle-list";
+	    var frm = "#form-export-vehicle-data";
 	    var params = router.getParams(match[1]);
 	    console.log("ID: ", params.id);
 

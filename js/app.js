@@ -34,6 +34,10 @@
 					 events: "s", 
 					 argsre: true
 					} },
+       {"#page-export-vehicle-data": {handler: "pageExportVehicleData",
+					 events: "s", 
+					 argsre: true
+					} },
        {"#page-update-profile": {handler: "pageUpdateProfile",
 					 events: "c", // just do when we create the page
 					 argsre: true
@@ -426,6 +430,29 @@
 		    }
                 });
             });
+	},
+	pageExportVehicleData: function(type,  match, ui, page) {
+	    console.log("export vehicle data");
+	    var vlist = "#export-vehicle-list";
+	    var params = router.getParams(match[1]);
+	    console.log("ID: ", params.id);
+
+
+	    Fuse.vehicleSummary(function(json){
+		console.log("Show json ", json, params.id);
+		var vehicle = json[params.id];
+
+		$("#name", vlist).html(vehicle.profileName);
+		$("#vin", vlist).html(vehicle.vin);
+		$("#deviceId", vlist).html(vehicle.deviceId);
+		$("#license", vlist).html(vehicle.license);
+		$("#mileage", vlist).html(vehicle.mileage);
+		$("#photo", vlist).html(vehicle.profilePhoto);
+		$("#id", vlist).html(vehicle.picoId);
+		$("#photo-preview", vlist).attr("src", vehicle.profilePhoto);
+
+
+	    });
 	},
 	pageUpdateProfile: function(type,  match, ui, page) {
 	    console.log("update profile");

@@ -226,7 +226,7 @@ The <a href="http://forum.joinfuse.com">Fuse Forum</a> is the place for asking q
            </div>
          </li>
           <li class="ui-field-contain">
-           <a id="export-link" data-transition="slide" href="#export-vehicle-data">Export Trip Data</a>
+           <a id="export-link" data-transition="slide" href="#page-export-vehicle-data">Export Trip Data</a>
 	  </li>
         </ul>
        
@@ -326,6 +326,92 @@ The <a href="http://forum.joinfuse.com">Fuse Forum</a> is the place for asking q
       </p>
    </div><!-- /content -->
  </div><!-- /page -->
+
+<!-- ---------- fuse export vehicle data ---------- -->
+<div data-role="page" id="page-export-vehicle-data" data-title="Fuse Export Vehicle Data">
+
+   <div data-role="header">
+
+     <a href="#page-manage-fuse" data-icon="delete">Back</a>
+     <div class="header-image">
+        <img class="fuse-logo" src="https://s3.amazonaws.com/Fuse_assets/img/fuse_logo-40.png">
+     </div>
+   </div><!-- /header -->
+
+
+   <div data-role="content">
+     <form id="form-update-vehicle">
+        <ul id="export-vehicle-list" data-role="listview" data-inset="true"> 
+ 	  <li data-role="list-divider" >Export Trip Data</li>
+          <li class="ui-field-contain">
+	    <div style="float:right">
+             <img id="photo-preview" src="" name style="max-width:200px;">
+	    </div>
+           <span id="name"></span>
+            <div>
+              <span class="label">VIN:</span>
+              <span id="vin"></span>
+            </div>
+
+           <div>
+              <span class="label">Fuse Device ID:</span>
+              <span id="deviceId"></span>1
+           </div>
+
+           <div>
+              <span class="label">Vehicle Mileage:</span>
+              <span id="mileage"></span>
+           </div>
+
+           <div>
+              <span class="label">Vehicle License:</span>
+              <span id="license"></span>
+           </div>
+         </li>
+	 <li>
+
+
+	   <fieldset data-role="controlgroup" data-type="horizontal" class="ui-corner-all ui-controlgroup ui-controlgroup-horizontal"><div role="heading" class="ui-controlgroup-label">Export Trip Data:</div><div class="ui-controlgroup-controls">
+		
+		
+		<label for="select-choice-month" class="ui-select">Month</label>
+		<div class="ui-select"><div data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-icon="arrow-d" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-up-c ui-btn-icon-right ui-corner-left"><span class="ui-btn-inner ui-corner-left"><span class="ui-btn-text">Jan</span><span class="ui-icon ui-icon-arrow-d ui-icon-shadow">&nbsp;</span></span><select name="select-choice-month" id="select-choice-month">
+			<option value="01">Jan</option>
+			<option value="02">Feb</option>
+			<option value="03">Mar</option>
+			<option value="04">Apr</option>
+			<option value="05">May</option>
+			<option value="06">Jun</option>
+			<option value="07">Jul</option>
+			<option value="08">Aug</option>
+			<option value="09">Sep</option>
+			<option value="10">Oct</option>
+			<option value="11">Nov</option>
+			<option value="12">Dec</option>
+		</select></div></div>
+
+
+		<label for="select-choice-year" class="ui-select">Year</label>
+		<div class="ui-select"><div data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-icon="arrow-d" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-up-c ui-btn-icon-right ui-corner-right ui-controlgroup-last"><span class="ui-btn-inner ui-corner-right ui-controlgroup-last"><span class="ui-btn-text">2012</span><span class="ui-icon ui-icon-arrow-d ui-icon-shadow">&nbsp;</span></span><select name="select-choice-year" id="select-choice-year">
+			<option value="2014">2014</option>
+			<option value="2014">2015</option>
+			<option value="2014">2016</option>
+		</select></div></div>
+	     </div>
+	   </fieldset>
+
+           <a class="export" href="#" data-icon="check" data-role="button" data-inline="true" data-theme="b">Export</a>
+
+	 </li>
+        </ul>
+     </form>
+   </div><!-- /content -->
+
+   <div data-role="footer" data-position="fixed">
+      <h4>Fuse from Kynetx</h5>
+   </div><!-- /footer -->
+</div><!-- /page -->
+
 
 
 <!-- ---------- fuse update profile ---------- -->

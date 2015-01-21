@@ -225,6 +225,9 @@
 		$("#id", vlist).html(vehicle.picoId);
 		$("#photo-preview", vlist).attr("src", vehicle.profilePhoto);
 
+	        var export_item = $("#export-link", vlist);
+		export_item.attr("href", export_item.attr("href") + "?id=" + params.id);
+
 		// reset status area
 		if ($("li#vehicle_missing").length > 0) { 
 		    $(vlist, "li:last-child").remove();

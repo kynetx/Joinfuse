@@ -449,8 +449,9 @@
 		$("#license", vlist).html(vehicle.license);
 		$("#mileage", vlist).html(vehicle.mileage);
 		$("#photo", vlist).html(vehicle.profilePhoto);
-		$("#id", vlist).html(vehicle.picoId);
 		$("#photo-preview", vlist).attr("src", vehicle.profilePhoto);
+
+		$("#id", frm).html(vehicle.picoId);
             });
 
 	    $("#export", vlist).off('tap').on('tap', function(event)

@@ -450,8 +450,30 @@
 		$("#photo", vlist).html(vehicle.profilePhoto);
 		$("#id", vlist).html(vehicle.picoId);
 		$("#photo-preview", vlist).attr("src", vehicle.profilePhoto);
+            });
 
+	    $("#export", vlist).off('tap').on('tap', function(event)
+            {
+		
+                var vehicle_data = process_form(frm);
+                console.log(">>>>>>>>> Exporting vehicle data ", vehicle_data);
+		var id = vehicle_data.id;
 
+		Fuse.vehicleChannels(function(chan_array){
+		    var channel = $.grep(chan_array, function(obj, i){return obj["picoId"] === id;})[0]["channel"];
+		    var end_date = vehicle_data.year + vehicle_data.month + "31T115959+0000";
+		    var start_date = vehicle_data.year + vehicle_data.month + "01T000000+0000";
+
+		    var args = {"start": start_date,
+				"end": end_date
+			       };
+		    return Fuse.ask_vehicle(channel, "exportTrips", args, null, function(csv) {
+			return csv;
+		      },
+                      {rid: "trips"}
+		    );
+
+		});
 	    });
 	},
 	pageUpdateProfile: function(type,  match, ui, page) {

@@ -22,11 +22,19 @@
 			      events: "s", 
 			      argsre: true
 			     } },
+       {"#page-show-vehicle": {handler: "pageShowVehicle",
+			       events: "s", 
+			       argsre: true
+			      } },
        {"#page-update-vehicle": {handler: "pageUpdateVehicle",
 				 events: "s", 
 				 argsre: true
 				} },
        {"#page-vehicle-confirm-delete": {handler: "pageVehicleConfirmDelete",
+					 events: "s", 
+					 argsre: true
+					} },
+       {"#page-export-vehicle-data": {handler: "pageExportVehicleData",
 					 events: "s", 
 					 argsre: true
 					} },
@@ -199,33 +207,39 @@
 	    });
 
 	},
-	pageUpdateVehicle: function(type,  match, ui, page) {
-	    console.log("update vehicle");
-            var frm = "#form-update-vehicle";
-            $(frm)[0].reset();
-	    clear_error_msg(frm);
+	pageShowVehicle: function(type,  match, ui, page) {
+	    console.log("show vehicle");
+	    var vlist = "#show-vehicle-list";
 	    var params = router.getParams(match[1]);
 	    console.log("ID: ", params.id);
+
+
+	    $("#update_vehicle_link").attr("href", "#page-update-vehicle?id="+params.id);
+	    
 	    Fuse.vehicleSummary(function(json){
-		console.log("Update json ", json, params.id);
+		console.log("Show json ", json, params.id);
 		var vehicle = json[params.id];
-		$("#name", frm).val(vehicle.profileName);
-		$("#vin", frm).val(vehicle.vin);
-		$("#deviceId", frm).val(vehicle.deviceId);
-		$("#license", frm).val(vehicle.license);
-		$("#mileage", frm).val(vehicle.mileage);
-		$("#photo", frm).val(vehicle.profilePhoto);
-		$("#id", frm).val(vehicle.picoId);
-		$("#photo-preview", frm).attr("src", vehicle.profilePhoto);
+
+		$("#name", vlist).html(vehicle.profileName);
+		$("#vin", vlist).html(vehicle.vin);
+		$("#deviceId", vlist).html(vehicle.deviceId);
+		$("#license", vlist).html(vehicle.license);
+		$("#mileage", vlist).html(vehicle.mileage);
+		$("#photo", vlist).html(vehicle.profilePhoto);
+		$("#id", vlist).html(vehicle.picoId);
+		$("#photo-preview", vlist).attr("src", vehicle.profilePhoto);
+
+	        var export_item = $("#export-link", vlist);
+		export_item.attr("href", export_item.attr("href").split("?")[0] + "?id=" + params.id);
 
 		// reset status area
 		if ($("li#vehicle_missing").length > 0) { 
-		    $("#form-update-vehicle-list li:last-child").remove();
+		    $(vlist, "li:last-child").remove();
 		}
 		if ($("a#vehicle-location-link").length > 1) { // there's one in the template, so two if present in form
 		    // we add two, get rid of two
-		    $("#form-update-vehicle-list li:last-child").remove();
-		    $("#form-update-vehicle-list li:last-child").remove();
+		    $(vlist + " li:last-child").remove();
+		    $(vlist + " li:last-child").remove();
 		}
 
 		if( ! isEmpty(vehicle.vehicleId) 
@@ -252,11 +266,39 @@
 			 "heading": "Heading: " + vehicle.heading + " degrees"
 			});
 
-		    $("#form-update-vehicle-list").append(snip);
+		    $(vlist).append(snip);
 		 } else {
-		    $("#form-update-vehicle-list").append(
+		    $(vlist).append(
 			'<li id="vehicle_missing" class="ui-field-contain">No vehicle data yet.</li>'
 		    );
+		}
+
+		$(vlist).listview('refresh');
+
+	    });
+	},
+	pageUpdateVehicle: function(type,  match, ui, page) {
+	    console.log("update vehicle");
+            var frm = "#form-update-vehicle";
+            $(frm)[0].reset();
+	    clear_error_msg(frm);
+	    var params = router.getParams(match[1]);
+	    console.log("ID: ", params.id);
+	    Fuse.vehicleSummary(function(json){
+		console.log("Update json ", json, params.id);
+		var vehicle = json[params.id];
+		$("#name", frm).val(vehicle.profileName);
+		$("#vin", frm).val(vehicle.vin);
+		$("#deviceId", frm).val(vehicle.deviceId);
+		$("#license", frm).val(vehicle.license);
+		$("#mileage", frm).val(vehicle.mileage);
+		$("#photo", frm).val(vehicle.profilePhoto);
+		$("#id", frm).val(vehicle.picoId);
+		$("#photo-preview", frm).attr("src", vehicle.profilePhoto);
+
+		// reset status area
+		if ($("li#vehicle_missing").length > 0) { 
+		    $("#form-update-vehicle-list li:last-child").remove();
 		}
 
 		$('#form-update-vehicle-list').listview('refresh');
@@ -352,6 +394,66 @@
 		    }
                 });
             });
+	},
+	pageExportVehicleData: function(type,  match, ui, page) {
+	    console.log("export vehicle data");
+	    var vlist = "#export-vehicle-list";
+	    var frm = "#form-export-vehicle-data";
+	    var params = router.getParams(match[1]);
+	    console.log("ID: ", params.id);
+
+
+	    Fuse.vehicleSummary(function(json){
+		console.log("Show json ", json, params.id);
+		var vehicle = json[params.id];
+
+		$("#name", vlist).html(vehicle.profileName);
+		$("#vin", vlist).html(vehicle.vin);
+		$("#deviceId", vlist).html(vehicle.deviceId);
+		$("#license", vlist).html(vehicle.license);
+		$("#mileage", vlist).html(vehicle.mileage);
+		$("#photo", vlist).html(vehicle.profilePhoto);
+		$("#photo-preview", vlist).attr("src", vehicle.profilePhoto);
+
+		$("#id", frm).val(vehicle.picoId);
+            });
+
+	    $("#export", vlist).off('tap').on('tap', function(event)
+            {
+		
+		$.mobile.loading("show", {
+                    text: "Exporting trip data...",
+                    textVisible: true
+		});	
+
+                var vehicle_data = process_form(frm);
+                console.log(">>>>>>>>> Exporting vehicle data ", vehicle_data);
+		var id = vehicle_data.id;
+
+		Fuse.vehicleChannels(function(chan_array){
+		    var channel = $.grep(chan_array, function(obj, i){return obj["picoId"] === id;})[0]["channel"];
+
+		    var attrs = {"year": vehicle_data.year,
+				"month": vehicle_data.month
+			       };
+
+		    return CloudOS.raiseEvent("fuse", "trip_export", attrs, {}, function(response)
+   	            {
+			console.log("Trip export complete ");
+			if(response.length < 1) {
+			    throw "Fleet creation failed";
+			} 
+
+  		        $("#export-success-content").html("Export for (" + vehicle_data.month + "/" + vehicle_data.year + ") complete. The data has been emailed to you.");
+			$.mobile.loading("hide");
+			$( "#export-success" ).popup( "open" );
+
+		    }, 
+                    {"eci": channel
+	            });
+
+		});
+	    });
 	},
 	pageUpdateProfile: function(type,  match, ui, page) {
 	    console.log("update profile");
@@ -482,7 +584,7 @@
     window['snippets'] = {
         vehicle_update_item_template: Handlebars.compile($("#vehicle-update-item-template").html() || ""),
         fleet_template: Handlebars.compile($("#fleet-template").html() || ""),
-	vehicle_location_template: Handlebars.compile($("#vehicle-location-template").html() || ""),
+	vehicle_location_template: Handlebars.compile($("#vehicle-location-template").html() || "")
     };
 
     function show_error_msg(msg_key, frm, options) {

@@ -82,15 +82,11 @@ published: true
 	  <li data-role="list-divider" >Announcements</li>
 	  <li>
 <p class="wrap">
-The Fuse Management Console (this site) is the place for manageing your Fuse account, your preferences, and vehicles. 
+<b>New:</b> you can now export trip data from your vehicles. 
 </p>
 
 <p class="wrap">
-The Fuse mobile app for iOS and Android are both in the App stores. 
-</p>
-
-<p class="wrap">
-The <a href="http://forum.joinfuse.com">Fuse Forum</a> is the place for asking questions and finding answers. 
+Ask questions and find answers about Fuse at <a href="http://forum.joinfuse.com">Fuse Forum</a>.
 </p>
 
      </li>
@@ -184,6 +180,60 @@ The <a href="http://forum.joinfuse.com">Fuse Forum</a> is the place for asking q
    </div><!-- /footer -->
 </div><!-- /page -->
 
+<!-- ---------- fuse show vehicle ---------- -->
+<div data-role="page" id="page-show-vehicle" data-title="Fuse Show Vehicle">
+
+   <div data-role="header">
+
+     <a href="#page-manage-fuse" data-icon="back">Back</a>
+     <div class="header-image">
+        <img class="fuse-logo" src="https://s3.amazonaws.com/Fuse_assets/img/fuse_logo-40.png">
+     </div>
+     <a id="update_vehicle_link" href="" data-icon="edit" data-theme="b">Edit</a>
+   </div><!-- /header -->
+
+
+   <div data-role="content">
+        <ul id="show-vehicle-list" data-role="listview" data-inset="true"> 
+ 	  <li data-role="list-divider" >Show Vehicle</li>
+          <li class="ui-field-contain">
+	    <div style="float:right">
+             <img id="photo-preview" src="" name style="max-width:200px;">
+	    </div>
+           <span id="name"></span>
+            <div>
+              <span class="label">VIN:</span>
+              <span id="vin"></span>
+            </div>
+
+           <div>
+              <span class="label">Fuse Device ID:</span>
+              <span id="deviceId"></span>1
+           </div>
+
+           <div>
+              <span class="label">Vehicle Mileage:</span>
+              <span id="mileage"></span>
+           </div>
+
+           <div>
+              <span class="label">Vehicle License:</span>
+              <span id="license"></span>
+           </div>
+         </li>
+          <li class="ui-field-contain">
+           <a id="export-link" data-transition="slide" href="#page-export-vehicle-data">Export Trip Data</a>
+	  </li>
+        </ul>
+       
+   </div><!-- /content -->
+
+   <div data-role="footer" data-position="fixed">
+      <h4>Fuse from Kynetx</h5>
+   </div><!-- /footer -->
+</div><!-- /page -->
+
+
 
 <!-- ---------- fuse update vehicle ---------- -->
 <div data-role="page" id="page-update-vehicle" data-title="Fuse Update Vehicle">
@@ -210,17 +260,17 @@ The <a href="http://forum.joinfuse.com">Fuse Forum</a> is the place for asking q
            </li>
 
            <li class="ui-field-contain">
-              <label for="text">Fuse Device ID</label>
+              <label for="text">Device ID</label>
               <input type="text" data-clear-btn="true" name="deviceId" id="deviceId" placeholder="FSXXXXX (case sensitive)" value="">
            </li>
 
            <li class="ui-field-contain">
-              <label for="text">Vehicle Mileage</label>
+              <label for="text">Mileage</label>
               <input type="text" data-clear-btn="true" name="mileage" id="mileage" placeholder="Current odometer reading"  value="">
            </li>
 
            <li class="ui-field-contain">
-              <label for="text">Vehicle License</label>
+              <label for="text">License</label>
               <input type="text" data-clear-btn="true" name="license" id="license" placeholder="Registration plate number" value="">
            </li>
 
@@ -234,9 +284,6 @@ The <a href="http://forum.joinfuse.com">Fuse Forum</a> is the place for asking q
                 <input type="hidden" id="photo" name="photo" value="">
               </div>
            </li>
-
-         
-	   
 
         </ul>
 
@@ -272,6 +319,97 @@ The <a href="http://forum.joinfuse.com">Fuse Forum</a> is the place for asking q
       </p>
    </div><!-- /content -->
  </div><!-- /page -->
+
+<!-- ---------- fuse export vehicle data ---------- -->
+<div data-role="page" id="page-export-vehicle-data" data-title="Fuse Export Vehicle Data">
+
+   <div data-role="header">
+
+     <a href="#page-manage-fuse" data-icon="back">Back</a>
+     <div class="header-image">
+        <img class="fuse-logo" src="https://s3.amazonaws.com/Fuse_assets/img/fuse_logo-40.png">
+     </div>
+   </div><!-- /header -->
+
+
+   <div data-role="content">
+     <form id="form-export-vehicle-data">
+        <ul id="export-vehicle-list" data-role="listview" data-inset="true"> 
+ 	  <li data-role="list-divider" >Export Trip Data</li>
+          <li class="ui-field-contain">
+	    <div style="float:right">
+             <img id="photo-preview" src="" name style="max-width:200px;">
+	    </div>
+           <span id="name"></span>
+            <div>
+              <span class="label">VIN:</span>
+              <span id="vin"></span>
+            </div>
+
+           <div>
+              <span class="label">Fuse Device ID:</span>
+              <span id="deviceId"></span>1
+           </div>
+
+           <div>
+              <span class="label">Vehicle Mileage:</span>
+              <span id="mileage"></span>
+           </div>
+
+           <div>
+              <span class="label">Vehicle License:</span>
+              <span id="license"></span>
+           </div>
+         </li>
+
+	 <li data-role="fieldcontain" data-type="horizontal">
+	   <fieldset class="ui-grid-a">
+	     <div class="ui-block-a">
+	      <select name="month" id="month" data-mini="true">
+			<option value="01">January</option>
+			<option value="02">February</option>
+			<option value="03">March</option>
+			<option value="04">April</option>
+			<option value="05">May</option>
+			<option value="06">June</option>
+			<option value="07">July</option>
+			<option value="08">August</option>
+			<option value="09">September</option>
+			<option value="10">October</option>
+			<option value="11">November</option>
+			<option value="12">December</option>
+	       </select>
+              </div>
+	      <div class="ui-block-b">
+	       <select name="year" id="year" data-mini="true">
+			<option value="2014">2014</option>
+			<option value="2014">2015</option>
+			<option value="2014">2016</option>
+	       </select>
+              </div>
+           </fieldset>
+	 </li>
+
+	 <li class="ui-body ui-body-b">
+	  <a id="export" class="save" style="text-align:center" href="#" data-role="button" data-theme="b">Export</a>
+        </li>
+
+
+        </ul>
+	<input type="hidden" id="id" name="id" value="">
+        <div id="export-success" data-role="popup" class="ui-content" data-position-to="#export">
+         <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+         <span id="export-success-content"></span>
+       </div>
+
+     </form>
+   </div><!-- /content -->
+
+   <div data-role="footer" data-position="fixed">
+      <h4>Fuse from Kynetx</h5>
+   </div><!-- /footer -->
+</div><!-- /page -->
+
 
 
 <!-- ---------- fuse update profile ---------- -->
@@ -402,7 +540,7 @@ The <a href="http://forum.joinfuse.com">Fuse Forum</a> is the place for asking q
 
 <div id="vehicle-update-item-template" style="display:none;">
   <li class="ui-field-contain">
-      <a data-transition="slide" href="#page-update-vehicle?id={{id}}"> 
+      <a data-transition="slide" href="#page-show-vehicle?id={{id}}"> 
        <p class="ui-li-aside"><img style="vertical-align: middle" class="ui-li-icon" src="{{status_icon}}">  {{last_running}}</p>
        <h3><b>{{name}}</b></h3>
        {{#if running}}

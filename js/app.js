@@ -300,42 +300,6 @@
 		if ($("li#vehicle_missing").length > 0) { 
 		    $("#form-update-vehicle-list li:last-child").remove();
 		}
-		if ($("a#vehicle-location-link").length > 1) { // there's one in the template, so two if present in form
-		    // we add two, get rid of two
-		    $("#form-update-vehicle-list li:last-child").remove();
-		    $("#form-update-vehicle-list li:last-child").remove();
-		}
-
-		if( ! isEmpty(vehicle.vehicleId) 
-		 && ! isEmpty(vehicle.lastWaypoint) 
-		  ) {
-
-		    var running = "not running";
-
-		    if(! isEmpty(vehicle.running) && vehicle.running == "1") {
-			running = "running";
-		    }
-		    var fuel = "";
-		    if(typeof vehicle.fuellevel === "string") {
-			fuel = "Fuel level: " + vehicle.fuellevel + "%";
-		    } 
-
-		    var snip = snippets.vehicle_location_template(
-			{"lat": vehicle.lastWaypoint.latitude,
-			 "long": vehicle.lastWaypoint.longitude,
-			 "address": vehicle.address,
-			 "current_location": "Current location: " + vehicle.address,
-			 "running": "Vehicle is " + running,
-			 "fuel": fuel,
-			 "heading": "Heading: " + vehicle.heading + " degrees"
-			});
-
-		    $("#form-update-vehicle-list").append(snip);
-		 } else {
-		    $("#form-update-vehicle-list").append(
-			'<li id="vehicle_missing" class="ui-field-contain">No vehicle data yet.</li>'
-		    );
-		}
 
 		$('#form-update-vehicle-list').listview('refresh');
 

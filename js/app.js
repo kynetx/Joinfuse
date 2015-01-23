@@ -230,7 +230,7 @@
 		$("#photo-preview", vlist).attr("src", vehicle.profilePhoto);
 
 	        var export_item = $("#export-link", vlist);
-		export_item.attr("href", export_item.attr("href") + "?id=" + params.id);
+		export_item.attr("href", export_item.attr("href").split("?")[0] + "?id=" + params.id);
 
 		// reset status area
 		if ($("li#vehicle_missing").length > 0) { 

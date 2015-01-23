@@ -457,6 +457,11 @@
 	    $("#export", vlist).off('tap').on('tap', function(event)
             {
 		
+		$.mobile.loading("show", {
+                    text: "Exporting trip data...",
+                    textVisible: true
+		});	
+
                 var vehicle_data = process_form(frm);
                 console.log(">>>>>>>>> Exporting vehicle data ", vehicle_data);
 		var id = vehicle_data.id;
@@ -476,6 +481,7 @@
 			} 
 
   		        $("#export-success-content").html("Export for (" + vehicle_data.month + "/" + vehicle_data.year + ") complete. The data has been emailed to you.");
+			$.mobile.loading("hide");
 			$( "#export-success" ).popup( "open" );
 
 		    }, 

@@ -463,17 +463,25 @@
 
 		Fuse.vehicleChannels(function(chan_array){
 		    var channel = $.grep(chan_array, function(obj, i){return obj["picoId"] === id;})[0]["channel"];
-		    var end_date = vehicle_data.year + vehicle_data.month + "31T115959+0000";
-		    var start_date = vehicle_data.year + vehicle_data.month + "01T000000+0000";
 
-		    var args = {"start": start_date,
-				"end": end_date
+		    var attrs = {"year": vehicle_data.year,
+				"month": vehicle_data.month
 			       };
-		    return Fuse.ask_vehicle(channel, "exportTrips", args, null, function(csv) {
-			return csv;
-		      },
-                      {rid: "trips"}
-		    );
+
+		    return CloudOS.raiseEvent("fuse", "trip_export", attrs, {}, function(response)
+   	            {
+			console.log("")
+			if(response.length < 1) {
+			    throw "Fleet creation failed";
+			} 
+
+  		        $("#export-success-content").html("Export for (" + vehicle_data.month + "/" + vehicle_data.year + ") complete. The data has been emailed to you.");
+			$( "#export-success" ).popup( "open" )
+
+			
+		    }, 
+                    {"eci": channel
+	            });
 
 		});
 	    });
@@ -607,7 +615,7 @@
     window['snippets'] = {
         vehicle_update_item_template: Handlebars.compile($("#vehicle-update-item-template").html() || ""),
         fleet_template: Handlebars.compile($("#fleet-template").html() || ""),
-	vehicle_location_template: Handlebars.compile($("#vehicle-location-template").html() || ""),
+	vehicle_location_template: Handlebars.compile($("#vehicle-location-template").html() || "")
     };
 
     function show_error_msg(msg_key, frm, options) {

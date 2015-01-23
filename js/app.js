@@ -470,15 +470,14 @@
 
 		    return CloudOS.raiseEvent("fuse", "trip_export", attrs, {}, function(response)
    	            {
-			console.log("")
+			console.log("Trip export complete ");
 			if(response.length < 1) {
 			    throw "Fleet creation failed";
 			} 
 
   		        $("#export-success-content").html("Export for (" + vehicle_data.month + "/" + vehicle_data.year + ") complete. The data has been emailed to you.");
-			$( "#export-success" ).popup( "open" )
+			$( "#export-success" ).popup( "open" );
 
-			
 		    }, 
                     {"eci": channel
 	            });
